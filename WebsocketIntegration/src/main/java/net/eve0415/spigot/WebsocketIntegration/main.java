@@ -1,0 +1,40 @@
+package net.eve0415.spigot.WebsocketIntegration;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+import net.eve0415.spigot.WebsocketIntegration.commands.link;
+import net.eve0415.spigot.WebsocketIntegration.websocket.EventState;
+import net.eve0415.spigot.WebsocketIntegration.websocket.Manager;
+
+public class main extends JavaPlugin {
+    public static main instance;
+
+    public Manager webhookManager;
+    public linkManager linkManager;
+    public sender sender;
+
+    @Override
+    public void onEnable() {
+        instance = this;
+
+        saveDefaultConfig();
+        getConfig();
+
+        this.sender = new sender(this);
+        this.webhookManager = new Manager(this);
+        this.linkManager = new linkManager(this);
+
+        new EventListner(this);
+
+        getCommand("link").setExecutor(new link(this));
+
+        getLogger().info("WebsocketIntegration enabled");
+    }
+
+    @Override
+    public void onDisable() {
+        this.webhookManager.send(EventState.STOPPING, null, null);
+        getLogger().info("WebsocketIntegration disabled");
+    }
+
+}

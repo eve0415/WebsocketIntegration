@@ -1,0 +1,20 @@
+name: WebsocketIntegration
+version: 0.1
+main: net.eve0415.spigot.WebsocketIntegration.main
+description: WebsocketIntegration for PaperMC
+api-version: 1.16
+load: STARTUP
+author: eve0415
+
+commands:
+  link:
+    description: Discord とアカウントをリンク
+    usage: /link [code]
+    permission: WebsocketIntegration.link
+    permission-message: あなたはこのコマンドを実行する権限がありません。
+    
+permissions:
+  WebsocketIntegration.link:
+    description: Discord とアカウントをリンク
+    default: true
+    
