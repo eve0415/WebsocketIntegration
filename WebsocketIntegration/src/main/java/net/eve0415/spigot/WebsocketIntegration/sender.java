@@ -18,7 +18,7 @@ public class sender {
         String name;
         try {
             name = obj.getString("name");
-            if (obj.getString("UUID") != null) {
+            if (obj.getString("UUID").equals(null)) {
                 name = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))) != null
                         ? Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).getName()
                         : Bukkit.getOfflinePlayer(UUID.fromString(obj.getString("UUID"))).getName();
