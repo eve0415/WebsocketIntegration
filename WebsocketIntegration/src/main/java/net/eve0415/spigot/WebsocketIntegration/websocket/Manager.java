@@ -113,7 +113,7 @@ public class Manager {
             public void run() {
                 updateStatus();
             }
-        }.runTaskTimer(this.instance, 0, 1200);
+        }.runTaskTimer(this.instance, 0, 200);
     }
 
     private void updateStatus() {
