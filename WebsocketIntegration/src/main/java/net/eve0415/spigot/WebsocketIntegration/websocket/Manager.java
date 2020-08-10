@@ -13,7 +13,6 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import net.eve0415.spigot.WebsocketIntegration.main;
-import net.eve0415.spigot.WebsocketIntegration.Lag;
 
 public class Manager {
     private main instance;
@@ -56,22 +55,14 @@ public class Manager {
             this.socket.on("message", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    try {
-                        instance.sender.processer(new JSONObject(String.valueOf(args[0])));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    instance.sender.processer(new JSONObject((args[0])));
                 }
             });
 
             this.socket.on("link", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    try {
-                        instance.linkManager.processer(new JSONObject(String.valueOf(args[0])));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    instance.linkManager.processer(new JSONObject((args[0])));
                 }
             });
 
@@ -91,20 +82,10 @@ public class Manager {
             @Override
             public void run() {
                 send(EventState.STARTED, null, null);
-                checkTPS();
                 updateStatus();
                 autoUpdateStatus();
             }
         });
-    }
-
-    private void checkTPS() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                new Lag();
-            }
-        }.runTaskTimer(this.instance, 100L, 1L);
     }
 
     private void autoUpdateStatus() {
@@ -144,8 +125,8 @@ public class Manager {
             case ACHIEVEMENT:
             case DEATH:
                 try {
-                    obj.put("name", String.valueOf(player.getName()));
-                    obj.put("UUID", String.valueOf(player.getUniqueId()));
+                    obj.put("name", player.getName());
+                    obj.put("UUID", player.getUniqueId());
                     obj.put("message", text.replaceAll("§.", ""));
 
                     this.socket.emit(event.getValue(), obj);
@@ -158,13 +139,12 @@ public class Manager {
             case STATUS:
                 Runtime runtime = Runtime.getRuntime();
                 try {
-                    obj.put("onlineplayer", String.valueOf(Bukkit.getOnlinePlayers().size()));
-                    obj.put("maxPlayer", String.valueOf(Bukkit.getMaxPlayers()));
-                    obj.put("totalMemory", String.valueOf(runtime.totalMemory() / 1048576L + "MB"));
-                    obj.put("usedMemory",
-                            String.valueOf((runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB"));
-                    obj.put("freeMemory", String.valueOf(runtime.freeMemory() / 1048576L + "MB"));
-                    obj.put("tps", String.valueOf(Lag.getTPS()));
+                    obj.put("onlineplayer", Bukkit.getOnlinePlayers().size());
+                    obj.put("maxPlayer", Bukkit.getMaxPlayers());
+                    obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
+                    obj.put("usedMemory", (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB");
+                    obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
+                    obj.put("tps", Math.round(Bukkit.getTPS()[0] * 100.0D) / 100.0D);
                     this.socket.emit(event.getValue(), obj);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -173,7 +153,7 @@ public class Manager {
 
             case LINK:
                 try {
-                    obj.put("UUID", String.valueOf(player.getUniqueId()));
+                    obj.put("UUID", player.getUniqueId());
                     obj.put("code", text);
                     this.socket.emit(event.getValue(), obj);
                 } catch (JSONException e) {
