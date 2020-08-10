@@ -161,7 +161,7 @@ public class Manager {
                     obj.put("onlineplayer", String.valueOf(Bukkit.getOnlinePlayers().size()));
                     obj.put("maxPlayer", String.valueOf(Bukkit.getMaxPlayers()));
                     obj.put("totalMemory", String.valueOf(runtime.totalMemory() / 1048576L + "MB"));
-                    obj.put("maxMemory",
+                    obj.put("usedMemory",
                             String.valueOf((runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB"));
                     obj.put("freeMemory", String.valueOf(runtime.freeMemory() / 1048576L + "MB"));
                     obj.put("tps", String.valueOf(Lag.getTPS()));
