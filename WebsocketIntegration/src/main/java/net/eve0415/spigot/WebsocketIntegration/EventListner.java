@@ -41,7 +41,7 @@ public class EventListner implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAdvancementDone(PlayerAdvancementDoneEvent event) {
-        if (event.getAdvancement().getKey().getKey().contains("recipe/"))
+        if (event.getAdvancement().getKey().getKey().toString().contains("recipes/"))
             return;
 
         String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
