@@ -22,7 +22,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package --file WebsocketIntegration/pom.xml
-        mkdir staging && cp target/*.jar staging
+        mkdir staging && cp WebsocketIntegration/target/*.jar staging
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
