@@ -1,7 +1,5 @@
 package net.eve0415.spigot.WebsocketIntegration;
 
-import java.util.regex.Pattern;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -19,15 +17,6 @@ public class EventListner implements Listener {
     public EventListner(main instance) {
         this.instance = instance;
         instance.getServer().getPluginManager().registerEvents(this, instance);
-    }
-
-    private static String normalize(String string) {
-        StringBuilder sb = new StringBuilder();
-        for (String s : string.split(Pattern.quote("_"))) {
-            sb.append(s.charAt(0)).append(s.substring(1).toLowerCase()).append(" ");
-        }
-        sb.setLength(sb.length() - 1);
-        return sb.toString();
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -55,7 +44,10 @@ public class EventListner implements Listener {
         if (event.getAdvancement().getKey().getKey().contains("recipe/"))
             return;
 
+        String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
+                + event.getAdvancement().getKey().getKey().replace('/', '_').toUpperCase();
+
         instance.webhookManager.send(EventState.MESSAGE, event.getPlayer(),
-                normalize(event.getAdvancement().toString()));
+                event.getPlayer().getName() + " has made the advancement [" + Advancement.valueOf(adv) + "]");
     }
 }
