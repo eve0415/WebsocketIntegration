@@ -4,6 +4,7 @@ import java.net.URISyntaxException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,8 +91,18 @@ public class Manager {
             public void run() {
                 send(EventState.STARTED, null, null);
                 updateStatus();
+                autoUpdateStatus();
             }
         });
+    }
+
+    private void autoUpdateStatus() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                updateStatus();
+            }
+        }.runTaskTimer(this.instance, 0, 1200);
     }
 
     private void updateStatus() {
@@ -134,9 +145,14 @@ public class Manager {
                 break;
 
             case STATUS:
+                Runtime runtime = Runtime.getRuntime();
                 try {
                     obj.put("onlineplayer", String.valueOf(Bukkit.getOnlinePlayers().size()));
                     obj.put("maxPlayer", String.valueOf(Bukkit.getMaxPlayers()));
+                    obj.put("totalMemory", String.valueOf(runtime.totalMemory() / 1048576L + "MB"));
+                    obj.put("maxMemory",
+                            String.valueOf((runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB"));
+                    obj.put("freeMemory", String.valueOf(runtime.freeMemory() / 1048576L + "MB"));
                     this.socket.emit(event.getValue(), obj);
                 } catch (JSONException e) {
                     e.printStackTrace();
