@@ -52,6 +52,9 @@ public class EventListner implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAdvancementDone(PlayerAdvancementDoneEvent event) {
+        if (event.getAdvancement().getKey().getKey().contains("recipe/"))
+            return;
+
         instance.webhookManager.send(EventState.MESSAGE, event.getPlayer(),
                 normalize(event.getAdvancement().toString()));
     }
