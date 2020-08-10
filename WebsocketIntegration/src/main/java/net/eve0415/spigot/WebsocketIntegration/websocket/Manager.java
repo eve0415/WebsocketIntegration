@@ -13,6 +13,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import net.eve0415.spigot.WebsocketIntegration.main;
+import net.eve0415.spigot.WebsocketIntegration.Lag;
 
 public class Manager {
     private main instance;
@@ -90,10 +91,20 @@ public class Manager {
             @Override
             public void run() {
                 send(EventState.STARTED, null, null);
+                checkTPS();
                 updateStatus();
                 autoUpdateStatus();
             }
         });
+    }
+
+    private void checkTPS() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                new Lag();
+            }
+        }.runTaskTimer(this.instance, 100L, 1L);
     }
 
     private void autoUpdateStatus() {
@@ -153,6 +164,7 @@ public class Manager {
                     obj.put("maxMemory",
                             String.valueOf((runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB"));
                     obj.put("freeMemory", String.valueOf(runtime.freeMemory() / 1048576L + "MB"));
+                    obj.put("tps", String.valueOf(Lag.getTPS()));
                     this.socket.emit(event.getValue(), obj);
                 } catch (JSONException e) {
                     e.printStackTrace();
