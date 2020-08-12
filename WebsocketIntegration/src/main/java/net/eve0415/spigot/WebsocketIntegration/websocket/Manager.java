@@ -38,7 +38,7 @@ public class Manager {
             this.socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    instance.getLogger().warning("Disconnected: " + String.valueOf(args[0]));
+                    instance.getLogger().warning("Disconnected: " + args[0].toString());
                     isAlive = false;
                 }
             });
@@ -55,20 +55,28 @@ public class Manager {
             this.socket.on("message", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    instance.sender.processer(new JSONObject((args[0])));
+                    try {
+                        instance.sender.processer(new JSONObject((args[0].toString())));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
             this.socket.on("link", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    instance.linkManager.processer(new JSONObject((args[0])));
+                    try {
+                        instance.linkManager.processer(new JSONObject((args[0].toString())));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
             this.socket.connect();
         } catch (URISyntaxException e) {
-            this.instance.getLogger().warning(String.valueOf(e));
+            this.instance.getLogger().warning(e.toString());
             e.printStackTrace();
         }
 
