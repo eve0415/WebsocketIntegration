@@ -47,7 +47,7 @@ public class EventListner implements Listener {
         String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
                 + event.getAdvancement().getKey().getKey().replace('/', '_').toUpperCase();
 
-        instance.webhookManager.send(EventState.MESSAGE, event.getPlayer(),
-                event.getPlayer().getName() + " has made the advancement [" + Advancement.valueOf(adv) + "]");
+        instance.webhookManager.send(EventState.MESSAGE, event.getPlayer(), event.getPlayer().getName()
+                + " has made the advancement [" + Advancement.valueOf(adv).getValue() + "]");
     }
 }
