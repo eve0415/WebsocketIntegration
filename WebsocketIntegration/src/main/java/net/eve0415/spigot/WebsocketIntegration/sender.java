@@ -19,18 +19,18 @@ public class sender {
         try {
             name = obj.getString("name");
             if (obj.getString("UUID").equals(null)) {
-                name = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))) != null
-                        ? Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).getName()
-                        : Bukkit.getOfflinePlayer(UUID.fromString(obj.getString("UUID"))).getName();
+                name = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).isEmpty()
+                        ? Bukkit.getOfflinePlayer(UUID.fromString(obj.getString("UUID"))).getName()
+                        : Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).getName();
             }
-            StringHandler(name, obj.getString("message"));
+            broadcast(stringHandler(name, obj.getString("message")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void StringHandler(String name, String message) {
-        broadcast("<" + name + "> " + message);
+    private String stringHandler(String name, String message) {
+        return String.format("<" + name + "> " + message);
     }
 
     private void broadcast(String str) {
