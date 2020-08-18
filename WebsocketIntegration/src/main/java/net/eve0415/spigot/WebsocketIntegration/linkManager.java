@@ -25,7 +25,6 @@ public class linkManager {
             String message;
 
             if (state.equals("linking")) {
-                this.instance.getLogger().info(state);
                 message = "今から1分以内に、 Discordに " + ChatColor.BOLD + ChatColor.UNDERLINE + ChatColor.YELLOW + "!link "
                         + result + ChatColor.RESET + " を送信してください";
             } else {
