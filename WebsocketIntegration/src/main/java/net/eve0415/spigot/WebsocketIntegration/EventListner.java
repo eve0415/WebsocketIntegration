@@ -21,22 +21,22 @@ public class EventListner implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onJoin(PlayerJoinEvent event) {
-        instance.webhookManager.send(EventState.JOIN, event.getPlayer(), event.getJoinMessage());
+        instance.websocketManager.send(EventState.JOIN, event.getPlayer(), event.getJoinMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onQuit(PlayerQuitEvent event) {
-        instance.webhookManager.send(EventState.QUIT, event.getPlayer(), event.getQuitMessage());
+        instance.websocketManager.send(EventState.QUIT, event.getPlayer(), event.getQuitMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onDeath(PlayerDeathEvent event) {
-        instance.webhookManager.send(EventState.DEATH, event.getEntity(), event.getDeathMessage());
+        instance.websocketManager.send(EventState.DEATH, event.getEntity(), event.getDeathMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onMessage(AsyncPlayerChatEvent event) {
-        instance.webhookManager.send(EventState.MESSAGE, event.getPlayer(), event.getMessage());
+        instance.websocketManager.send(EventState.MESSAGE, event.getPlayer(), event.getMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -47,7 +47,7 @@ public class EventListner implements Listener {
         String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
                 + event.getAdvancement().getKey().getKey().replace('/', '_').toUpperCase();
 
-        instance.webhookManager.send(EventState.MESSAGE, event.getPlayer(), event.getPlayer().getName()
+        instance.websocketManager.send(EventState.MESSAGE, event.getPlayer(), event.getPlayer().getName()
                 + " has made the advancement [" + Advancement.valueOf(adv).getValue() + "]");
     }
 }

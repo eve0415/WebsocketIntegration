@@ -25,10 +25,10 @@ public class link implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            this.instance.webhookManager.send(EventState.LINK, player, null);
+            this.instance.websocketManager.send(EventState.LINK, player, null);
             return true;
         } else if (args.length == 1) {
-            this.instance.webhookManager.send(EventState.LINK, player, args[0]);
+            this.instance.websocketManager.send(EventState.LINK, player, args[0]);
             return true;
         }
 

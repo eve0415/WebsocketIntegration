@@ -31,7 +31,7 @@ public class commandHandler {
                 public void run() {
                     boolean result = player.performCommand(command);
 
-                    instance.webhookManager.send(EventState.COMMAND, player, String.valueOf(result));
+                    instance.websocketManager.send(EventState.COMMAND, player, String.valueOf(result));
                 }
             }.runTaskLater(this.instance, 20);
         } catch (JSONException e) {

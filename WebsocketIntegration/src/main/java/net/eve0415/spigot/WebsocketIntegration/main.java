@@ -9,7 +9,7 @@ import net.eve0415.spigot.WebsocketIntegration.websocket.Manager;
 public class main extends JavaPlugin {
     public static main instance;
 
-    public Manager webhookManager;
+    public Manager websocketManager;
     public linkManager linkManager;
     public sender sender;
     public commandHandler commandHandler;
@@ -21,7 +21,7 @@ public class main extends JavaPlugin {
         saveDefaultConfig();
         getConfig();
 
-        this.webhookManager = new Manager(this);
+        this.websocketManager = new Manager(this);
         this.linkManager = new linkManager(this);
         this.sender = new sender(this);
         this.commandHandler = new commandHandler(this);
@@ -35,7 +35,7 @@ public class main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.webhookManager.send(EventState.STOPPING, null, null);
+        this.websocketManager.send(EventState.STOPPING, null, null);
         getLogger().info("WebsocketIntegration disabled");
     }
 
