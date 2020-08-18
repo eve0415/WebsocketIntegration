@@ -12,6 +12,7 @@ public class main extends JavaPlugin {
     public Manager webhookManager;
     public linkManager linkManager;
     public sender sender;
+    public commandHandler commandHandler;
 
     @Override
     public void onEnable() {
@@ -20,9 +21,10 @@ public class main extends JavaPlugin {
         saveDefaultConfig();
         getConfig();
 
-        this.sender = new sender(this);
         this.webhookManager = new Manager(this);
         this.linkManager = new linkManager(this);
+        this.sender = new sender(this);
+        this.commandHandler = new commandHandler(this);
 
         new EventListner(this);
 

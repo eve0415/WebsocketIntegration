@@ -63,6 +63,17 @@ public class Manager {
                 }
             });
 
+            this.socket.on("command", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    try {
+                        instance.commandHandler.processer(new JSONObject((args[0].toString())));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
             this.socket.on("link", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
@@ -139,6 +150,18 @@ public class Manager {
 
                     this.socket.emit(event.getValue(), obj);
                     updateStatus();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case COMMAND:
+                try {
+                    obj.put("name", player.getName());
+                    obj.put("UUID", player.getUniqueId());
+                    obj.put("result", text);
+
+                    this.socket.emit(event.getValue(), obj);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
