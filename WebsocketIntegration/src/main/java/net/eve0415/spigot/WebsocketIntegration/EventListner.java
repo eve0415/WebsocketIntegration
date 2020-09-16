@@ -47,7 +47,7 @@ public class EventListner implements Listener {
         String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
                 + event.getAdvancement().getKey().getKey().replace('/', '_').toUpperCase();
 
-        instance.websocketManager.send(EventState.MESSAGE, event.getPlayer(), event.getPlayer().getName()
-                + " has made the advancement [" + Advancement.valueOf(adv).getValue() + "]");
+        instance.websocketManager.send(EventState.MESSAGE, event.getPlayer(),
+                event.getPlayer().getName() + " は挑戦 [" + Advancement.valueOf(adv).getValue() + "] を完了した");
     }
 }
