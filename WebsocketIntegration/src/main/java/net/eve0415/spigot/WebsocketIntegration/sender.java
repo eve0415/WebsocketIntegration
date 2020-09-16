@@ -7,6 +7,11 @@ import org.bukkit.entity.Player;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
+
 public class sender {
     // private main instance;
 
@@ -23,7 +28,15 @@ public class sender {
                         ? Bukkit.getOfflinePlayer(UUID.fromString(obj.getString("UUID"))).getName()
                         : Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).getName();
             }
-            broadcast(stringHandler(name, obj.getString("message")));
+            if (obj.getString("url").equals(null)) {
+                broadcast(stringHandler(name, obj.getString("message")));
+            } else {
+                final TextComponent message = new TextComponent(stringHandler(name, obj.getString("message")));
+                message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("クリックすると添付ファイルが開きます")));
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, obj.getString("url")));
+
+                broadcast(message);
+            }
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -35,6 +48,10 @@ public class sender {
 
     private void broadcast(final String str) {
         Bukkit.broadcastMessage(str);
+    }
+
+    private void broadcast(final TextComponent message) {
+        Bukkit.broadcast(message);
     }
 
     public void privateMessage(final Player player, final String str) {
