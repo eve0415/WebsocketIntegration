@@ -43,7 +43,7 @@ public enum Advancement {
 
     private final String value;
 
-    private Advancement(String value) {
+    private Advancement(final String value) {
         this.value = value;
     }
 

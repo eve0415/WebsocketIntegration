@@ -11,30 +11,30 @@ import org.json.JSONObject;
 import net.eve0415.spigot.WebsocketIntegration.websocket.EventState;
 
 public class commandHandler {
-    private main instance;
+    private final main instance;
 
-    public commandHandler(main instance) {
+    public commandHandler(final main instance) {
         this.instance = instance;
     }
 
-    public void processer(JSONObject obj) {
+    public void processer(final JSONObject obj) {
         try {
-            Player player = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID")));
+            final Player player = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID")));
 
             if (player == null)
                 return;
 
-            String command = obj.getString("message");
+            final String command = obj.getString("message");
 
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    boolean result = player.performCommand(command);
+                    final boolean result = player.performCommand(command);
 
                     instance.websocketManager.send(EventState.COMMAND, player, String.valueOf(result));
                 }
             }.runTaskLater(this.instance, 20);
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
             this.instance.getLogger().warning(e.toString());
         }

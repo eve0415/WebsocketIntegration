@@ -10,17 +10,17 @@ import org.json.JSONObject;
 import net.md_5.bungee.api.ChatColor;
 
 public class linkManager {
-    private main instance;
+    private final main instance;
 
-    public linkManager(main instance) {
+    public linkManager(final main instance) {
         this.instance = instance;
     }
 
-    public void processer(JSONObject obj) {
+    public void processer(final JSONObject obj) {
         try {
-            String state = obj.getString("state");
-            String result = obj.getString("result");
-            Player player = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID")));
+            final String state = obj.getString("state");
+            final String result = obj.getString("result");
+            final Player player = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID")));
 
             String message;
 
@@ -31,7 +31,7 @@ public class linkManager {
                 message = result;
             }
             this.instance.sender.privateMessage(player, message);
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
     }

@@ -12,39 +12,39 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import net.eve0415.spigot.WebsocketIntegration.websocket.EventState;
 
 public class EventListner implements Listener {
-    private main instance;
+    private final main instance;
 
-    public EventListner(main instance) {
+    public EventListner(final main instance) {
         this.instance = instance;
         instance.getServer().getPluginManager().registerEvents(this, instance);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(final PlayerJoinEvent event) {
         instance.websocketManager.send(EventState.JOIN, event.getPlayer(), event.getJoinMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onQuit(PlayerQuitEvent event) {
+    public void onQuit(final PlayerQuitEvent event) {
         instance.websocketManager.send(EventState.QUIT, event.getPlayer(), event.getQuitMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onDeath(PlayerDeathEvent event) {
+    public void onDeath(final PlayerDeathEvent event) {
         instance.websocketManager.send(EventState.DEATH, event.getEntity(), event.getDeathMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onMessage(AsyncPlayerChatEvent event) {
+    public void onMessage(final AsyncPlayerChatEvent event) {
         instance.websocketManager.send(EventState.MESSAGE, event.getPlayer(), event.getMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onAdvancementDone(PlayerAdvancementDoneEvent event) {
+    public void onAdvancementDone(final PlayerAdvancementDoneEvent event) {
         if (event.getAdvancement().getKey().getKey().toString().contains("recipes/"))
             return;
 
-        String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
+        final String adv = event.getAdvancement().getKey().getNamespace().toUpperCase() + "_"
                 + event.getAdvancement().getKey().getKey().replace('/', '_').toUpperCase();
 
         instance.websocketManager.send(EventState.MESSAGE, event.getPlayer(),

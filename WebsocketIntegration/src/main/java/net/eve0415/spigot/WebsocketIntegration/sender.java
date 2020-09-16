@@ -10,11 +10,11 @@ import org.json.JSONObject;
 public class sender {
     // private main instance;
 
-    public sender(main instance) {
+    public sender(final main instance) {
         // this.instance = instance;
     }
 
-    public void processer(JSONObject obj) {
+    public void processer(final JSONObject obj) {
         String name;
         try {
             name = obj.getString("name");
@@ -24,20 +24,20 @@ public class sender {
                         : Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).getName();
             }
             broadcast(stringHandler(name, obj.getString("message")));
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private String stringHandler(String name, String message) {
+    private String stringHandler(final String name, final String message) {
         return String.format("<" + name + "> " + message);
     }
 
-    private void broadcast(String str) {
+    private void broadcast(final String str) {
         Bukkit.broadcastMessage(str);
     }
 
-    public void privateMessage(Player player, String str) {
+    public void privateMessage(final Player player, final String str) {
         player.sendMessage(str);
     }
 }

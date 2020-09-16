@@ -15,12 +15,12 @@ import io.socket.emitter.Emitter;
 import net.eve0415.spigot.WebsocketIntegration.main;
 
 public class Manager {
-    private main instance;
+    private final main instance;
     private Socket socket;
 
     public boolean isAlive = false;
 
-    public Manager(main instance) {
+    public Manager(final main instance) {
         this.instance = instance;
 
         try {
@@ -28,7 +28,7 @@ public class Manager {
 
             this.socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public void call(final Object... args) {
                     instance.getLogger().info("Connected");
                     isAlive = true;
                     send(EventState.STARTING, null, null);
@@ -37,7 +37,7 @@ public class Manager {
 
             this.socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public void call(final Object... args) {
                     instance.getLogger().warning("Disconnected: " + args[0].toString());
                     isAlive = false;
                 }
@@ -45,7 +45,7 @@ public class Manager {
 
             this.socket.on(Socket.EVENT_RECONNECT, new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public void call(final Object... args) {
                     instance.getLogger().info("Reconnected");
                     isAlive = true;
                     updateStatus();
@@ -54,10 +54,10 @@ public class Manager {
 
             this.socket.on("message", new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public void call(final Object... args) {
                     try {
                         instance.sender.processer(new JSONObject((args[0].toString())));
-                    } catch (JSONException e) {
+                    } catch (final JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -65,10 +65,10 @@ public class Manager {
 
             this.socket.on("command", new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public void call(final Object... args) {
                     try {
                         instance.commandHandler.processer(new JSONObject((args[0].toString())));
-                    } catch (JSONException e) {
+                    } catch (final JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -76,17 +76,17 @@ public class Manager {
 
             this.socket.on("link", new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public void call(final Object... args) {
                     try {
                         instance.linkManager.processer(new JSONObject((args[0].toString())));
-                    } catch (JSONException e) {
+                    } catch (final JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
 
             this.socket.connect();
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             this.instance.getLogger().warning(e.toString());
             e.printStackTrace();
         }
@@ -124,10 +124,10 @@ public class Manager {
         }, 20L);
     }
 
-    public void send(EventState event, Player player, String text) {
+    public void send(final EventState event, final Player player, final String text) {
         if (!isAlive)
             return;
-        JSONObject obj = new JSONObject();
+        final JSONObject obj = new JSONObject();
 
         switch (event) {
             case STARTING:
@@ -150,7 +150,7 @@ public class Manager {
 
                     this.socket.emit(event.getValue(), obj);
                     updateStatus();
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -162,13 +162,13 @@ public class Manager {
                     obj.put("result", text);
 
                     this.socket.emit(event.getValue(), obj);
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     e.printStackTrace();
                 }
                 break;
 
             case STATUS:
-                Runtime runtime = Runtime.getRuntime();
+                final Runtime runtime = Runtime.getRuntime();
                 try {
                     obj.put("onlineplayer", Bukkit.getOnlinePlayers().size());
                     obj.put("maxPlayer", Bukkit.getMaxPlayers());
@@ -177,7 +177,7 @@ public class Manager {
                     obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
                     obj.put("tps", Math.round(Bukkit.getTPS()[0] * 100.0D) / 100.0D);
                     this.socket.emit(event.getValue(), obj);
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -187,7 +187,7 @@ public class Manager {
                     obj.put("UUID", player.getUniqueId());
                     obj.put("code", text);
                     this.socket.emit(event.getValue(), obj);
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     e.printStackTrace();
                 }
                 break;

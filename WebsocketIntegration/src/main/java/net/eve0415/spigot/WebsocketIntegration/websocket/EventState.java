@@ -6,7 +6,7 @@ public enum EventState {
 
     private final String value;
 
-    private EventState(String value) {
+    private EventState(final String value) {
         this.value = value;
     }
 

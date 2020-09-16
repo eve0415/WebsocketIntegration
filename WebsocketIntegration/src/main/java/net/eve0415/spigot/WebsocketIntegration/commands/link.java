@@ -9,20 +9,20 @@ import net.eve0415.spigot.WebsocketIntegration.main;
 import net.eve0415.spigot.WebsocketIntegration.websocket.EventState;
 
 public class link implements CommandExecutor {
-    private main instance;
+    private final main instance;
 
-    public link(main instance) {
+    public link(final main instance) {
         this.instance = instance;
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("このコマンドはプレイヤーのみ使用することができます");
             return true;
         }
 
-        Player player = (Player) sender;
+        final Player player = (Player) sender;
 
         if (args.length == 0) {
             this.instance.websocketManager.send(EventState.LINK, player, null);
