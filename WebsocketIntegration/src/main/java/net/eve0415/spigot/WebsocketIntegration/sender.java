@@ -23,20 +23,19 @@ public class sender {
         String name;
         try {
             name = obj.getString("name");
-            if (obj.getString("UUID").equals(null)) {
+            if (!obj.getString("UUID").equals("null")) {
                 name = Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))) == null
                         ? Bukkit.getOfflinePlayer(UUID.fromString(obj.getString("UUID"))).getName()
                         : Bukkit.getPlayer(UUID.fromString(obj.getString("UUID"))).getName();
             }
-            if (obj.getString("url").equals(null)) {
-                broadcast(stringHandler(name, obj.getString("message")));
-            } else {
-                final TextComponent message = new TextComponent(stringHandler(name, obj.getString("message")));
+
+            final TextComponent message = new TextComponent(stringHandler(name, obj.getString("message")));
+            if (!obj.getString("url").equals("null")) {
                 message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("クリックすると添付ファイルが開きます")));
                 message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, obj.getString("url")));
-
-                broadcast(message);
             }
+
+            sendMessage(message);
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -46,11 +45,7 @@ public class sender {
         return String.format("<" + name + "> " + message);
     }
 
-    private void broadcast(final String str) {
-        Bukkit.broadcastMessage(str);
-    }
-
-    private void broadcast(final TextComponent message) {
+    private void sendMessage(final TextComponent message) {
         Bukkit.broadcast(message);
     }
 
