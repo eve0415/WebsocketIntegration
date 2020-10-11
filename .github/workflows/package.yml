@@ -2,7 +2,6 @@ name: Create package
 
 on:
   push:
-    branches: [ master ]
 
 jobs:
   build:
