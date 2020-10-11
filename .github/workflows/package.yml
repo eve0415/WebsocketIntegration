@@ -20,9 +20,9 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: |
-        mvn -B package --file WebsocketIntegration/pom.xml
-        rm -rf WebsocketIntegration/target/*-shaded.jar WebsocketIntegration/target/original-*.jar
-        mkdir staging && cp WebsocketIntegration/target/*.jar staging
+        mvn -B package --file pom.xml
+        rm -rf jar/target/*-shaded.jar jar/target/original-*.jar
+        mkdir staging && cp jar/target/*.jar staging
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       if: success()
