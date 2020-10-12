@@ -6,7 +6,7 @@
     <parent>
         <artifactId>WebsocketIntegration-parent</artifactId>
         <groupId>net.eve0415.spigot</groupId>
-        <version>1.1-SNAPSHOT</version>
+        <version>parent</version>
         <relativePath>../</relativePath>
     </parent>
 
