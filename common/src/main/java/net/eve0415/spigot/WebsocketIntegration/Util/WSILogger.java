@@ -1,6 +1,6 @@
 package net.eve0415.spigot.WebsocketIntegration.Util;
 
-public interface Logger {
+public interface WSILogger {
     /**
      * Logs an error message and an exception to console
      *

@@ -2,7 +2,7 @@ package net.eve0415.spigot.WebsocketIntegration.Util;
 
 import java.nio.file.Path;
 
-public interface Bootstrap {
+public interface WSIBootstrap {
     /**
      * Called when the GeyserBootstrap is enabled
      */
@@ -18,14 +18,14 @@ public interface Bootstrap {
      *
      * @return The current GeyserConfiguration
      */
-    Configuration getConfig();
+    WSIConfiguration getConfig();
 
     /**
      * Returns the current GeyserLogger
      *
      * @return The current GeyserLogger
      */
-    Logger getLogger();
+    WSILogger getLogger();
 
     /**
      * Return the data folder where files get stored

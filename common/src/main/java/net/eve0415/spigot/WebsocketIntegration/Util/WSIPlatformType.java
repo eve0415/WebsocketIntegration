@@ -1,11 +1,11 @@
 package net.eve0415.spigot.WebsocketIntegration.Util;
 
-public enum PlatformType {
+public enum WSIPlatformType {
     Paper("PaperMC");
 
     private final String platformName;
 
-    private PlatformType(final String value) {
+    private WSIPlatformType(final String value) {
         this.platformName = value;
     }
 
