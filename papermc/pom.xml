@@ -4,15 +4,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>WebsocketIntegration-parent</artifactId>
     <groupId>net.eve0415.spigot</groupId>
-    <version>parent</version>
+    <artifactId>WebsocketIntegration-parent</artifactId>
+    <version>1.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
-  <artifactId>WebsocketIntegration-papermc</artifactId>
+  <artifactId>papermc</artifactId>
 
   <dependencies>
+    <dependency>
+      <groupId>net.eve0415.spigot</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.parent.version}</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>com.destroystokyo.paper</groupId>
       <artifactId>paper-api</artifactId>
@@ -28,29 +34,12 @@
   </dependencies>
 
   <build>
-    <plugins>
-      <plugin>
-        <groupId>com.google.code.maven-replacer-plugin</groupId>
-        <artifactId>maven-replacer-plugin</artifactId>
-        <version>1.4.0</version>
-        <executions>
-          <execution>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>replace</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <file>./src/main/resources/plugin.yml</file>
-          <replacements>
-            <replacement>
-              <token>@projectversion@</token>
-              <value>${project.version}</value>
-            </replacement>
-          </replacements>
-        </configuration>
-      </plugin>
-    </plugins>
+    <finalName>${outputName}-PaperMC</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
   </build>
 </project>

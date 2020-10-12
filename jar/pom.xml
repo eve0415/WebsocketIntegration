@@ -6,17 +6,17 @@
     <parent>
         <artifactId>WebsocketIntegration-parent</artifactId>
         <groupId>net.eve0415.spigot</groupId>
-        <version>parent</version>
+        <version>1.1-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
     <artifactId>WebsocketIntegration</artifactId>
-    <name>WebsocketIntegration-jar</name>
+    <name>WebsocketIntegration</name>
 
     <dependencies>
         <dependency>
             <groupId>net.eve0415.spigot</groupId>
-            <artifactId>WebsocketIntegration-papermc</artifactId>
+            <artifactId>papermc</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
