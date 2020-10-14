@@ -11,13 +11,16 @@ import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
     private WSIConfiguration config;
     private WSIPaperLogger logger;
+    private WebsocketManager websocketManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         this.config = WSIConfigCache.readConfig(new File(getDataFolder().toString() + "/config.yml").toPath());
         this.logger = new WSIPaperLogger(getLogger());
-        WebsocketManager.start(WSIPlatformType.Paper, this);
+        this.websocketManager = WebsocketManager.start(WSIPlatformType.Paper, this);
+
+        new WSITaskScheduler(this);
     }
 
     @Override
@@ -30,5 +33,9 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
 
     public WSIPaperLogger getWSILogger() {
         return logger;
+    }
+
+    public WebsocketManager getWebsocketManager() {
+        return websocketManager;
     }
 }
