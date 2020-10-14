@@ -14,7 +14,6 @@ public class WSIConfigCache {
         try {
             InputStream in = Files.newInputStream(path);
             WSIConfiguration configData = yaml.loadAs(in, WSIConfiguration.class);
-            System.out.println(configData.toString());
             return configData;
         } catch (IOException e) {
             e.printStackTrace();
