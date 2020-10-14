@@ -35,12 +35,7 @@ public class WebsocketEventHandler {
             public void call(final Object... args) {
                 instance.getWSILogger().info("Reconnected");
                 instance.isConnected(true);
-                logging();
             }
         });
-    }
-
-    private void logging() {
-        instance.getWSILogger().info("logging");
     }
 }
