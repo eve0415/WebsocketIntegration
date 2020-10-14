@@ -17,8 +17,10 @@ public class WebsocketEventHandler {
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                instance.getWSILogger().info("Connected");
-                instance.isConnected(true);
+                if (!instance.isConnected()) {
+                    instance.getWSILogger().info("Connected");
+                    instance.isConnected(true);
+                }
             }
         });
 
