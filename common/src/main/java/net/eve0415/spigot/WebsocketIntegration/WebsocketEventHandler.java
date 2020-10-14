@@ -17,7 +17,7 @@ public class WebsocketEventHandler {
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                instance.getLogger().info("Connected");
+                instance.getWSILogger().info("Connected");
                 instance.isConnected(true);
             }
         });
@@ -25,7 +25,7 @@ public class WebsocketEventHandler {
         socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                instance.getLogger().info("Disconnected: " + args[0].toString());
+                instance.getWSILogger().info("Disconnected: " + args[0].toString());
                 instance.isConnected(false);
             }
         });
@@ -33,7 +33,7 @@ public class WebsocketEventHandler {
         socket.on(Socket.EVENT_RECONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-                instance.getLogger().info("Reconnected");
+                instance.getWSILogger().info("Reconnected");
                 instance.isConnected(true);
                 logging();
             }
@@ -41,6 +41,6 @@ public class WebsocketEventHandler {
     }
 
     private void logging() {
-        instance.getLogger().info("logging");
+        instance.getWSILogger().info("logging");
     }
 }

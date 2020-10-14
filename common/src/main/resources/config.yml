@@ -1,0 +1,3 @@
+# Address and Port to connect to Websocket
+address: localhost
+port: 25500

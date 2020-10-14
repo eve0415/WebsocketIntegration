@@ -23,12 +23,12 @@ public class WebsocketManager {
         // this.platformtype = platformtype;
         this.bootstrap = bootstrap;
 
-        WSILogger logger = bootstrap.getLogger();
-        WSIConfiguration configuration = bootstrap.getConfig();
+        WSILogger logger = bootstrap.getWSILogger();
+        WSIConfiguration configuration = bootstrap.getWSIConfig();
 
         logger.info("Starting WebsocketIntegration on " + platformtype.getValue() + " ...");
 
-        String address = configuration.getHost();
+        String address = configuration.getAddress();
         int port = configuration.getPort();
 
         if (address.equals("127.0.0.1")) address = "localhost";
@@ -57,7 +57,7 @@ public class WebsocketManager {
     private void shutdown() {
         socket.close();
         socket = null;
-        bootstrap.getLogger().info("Shutting down WebsocketIntegration");
+        bootstrap.getWSILogger().info("Shutting down WebsocketIntegration");
     }
 
     public void isConnected(boolean isConnected) {
@@ -68,12 +68,8 @@ public class WebsocketManager {
         return isConnected;
     }
 
-    public WSILogger getLogger() {
-        return bootstrap.getLogger();
-    }
-
-    public WSIConfiguration getConfig() {
-        return bootstrap.getConfig();
+    public WSILogger getWSILogger() {
+        return bootstrap.getWSILogger();
     }
 
     public static WebsocketManager start(WSIPlatformType platformType, WSIBootstrap bootstrap) {
