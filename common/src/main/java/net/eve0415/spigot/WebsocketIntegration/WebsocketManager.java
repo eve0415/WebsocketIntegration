@@ -51,6 +51,8 @@ public class WebsocketManager {
 
         new WebsocketEventHandler(this, socket);
 
+        socket.connect();
+
         logger.info("Successfully enabled");
     }
 
