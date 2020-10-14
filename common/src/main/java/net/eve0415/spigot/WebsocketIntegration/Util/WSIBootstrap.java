@@ -1,5 +1,7 @@
 package net.eve0415.spigot.WebsocketIntegration.Util;
 
+import net.eve0415.spigot.WebsocketIntegration.WebsocketManager;
+
 public interface WSIBootstrap {
     void onEnable();
 
@@ -8,4 +10,6 @@ public interface WSIBootstrap {
     WSIConfiguration getWSIConfig();
 
     WSILogger getWSILogger();
+
+    WebsocketManager getWebsocketManager();
 }

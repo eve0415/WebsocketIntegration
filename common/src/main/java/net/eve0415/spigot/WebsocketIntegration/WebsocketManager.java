@@ -6,8 +6,10 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIBootstrap;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfiguration;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSILogger;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
+import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 
 public class WebsocketManager {
     private static WebsocketManager instance;
@@ -16,6 +18,7 @@ public class WebsocketManager {
     // private PlatformType platformtype;
     private WSIBootstrap bootstrap;
     private Socket socket;
+    private WebsocketSender sender;
     private boolean isConnected;
 
     private WebsocketManager(WSIPlatformType platformtype, WSIBootstrap bootstrap) {
@@ -50,6 +53,7 @@ public class WebsocketManager {
         }
 
         new WebsocketEventHandler(this, socket);
+        this.sender = new WebsocketSender(socket);
 
         socket.connect();
 
@@ -57,8 +61,11 @@ public class WebsocketManager {
     }
 
     private void shutdown() {
+        send(WSIEventState.STOPPING, null);
+
         socket.close();
         socket = null;
+
         bootstrap.getWSILogger().info("Shutting down WebsocketIntegration");
     }
 
@@ -80,5 +87,13 @@ public class WebsocketManager {
 
     public static WebsocketManager getInstance() {
         return instance;
+    }
+
+    public static WebsocketBuilder builder() {
+        return WebsocketSender.builder();
+    }
+
+    public void send(WSIEventState event, WebsocketBuilder content) {
+        sender.send(event, content);
     }
 }
