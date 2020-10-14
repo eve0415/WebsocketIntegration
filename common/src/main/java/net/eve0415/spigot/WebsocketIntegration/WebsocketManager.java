@@ -33,12 +33,12 @@ public class WebsocketManager {
 
         if (address.equals("127.0.0.1")) address = "localhost";
         if (!address.equalsIgnoreCase("localhost") && !address.matches(IP_REGEX)) {
-            logger.error("Invalid address cofingured.");
+            logger.error("Invalid address configured.");
             shutdown();
         }
 
         if (!(0 <= port && port <= 65535)) {
-            logger.error("Invalid port cofingured");
+            logger.error("Invalid port configured");
             shutdown();
         }
 
