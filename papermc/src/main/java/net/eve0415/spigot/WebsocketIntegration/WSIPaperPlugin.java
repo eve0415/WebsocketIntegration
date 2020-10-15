@@ -1,6 +1,7 @@
 package net.eve0415.spigot.WebsocketIntegration;
 
 import java.io.File;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIBootstrap;
@@ -12,12 +13,14 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
     private WSIConfiguration config;
     private WSIPaperLogger logger;
     private WebsocketManager websocketManager;
+    private WSIPaperChatSender chatSender;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         this.config = WSIConfigCache.readConfig(new File(getDataFolder().toString() + "/config.yml").toPath());
         this.logger = new WSIPaperLogger(getLogger());
+        this.chatSender = new WSIPaperChatSender(this);
         this.websocketManager = WebsocketManager.start(this);
 
         new WSITaskScheduler(this);
@@ -46,5 +49,10 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
     @Override
     public WebsocketManager getWebsocketManager() {
         return websocketManager;
+    }
+
+    @Override
+    public void handleChatMessage(final String name, final String uuid, final String url, final String message) {
+        chatSender.chatHandler(name, uuid, url, message);
     }
 }

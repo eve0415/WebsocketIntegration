@@ -7,6 +7,8 @@ public interface WSIBootstrap {
 
     void onDisable();
 
+    void handleChatMessage(String name, String uuid, String url, String message);
+
     WSIPlatformType getPlatformType();
 
     WSIConfiguration getWSIConfig();

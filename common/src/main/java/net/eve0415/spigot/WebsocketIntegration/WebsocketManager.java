@@ -4,12 +4,12 @@ import java.net.URISyntaxException;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIBootstrap;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfiguration;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSILogger;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
-import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 
 public class WebsocketManager {
     private static WebsocketManager instance;
@@ -106,5 +106,9 @@ public class WebsocketManager {
 
     public void send(final WSIEventState event, final WebsocketBuilder content) {
         sender.send(event, content);
+    }
+
+    public void handleWebsocketMessage(final String name, final String uuid, final String url, final String message) {
+        bootstrap.handleChatMessage(name, uuid, url, message);
     }
 }

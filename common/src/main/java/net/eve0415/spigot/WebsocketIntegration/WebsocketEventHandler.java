@@ -1,6 +1,7 @@
 package net.eve0415.spigot.WebsocketIntegration;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -38,6 +39,20 @@ public class WebsocketEventHandler {
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Disconnected: " + args[0].toString());
                 WebsocketManager.getInstance().isConnected(false);
+            }
+        });
+
+        socket.on("chat", new Emitter.Listener() {
+            @Override
+            public void call(final Object... args) {
+                try {
+                    final JSONObject json = new JSONObject((args[0].toString()));
+                    WebsocketManager.getInstance().handleWebsocketMessage(json.getString("name"),
+                            json.getString("UUID"), json.getString("URL"), json.getString("message"));
+                } catch (final JSONException e) {
+                    WebsocketManager.getInstance().getWSILogger().error("There was an error trying to parse message",
+                            e);
+                }
             }
         });
     }
