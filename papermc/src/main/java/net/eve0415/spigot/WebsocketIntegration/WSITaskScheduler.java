@@ -7,9 +7,9 @@ import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSITask;
 
 public class WSITaskScheduler implements WSITask {
-    private WSIPaperPlugin instance;
+    private final WSIPaperPlugin instance;
 
-    public WSITaskScheduler(WSIPaperPlugin instance) {
+    public WSITaskScheduler(final WSIPaperPlugin instance) {
         this.instance = instance;
         serverIsReady();
     }
@@ -49,7 +49,7 @@ public class WSITaskScheduler implements WSITask {
                 try {
                     instance.getWebsocketManager().send(WSIEventState.STATUS,
                             WebsocketManager.builder().status(getOnlinePlayers(), getMaxPlayers(), getTPS()));
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     instance.getWSILogger().error("There was an error trying to send websocket", e);
                 }
             }

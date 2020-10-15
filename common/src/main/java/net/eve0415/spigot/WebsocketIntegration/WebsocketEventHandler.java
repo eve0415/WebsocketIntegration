@@ -5,9 +5,9 @@ import io.socket.emitter.Emitter;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 
 public class WebsocketEventHandler {
-    private Socket socket;
+    private final Socket socket;
 
-    public WebsocketEventHandler(WebsocketManager instance, Socket socket) {
+    public WebsocketEventHandler(final WebsocketManager instance, final Socket socket) {
         this.socket = socket;
         initWebsocketEvents();
     }

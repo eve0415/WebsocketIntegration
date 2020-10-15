@@ -16,23 +16,23 @@ public class WebsocketManager {
     private static final String IP_REGEX = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b";
 
     // private PlatformType platformtype;
-    private WSIBootstrap bootstrap;
+    private final WSIBootstrap bootstrap;
     private Socket socket;
-    private WebsocketSender sender;
+    private final WebsocketSender sender;
     private boolean isConnected;
 
-    private WebsocketManager(WSIPlatformType platformtype, WSIBootstrap bootstrap) {
+    private WebsocketManager(final WSIPlatformType platformtype, final WSIBootstrap bootstrap) {
         instance = this;
         // this.platformtype = platformtype;
         this.bootstrap = bootstrap;
 
-        WSILogger logger = bootstrap.getWSILogger();
-        WSIConfiguration configuration = bootstrap.getWSIConfig();
+        final WSILogger logger = bootstrap.getWSILogger();
+        final WSIConfiguration configuration = bootstrap.getWSIConfig();
 
         logger.info("Starting WebsocketIntegration on " + platformtype.getValue() + " ...");
 
         String address = configuration.getAddress();
-        int port = configuration.getPort();
+        final int port = configuration.getPort();
 
         if (address.equals("127.0.0.1")) address = "localhost";
         if (!address.equalsIgnoreCase("localhost") && !address.matches(IP_REGEX)) {
@@ -47,7 +47,7 @@ public class WebsocketManager {
 
         try {
             this.socket = IO.socket("http://" + address + ":" + port);
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             logger.error("An error occurred while opening socket", e);
             shutdown();
         }
@@ -69,7 +69,7 @@ public class WebsocketManager {
         bootstrap.getWSILogger().info("Shutting down WebsocketIntegration");
     }
 
-    public void isConnected(boolean isConnected) {
+    public void isConnected(final boolean isConnected) {
         this.isConnected = isConnected;
     }
 
@@ -81,7 +81,7 @@ public class WebsocketManager {
         return bootstrap.getWSILogger();
     }
 
-    public static WebsocketManager start(WSIPlatformType platformType, WSIBootstrap bootstrap) {
+    public static WebsocketManager start(final WSIPlatformType platformType, final WSIBootstrap bootstrap) {
         return new WebsocketManager(platformType, bootstrap);
     }
 
@@ -93,7 +93,7 @@ public class WebsocketManager {
         return WebsocketSender.builder();
     }
 
-    public void send(WSIEventState event, WebsocketBuilder content) {
+    public void send(final WSIEventState event, final WebsocketBuilder content) {
         sender.send(event, content);
     }
 }
