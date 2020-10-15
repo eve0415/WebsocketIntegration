@@ -45,7 +45,7 @@ public class WebsocketSender {
         }
 
         public WebsocketBuilder message(final String message) throws JSONException {
-            obj.put("message", message);
+            obj.put("message", message.replaceAll("§.", ""));
             return this;
         }
 
