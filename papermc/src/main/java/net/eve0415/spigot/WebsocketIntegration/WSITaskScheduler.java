@@ -29,8 +29,8 @@ public class WSITaskScheduler implements WSITask {
         return (Math.round(instance.getServer().getTPS()[0] * 100.0D) / 100.0D);
     }
 
-    // Running Task runs when the server is ready to serve the player which will
-    // make this work great!
+    // Task runs when the server is ready to serve the player which will send status
+    // info after sever had done starting up.
     @Override
     public void serverIsReady() {
         new BukkitRunnable() {
