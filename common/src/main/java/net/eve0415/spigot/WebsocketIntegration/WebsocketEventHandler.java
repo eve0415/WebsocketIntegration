@@ -25,7 +25,7 @@ public class WebsocketEventHandler {
                 if (WebsocketManager.getInstance().isStarting()) {
                     try {
                         WebsocketManager.getInstance().send(WSIEventState.STARTING,
-                                WebsocketManager.builder().platform(WebsocketManager.getInstance().getPlatformType()));
+                                WebsocketManager.builder().starting(WebsocketManager.getInstance().getPlatformType()));
                     } catch (final JSONException e) {
                         WebsocketManager.getInstance().getWSILogger()
                                 .error("There was an error trying to send starting status.", e);

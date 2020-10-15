@@ -88,6 +88,10 @@ public class WebsocketManager {
         return bootstrap.getPlatformType();
     }
 
+    public int getServerPort() {
+        return bootstrap.getServerPort();
+    }
+
     public WSILogger getWSILogger() {
         return bootstrap.getWSILogger();
     }

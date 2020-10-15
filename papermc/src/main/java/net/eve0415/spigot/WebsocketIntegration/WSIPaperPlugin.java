@@ -47,6 +47,11 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
     }
 
     @Override
+    public int getServerPort() {
+        return getServer().getPort();
+    }
+
+    @Override
     public WebsocketManager getWebsocketManager() {
         return websocketManager;
     }

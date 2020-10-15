@@ -15,5 +15,7 @@ public interface WSIBootstrap {
 
     WSILogger getWSILogger();
 
+    int getServerPort();
+
     WebsocketManager getWebsocketManager();
 }

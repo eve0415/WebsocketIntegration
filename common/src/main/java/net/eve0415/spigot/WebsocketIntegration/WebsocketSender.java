@@ -28,8 +28,9 @@ public class WebsocketSender {
     public static class WebsocketBuilder {
         private final JSONObject obj = new JSONObject();
 
-        public WebsocketBuilder platform(final WSIPlatformType type) throws JSONException {
+        public WebsocketBuilder starting(final WSIPlatformType type) throws JSONException {
             obj.put("platform", type.getValue());
+            obj.put("port", WebsocketManager.getInstance().getServerPort());
             return this;
         }
 
@@ -53,6 +54,7 @@ public class WebsocketSender {
                 throws JSONException {
             final Runtime runtime = Runtime.getRuntime();
             obj.put("platform", type.getValue());
+            obj.put("port", WebsocketManager.getInstance().getServerPort());
             obj.put("onlinePlayers", onlinePlayers);
             obj.put("maxPlayers", maxPlayers);
             obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
