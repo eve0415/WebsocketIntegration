@@ -27,7 +27,7 @@ public class WebsocketManager {
         final WSILogger logger = bootstrap.getWSILogger();
         final WSIConfiguration configuration = bootstrap.getWSIConfig();
 
-        logger.info("Starting WebsocketIntegration on " + bootstrap.getPlatformType().getValue() + " ...");
+        logger.info("Starting WebsocketIntegration on " + bootstrap.getPlatformType().getValue() + "...");
 
         String address = configuration.getAddress();
         final int port = configuration.getPort();
@@ -58,7 +58,7 @@ public class WebsocketManager {
         logger.info("Successfully enabled");
     }
 
-    private void shutdown() {
+    public void shutdown() {
         send(WSIEventState.STOPPING, null);
 
         socket.close();

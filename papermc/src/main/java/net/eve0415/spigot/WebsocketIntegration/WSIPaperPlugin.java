@@ -25,6 +25,7 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
 
     @Override
     public void onDisable() {
+        websocketManager.shutdown();
     }
 
     @Override
