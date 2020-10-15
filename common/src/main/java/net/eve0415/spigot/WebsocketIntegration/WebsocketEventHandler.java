@@ -21,7 +21,7 @@ public class WebsocketEventHandler {
                 WebsocketManager.getInstance().getWSILogger().info("Connected");
                 WebsocketManager.getInstance().isConnected(true);
                 loadReconnectEvent();
-                if (!WebsocketManager.getInstance().isStarting()) {
+                if (WebsocketManager.getInstance().isStarting()) {
                     try {
                         WebsocketManager.getInstance().send(WSIEventState.STARTING,
                                 WebsocketManager.builder().platform(WebsocketManager.getInstance().getPlatformType()));
