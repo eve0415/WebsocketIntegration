@@ -2,6 +2,8 @@ package net.eve0415.spigot.WebsocketIntegration;
 
 import java.net.URISyntaxException;
 
+import org.json.JSONObject;
+
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
@@ -108,7 +110,7 @@ public class WebsocketManager {
         return WebsocketSender.builder();
     }
 
-    public void send(final WSIEventState event, final WebsocketBuilder content) {
+    public void send(final WSIEventState event, final JSONObject content) {
         sender.send(event, content);
     }
 

@@ -22,7 +22,7 @@ public class PaperEventListener implements Listener {
     private void sendChatMessage(String name, UUID uuid, String message) {
         try {
             WebsocketManager.getInstance().send(WSIEventState.CHAT,
-                    WebsocketManager.builder().name(name).UUID(uuid).message(message));
+                    WebsocketManager.builder().name(name).UUID(uuid).message(message).toJSON());
         } catch (JSONException e) {
             WebsocketManager.getInstance().getWSILogger().error("There was an error trying to send chat message", e);
         }
@@ -60,7 +60,7 @@ public class PaperEventListener implements Listener {
         try {
             WebsocketManager.getInstance().send(WSIEventState.ADVANCEMENT,
                     WebsocketManager.builder().name(event.getPlayer().getName()).UUID(
-                            event.getPlayer().getUniqueId()).message(adv));
+                            event.getPlayer().getUniqueId()).message(adv).toJSON());
         } catch (JSONException e) {
             WebsocketManager.getInstance().getWSILogger().error("There was an error trying to send chat message", e);
         }

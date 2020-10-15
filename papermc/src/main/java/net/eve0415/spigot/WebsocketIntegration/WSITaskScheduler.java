@@ -50,7 +50,7 @@ public class WSITaskScheduler implements WSITask {
                 try {
                     instance.getWebsocketManager().send(WSIEventState.STATUS,
                             WebsocketManager.builder().status(instance.getPlatformType(), getOnlinePlayers(),
-                                    getMaxPlayers(), getTPS()));
+                                    getMaxPlayers(), getTPS()).toJSON());
                 } catch (final JSONException e) {
                     instance.getWSILogger().error("There was an error trying to send websocket", e);
                 }

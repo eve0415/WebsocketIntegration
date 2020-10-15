@@ -16,7 +16,7 @@ public class WebsocketSender {
         this.socket = socket;
     }
 
-    public void send(final WSIEventState event, final WebsocketBuilder content) {
+    public void send(final WSIEventState event, final JSONObject content) {
         if (!WebsocketManager.getInstance().isConnected()) return;
         socket.emit(event.getValue(), content);
     }
@@ -62,6 +62,10 @@ public class WebsocketSender {
             obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
             obj.put("tps", tps);
             return this;
+        }
+
+        public JSONObject toJSON() {
+            return this.obj;
         }
     }
 }
