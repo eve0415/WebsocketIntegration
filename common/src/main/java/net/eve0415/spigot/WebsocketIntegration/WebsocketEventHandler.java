@@ -20,7 +20,8 @@ public class WebsocketEventHandler {
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Connected");
                 WebsocketManager.getInstance().isConnected(true);
-                if (!WebsocketManager.getInstance().isConnected()) {
+                loadReconnectEvent();
+                if (!WebsocketManager.getInstance().isStarting()) {
                     try {
                         WebsocketManager.getInstance().send(WSIEventState.STARTING,
                                 WebsocketManager.builder().platform(WebsocketManager.getInstance().getPlatformType()));
@@ -39,7 +40,9 @@ public class WebsocketEventHandler {
                 WebsocketManager.getInstance().isConnected(false);
             }
         });
+    }
 
+    private void loadReconnectEvent() {
         socket.on(Socket.EVENT_RECONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
