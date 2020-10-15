@@ -24,6 +24,8 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
         this.websocketManager = WebsocketManager.start(this);
 
         new WSITaskScheduler(this);
+        new PaperEventListener(this);
+        new WSIPaperChatSender(this);
     }
 
     @Override
