@@ -4,7 +4,8 @@ public enum WSIEventState {
     STARTING("STARTING"),
     STOPPING("STOPPING"),
     STATUS("STATUS"),
-    CHAT("CHAT");
+    CHAT("CHAT"),
+    ADVANCEMENT("ADVANCEMENT");
 
     private final String value;
 
