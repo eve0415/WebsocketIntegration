@@ -1,6 +1,6 @@
-package net.eve0415.spigot.WebsocketIntegration;
+package net.eve0415.spigot.WebsocketIntegration.Util;
 
-public enum Advancement {
+public enum VanillaAdvancement {
     MINECRAFT_STORY_ROOT("Minecraft"),
     MINECRAFT_STORY_MINE_STONE("石器時代"),
     MINECRAFT_STORY_UPGRADE_TOOLS("アップグレード"),
@@ -84,7 +84,7 @@ public enum Advancement {
 
     private final String value;
 
-    private Advancement(final String value) {
+    private VanillaAdvancement(final String value) {
         this.value = value;
     }
 
