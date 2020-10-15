@@ -36,6 +36,7 @@ public class WSITaskScheduler implements WSITask {
         new BukkitRunnable() {
             @Override
             public void run() {
+                instance.getWebsocketManager().isStarting(false);
                 updateStatus();
             }
         }.runTaskAsynchronously(instance);

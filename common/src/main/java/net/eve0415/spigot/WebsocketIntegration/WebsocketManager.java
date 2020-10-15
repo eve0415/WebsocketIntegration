@@ -18,6 +18,7 @@ public class WebsocketManager {
     private final WSIBootstrap bootstrap;
     private Socket socket;
     private final WebsocketSender sender;
+    private boolean isStarting = true;
     private boolean isConnected;
 
     private WebsocketManager(final WSIBootstrap bootstrap) {
@@ -65,6 +66,14 @@ public class WebsocketManager {
         socket = null;
 
         bootstrap.getWSILogger().info("Shutting down WebsocketIntegration");
+    }
+
+    public void isStarting(final boolean isStarting) {
+        this.isStarting = isStarting;
+    }
+
+    public boolean isStarting() {
+        return isStarting;
     }
 
     public void isConnected(final boolean isConnected) {
