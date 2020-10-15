@@ -20,12 +20,14 @@ public class WebsocketEventHandler {
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Connected");
                 WebsocketManager.getInstance().isConnected(true);
-                try {
-                    WebsocketManager.getInstance().send(WSIEventState.STARTING,
-                            WebsocketManager.builder().platform(WebsocketManager.getInstance().getPlatformType()));
-                } catch (final JSONException e) {
-                    WebsocketManager.getInstance().getWSILogger()
-                            .error("There was an error trying to send starting status.", e);
+                if (!WebsocketManager.getInstance().isConnected()) {
+                    try {
+                        WebsocketManager.getInstance().send(WSIEventState.STARTING,
+                                WebsocketManager.builder().platform(WebsocketManager.getInstance().getPlatformType()));
+                    } catch (final JSONException e) {
+                        WebsocketManager.getInstance().getWSILogger()
+                                .error("There was an error trying to send starting status.", e);
+                    }
                 }
             }
         });
