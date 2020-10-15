@@ -15,21 +15,19 @@ public class WebsocketManager {
     private static WebsocketManager instance;
     private static final String IP_REGEX = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b";
 
-    // private PlatformType platformtype;
     private final WSIBootstrap bootstrap;
     private Socket socket;
     private final WebsocketSender sender;
     private boolean isConnected;
 
-    private WebsocketManager(final WSIPlatformType platformtype, final WSIBootstrap bootstrap) {
+    private WebsocketManager(final WSIBootstrap bootstrap) {
         instance = this;
-        // this.platformtype = platformtype;
         this.bootstrap = bootstrap;
 
         final WSILogger logger = bootstrap.getWSILogger();
         final WSIConfiguration configuration = bootstrap.getWSIConfig();
 
-        logger.info("Starting WebsocketIntegration on " + platformtype.getValue() + " ...");
+        logger.info("Starting WebsocketIntegration on " + bootstrap.getPlatformType().getValue() + " ...");
 
         String address = configuration.getAddress();
         final int port = configuration.getPort();
@@ -85,8 +83,8 @@ public class WebsocketManager {
         return bootstrap.getWSILogger();
     }
 
-    public static WebsocketManager start(final WSIPlatformType platformType, final WSIBootstrap bootstrap) {
-        return new WebsocketManager(platformType, bootstrap);
+    public static WebsocketManager start(final WSIBootstrap bootstrap) {
+        return new WebsocketManager(bootstrap);
     }
 
     public static WebsocketManager getInstance() {

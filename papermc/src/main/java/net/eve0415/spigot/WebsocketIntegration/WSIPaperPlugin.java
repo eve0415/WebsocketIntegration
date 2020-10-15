@@ -18,7 +18,7 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
         saveDefaultConfig();
         this.config = WSIConfigCache.readConfig(new File(getDataFolder().toString() + "/config.yml").toPath());
         this.logger = new WSIPaperLogger(getLogger());
-        this.websocketManager = WebsocketManager.start(WSIPlatformType.Paper, this);
+        this.websocketManager = WebsocketManager.start(this);
 
         new WSITaskScheduler(this);
     }
