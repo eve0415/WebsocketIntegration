@@ -10,36 +10,20 @@
     <relativePath>../</relativePath>
   </parent>
 
-  <artifactId>papermc</artifactId>
+  <artifactId>common</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>net.eve0415.spigot</groupId>
-      <artifactId>common</artifactId>
-      <version>${project.parent.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.destroystokyo.paper</groupId>
-      <artifactId>paper-api</artifactId>
-      <version>1.16.3-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>io.socket</groupId>
       <artifactId>socket.io-client</artifactId>
       <version>1.0.0</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>1.27</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
-
-  <build>
-    <finalName>${outputName}-PaperMC</finalName>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-  </build>
 </project>

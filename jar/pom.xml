@@ -11,12 +11,12 @@
     </parent>
 
     <artifactId>WebsocketIntegration</artifactId>
-    <name>WebsocketIntegration-jar</name>
+    <name>WebsocketIntegration</name>
 
     <dependencies>
         <dependency>
             <groupId>net.eve0415.spigot</groupId>
-            <artifactId>WebsocketIntegration-papermc</artifactId>
+            <artifactId>papermc</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
