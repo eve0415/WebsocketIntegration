@@ -7,6 +7,8 @@ public interface WSIBootstrap {
 
     void onDisable();
 
+    WSIPlatformType getPlatformType();
+
     WSIConfiguration getWSIConfig();
 
     WSILogger getWSILogger();

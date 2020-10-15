@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import io.socket.client.Socket;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 
 public class WebsocketSender {
     private final Socket socket;
@@ -26,6 +27,11 @@ public class WebsocketSender {
 
     public static class WebsocketBuilder {
         private final JSONObject obj = new JSONObject();
+
+        public WebsocketBuilder platform(final WSIPlatformType type) throws JSONException {
+            obj.put("platform", type.getValue());
+            return this;
+        }
 
         public WebsocketBuilder name(final String name) throws JSONException {
             obj.put("name", name);

@@ -27,14 +27,22 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
     public void onDisable() {
     }
 
+    @Override
+    public WSIPlatformType getPlatformType() {
+        return WSIPlatformType.Paper;
+    }
+
+    @Override
     public WSIConfiguration getWSIConfig() {
         return config;
     }
 
+    @Override
     public WSIPaperLogger getWSILogger() {
         return logger;
     }
 
+    @Override
     public WebsocketManager getWebsocketManager() {
         return websocketManager;
     }

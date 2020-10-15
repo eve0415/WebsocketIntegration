@@ -77,6 +77,10 @@ public class WebsocketManager {
         return isConnected;
     }
 
+    public WSIPlatformType getPlatformType() {
+        return bootstrap.getPlatformType();
+    }
+
     public WSILogger getWSILogger() {
         return bootstrap.getWSILogger();
     }
