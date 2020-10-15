@@ -2,6 +2,7 @@ package net.eve0415.spigot.WebsocketIntegration;
 
 import java.net.URISyntaxException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.socket.client.IO;
@@ -62,8 +63,16 @@ public class WebsocketManager {
     }
 
     public void shutdown() {
-        send(WSIEventState.STOPPING, null);
-
+        if (!isStarting()) {
+            try {
+                WebsocketManager.getInstance().send(WSIEventState.STOPPING,
+                        WebsocketManager.builder().starting(WebsocketManager.getInstance().getPlatformType())
+                                .toJSON());
+            } catch (final JSONException e) {
+                WebsocketManager.getInstance().getWSILogger()
+                        .error("There was an error trying to send stopping status.", e);
+            }
+        }
         socket.close();
         socket = null;
 
