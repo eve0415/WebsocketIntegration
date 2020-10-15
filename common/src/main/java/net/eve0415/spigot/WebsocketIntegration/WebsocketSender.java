@@ -48,9 +48,11 @@ public class WebsocketSender {
             return this;
         }
 
-        public WebsocketBuilder status(final int onlinePlayers, final int maxPlayers, final double tps)
+        public WebsocketBuilder status(final WSIPlatformType type, final int onlinePlayers, final int maxPlayers,
+                final double tps)
                 throws JSONException {
             final Runtime runtime = Runtime.getRuntime();
+            obj.put("platform", type.getValue());
             obj.put("onlinePlayers", onlinePlayers);
             obj.put("maxPlayers", maxPlayers);
             obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
