@@ -22,6 +22,7 @@ public class WebsocketEventHandler {
                 WebsocketManager.getInstance().getWSILogger().info("Connected");
                 WebsocketManager.getInstance().isConnected(true);
                 loadReconnectEvent();
+                configureRoom();
                 if (WebsocketManager.getInstance().isStarting()) {
                     try {
                         WebsocketManager.getInstance().send(WSIEventState.STARTING,
@@ -64,7 +65,12 @@ public class WebsocketEventHandler {
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Reconnected");
                 WebsocketManager.getInstance().isConnected(true);
+                configureRoom();
             }
         });
+    }
+
+    private void configureRoom() {
+        socket.emit("ROOM", WebsocketManager.getInstance().getServerPort());
     }
 }
