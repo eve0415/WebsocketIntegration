@@ -27,10 +27,14 @@ public class WebsocketSender {
 
     public static class WebsocketBuilder {
         private final JSONObject obj = new JSONObject();
+        private final Runtime runtime = Runtime.getRuntime();
 
-        public WebsocketBuilder starting(final WSIPlatformType type) throws JSONException {
+        public WebsocketBuilder basic(final WSIPlatformType type) throws JSONException {
             obj.put("platform", type.getValue());
             obj.put("port", WebsocketManager.getInstance().getServerPort());
+            obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
+            obj.put("usedMemory", (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB");
+            obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
             return this;
         }
 
@@ -52,14 +56,8 @@ public class WebsocketSender {
         public WebsocketBuilder status(final WSIPlatformType type, final int onlinePlayers, final int maxPlayers,
                 final double tps)
                 throws JSONException {
-            final Runtime runtime = Runtime.getRuntime();
-            obj.put("platform", type.getValue());
-            obj.put("port", WebsocketManager.getInstance().getServerPort());
             obj.put("onlinePlayers", onlinePlayers);
             obj.put("maxPlayers", maxPlayers);
-            obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
-            obj.put("usedMemory", (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB");
-            obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
             obj.put("tps", tps);
             return this;
         }

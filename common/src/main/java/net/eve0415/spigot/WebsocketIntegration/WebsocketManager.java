@@ -66,7 +66,7 @@ public class WebsocketManager {
         if (!isStarting()) {
             try {
                 WebsocketManager.getInstance().send(WSIEventState.STOPPING,
-                        WebsocketManager.builder().starting(WebsocketManager.getInstance().getPlatformType())
+                        WebsocketManager.builder().basic(WebsocketManager.getInstance().getPlatformType())
                                 .toJSON());
             } catch (final JSONException e) {
                 WebsocketManager.getInstance().getWSILogger()

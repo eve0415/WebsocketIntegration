@@ -26,7 +26,7 @@ public class WebsocketEventHandler {
                 if (WebsocketManager.getInstance().isStarting()) {
                     try {
                         WebsocketManager.getInstance().send(WSIEventState.STARTING,
-                                WebsocketManager.builder().starting(WebsocketManager.getInstance().getPlatformType())
+                                WebsocketManager.builder().basic(WebsocketManager.getInstance().getPlatformType())
                                         .toJSON());
                     } catch (final JSONException e) {
                         WebsocketManager.getInstance().getWSILogger()
