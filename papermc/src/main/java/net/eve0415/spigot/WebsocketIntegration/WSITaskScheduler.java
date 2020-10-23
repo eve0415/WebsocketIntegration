@@ -57,6 +57,6 @@ public class WSITaskScheduler implements WSITask {
                     instance.getWSILogger().error("There was an error trying to send websocket", e);
                 }
             }
-        }.runTaskTimerAsynchronously(instance, 0, 200);
+        }.runTaskTimerAsynchronously(instance, 0, 300);
     }
 }
