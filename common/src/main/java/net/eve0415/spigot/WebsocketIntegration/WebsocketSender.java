@@ -38,17 +38,10 @@ public class WebsocketSender {
             return this;
         }
 
-        public WebsocketBuilder name(final String name) throws JSONException {
+        public WebsocketBuilder message(final String name, final UUID uuid, final String message) throws JSONException {
+            obj.put("port", WebsocketManager.getInstance().getServerPort());
             obj.put("name", name);
-            return this;
-        }
-
-        public WebsocketBuilder UUID(final UUID uuid) throws JSONException {
             obj.put("UUID", uuid);
-            return this;
-        }
-
-        public WebsocketBuilder message(final String message) throws JSONException {
             obj.put("message", message.replaceAll("§.", ""));
             return this;
         }
