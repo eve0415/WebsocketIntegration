@@ -22,7 +22,7 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
         this.logger = new WSIPaperLogger(getLogger());
         this.websocketManager = WebsocketManager.start(this);
         this.chatSender = new WSIPaperChatSender(this);
-        new WSITaskScheduler(this);
+        new WSIPaperTaskScheduler(this);
         new PaperEventListener(this);
     }
 

@@ -6,10 +6,10 @@ import org.json.JSONException;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSITask;
 
-public class WSITaskScheduler implements WSITask {
+public class WSIPaperTaskScheduler implements WSITask {
     private final WSIPaperPlugin instance;
 
-    public WSITaskScheduler(final WSIPaperPlugin instance) {
+    public WSIPaperTaskScheduler(final WSIPaperPlugin instance) {
         this.instance = instance;
         serverIsReady();
     }
