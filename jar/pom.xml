@@ -19,6 +19,11 @@
             <artifactId>papermc</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.eve0415.spigot</groupId>
+            <artifactId>sponge</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

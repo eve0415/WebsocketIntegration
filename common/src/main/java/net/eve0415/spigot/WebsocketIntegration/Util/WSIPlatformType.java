@@ -1,7 +1,8 @@
 package net.eve0415.spigot.WebsocketIntegration.Util;
 
 public enum WSIPlatformType {
-    Paper("PaperMC");
+    Paper("PaperMC"),
+    Sponge("Sponge");
 
     private final String platformName;
 
