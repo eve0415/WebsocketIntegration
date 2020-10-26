@@ -32,12 +32,6 @@
       <version>1.16.3-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>io.socket</groupId>
-      <artifactId>socket.io-client</artifactId>
-      <version>1.0.0</version>
-      <scope>compile</scope>
-    </dependency>
   </dependencies>
 
   <build>
