@@ -17,8 +17,8 @@ public class WSIPaperChatSender implements WSIChatHandler {
 
     @Override
     public void chatHandler(final String name, final String uuid, final String url, final String message) {
-        final TextComponent component = new TextComponent(
-                WSIChatHandler.messageFormatter(getName(name, uuid), message));
+        final String mes = WSIChatHandler.messageFormatter(getName(name, uuid), message);
+        final TextComponent component = new TextComponent(mes);
 
         if (!url.equals("null")) {
             component
@@ -27,6 +27,8 @@ public class WSIPaperChatSender implements WSIChatHandler {
         }
 
         instance.getServer().broadcast(component);
+        // Using TextComponent, it does not send to console so we do this way
+        instance.getServer().getConsoleSender().sendMessage(mes);
     }
 
     @Override
