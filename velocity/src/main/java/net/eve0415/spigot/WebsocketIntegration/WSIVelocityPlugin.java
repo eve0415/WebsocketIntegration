@@ -21,7 +21,7 @@ import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfigCache;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfiguration;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 
-@Plugin(id = "websocketintegration", name = "WebsocketIntegration-Velocity", version = "1.1-SNAPSHOT", authors = "eve0415")
+@Plugin(id = "websocketintegration", name = "WebsocketIntegration-Velocity", version = "@project.version@", authors = "eve0415")
 public class WSIVelocityPlugin implements WSIBootstrap {
     @Inject
     private ProxyServer proxy;
