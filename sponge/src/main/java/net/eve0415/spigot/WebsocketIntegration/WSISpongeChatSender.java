@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.service.user.UserStorageService;
-import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.LiteralText.Builder;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
 
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIChatHandler;

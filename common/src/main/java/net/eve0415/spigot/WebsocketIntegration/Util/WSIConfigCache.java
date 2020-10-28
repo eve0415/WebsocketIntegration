@@ -9,13 +9,13 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 
 public class WSIConfigCache {
-    public static WSIConfiguration readConfig(Path path) {
-        Yaml yaml = new Yaml(new CustomClassLoaderConstructor(WSIConfiguration.class.getClassLoader()));
+    public static WSIConfiguration readConfig(final Path path) {
+        final Yaml yaml = new Yaml(new CustomClassLoaderConstructor(WSIConfiguration.class.getClassLoader()));
         try {
-            InputStream in = Files.newInputStream(path);
-            WSIConfiguration configData = yaml.loadAs(in, WSIConfiguration.class);
+            final InputStream in = Files.newInputStream(path);
+            final WSIConfiguration configData = yaml.loadAs(in, WSIConfiguration.class);
             return configData;
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
             return null;
         }
