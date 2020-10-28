@@ -82,7 +82,7 @@ public class WSIVelocityPlugin implements WSIBootstrap {
 
     @Override
     public int getServerPort() {
-        return 25565; // I couldn't find a way to get port address so I'll just return 25565 for now.
+        return proxy.getBoundAddress().getPort();
     }
 
     @Override
