@@ -31,11 +31,9 @@ public class WSIVelocityPlugin implements WSIBootstrap {
     @DataDirectory
     private Path configDir;
 
-    // private final ProxyServer instance;
     private WSIConfiguration config;
     private WSIVelocityLogger logger;
     private WebsocketManager websocketManager;
-    // private WSISpongeChatSender chatSender;
 
     @Override
     public void onEnable() {
