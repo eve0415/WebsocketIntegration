@@ -11,7 +11,7 @@ import net.eve0415.spigot.WebsocketIntegration.Util.WSITask;
 
 public class WSISpongeTaskScheduler implements WSITask {
     private final WSISpongePlugin instance;
-    private Task.Builder taskBuilder = Task.builder();
+    private final Task.Builder taskBuilder = Task.builder();
 
     public WSISpongeTaskScheduler(final WSISpongePlugin instance) {
         this.instance = instance;

@@ -8,7 +8,7 @@ public final class WSIConfiguration {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(final String address) {
         this.address = address;
     }
 
@@ -16,7 +16,7 @@ public final class WSIConfiguration {
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(final int port) {
         this.port = port;
     }
 }
