@@ -99,7 +99,7 @@ public class WSIVelocityPlugin implements WSIBootstrap {
         onEnable();
     }
 
-    @Subscribe
+    @Subscribe(order = PostOrder.LAST)
     public void onProxyShutdown(final ProxyShutdownEvent e) {
         onDisable();
     }
