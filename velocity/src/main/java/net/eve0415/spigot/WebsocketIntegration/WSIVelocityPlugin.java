@@ -15,15 +15,18 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 
+import org.json.JSONException;
 import org.slf4j.Logger;
 
-import net.eve0415.spigot.WebsocketIntegration.Util.WSIBootstrap;
+import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfigCache;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfiguration;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIProxy;
 
 @Plugin(id = "websocketintegration", name = "WebsocketIntegration-Velocity", version = "@project.version@", authors = "eve0415")
-public class WSIVelocityPlugin implements WSIBootstrap {
+public class WSIVelocityPlugin implements WSIProxy {
     @Inject
     private ProxyServer proxy;
     @Inject
@@ -51,17 +54,13 @@ public class WSIVelocityPlugin implements WSIBootstrap {
             logger.error("Failed to copy default config", e);
         }
 
-        this.websocketManager = WebsocketManager.start(this);
+        this.websocketManager = WebsocketManager.WebsocketManagerForProxy(this);
         new WSIVelocityTaskScheduler(this);
     }
 
     @Override
     public void onDisable() {
         websocketManager.shutdown();
-    }
-
-    public ProxyServer getProxy() {
-        return proxy;
     }
 
     @Override
@@ -94,6 +93,19 @@ public class WSIVelocityPlugin implements WSIBootstrap {
         // Proxy will not handle any message to send to players.
     }
 
+    @Override
+    public void sendServerInfo() {
+        final WebsocketBuilder data = WebsocketManager.builder();
+        proxy.getAllServers().forEach(server -> {
+            try {
+                data.serverName(server.getServerInfo().getAddress().getPort(), server.getServerInfo().getName());
+            } catch (final JSONException e) {
+                logger.error("Could not create server info message", e);
+            }
+        });
+        this.getWebsocketManager().send(WSIEventState.SERVERINFO, data.toJSON());
+    }
+
     @Subscribe(order = PostOrder.FIRST)
     public void onProxyInit(final ProxyInitializeEvent e) {
         onEnable();
@@ -102,5 +114,9 @@ public class WSIVelocityPlugin implements WSIBootstrap {
     @Subscribe(order = PostOrder.LAST)
     public void onProxyShutdown(final ProxyShutdownEvent e) {
         onDisable();
+    }
+
+    public ProxyServer getProxy() {
+        return proxy;
     }
 }

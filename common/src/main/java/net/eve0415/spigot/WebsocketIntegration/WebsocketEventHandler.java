@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 
 public class WebsocketEventHandler {
     private final Socket socket;
@@ -33,6 +34,8 @@ public class WebsocketEventHandler {
                                 .error("There was an error trying to send starting status.", e);
                     }
                 }
+                if (WebsocketManager.getInstance().getPlatformType() == WSIPlatformType.Velocity)
+                    WebsocketManager.getInstance().sendServerInfo();
             }
         });
 
@@ -66,6 +69,8 @@ public class WebsocketEventHandler {
                 WebsocketManager.getInstance().getWSILogger().info("Reconnected");
                 WebsocketManager.getInstance().isConnected(true);
                 configureRoom();
+                if (WebsocketManager.getInstance().getPlatformType() == WSIPlatformType.Velocity)
+                    WebsocketManager.getInstance().sendServerInfo();
             }
         });
     }

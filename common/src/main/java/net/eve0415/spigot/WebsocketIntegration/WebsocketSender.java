@@ -54,6 +54,11 @@ public class WebsocketSender {
             return this;
         }
 
+        public WebsocketBuilder serverName(final int port, final String name) throws JSONException {
+            obj.put(String.valueOf(port), name);
+            return this;
+        }
+
         public JSONObject toJSON() {
             return this.obj;
         }
