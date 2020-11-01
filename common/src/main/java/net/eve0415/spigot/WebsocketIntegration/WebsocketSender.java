@@ -47,11 +47,15 @@ public class WebsocketSender {
         }
 
         public WebsocketBuilder status(final WSIPlatformType type, final int onlinePlayers, final int maxPlayers,
-                final double tps)
-                throws JSONException {
+                final double tps) throws JSONException {
             obj.put("onlinePlayers", onlinePlayers);
             obj.put("maxPlayers", maxPlayers);
             obj.put("tps", tps);
+            return this;
+        }
+
+        public WebsocketBuilder serverName(final int port, final String name) throws JSONException {
+            obj.put(String.valueOf(port), name);
             return this;
         }
 

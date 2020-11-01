@@ -13,21 +13,33 @@ import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfiguration;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSILogger;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIProxy;
 
 public class WebsocketManager {
     private static WebsocketManager instance;
     private static final String IP_REGEX = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b";
 
     private final WSIBootstrap bootstrap;
+    private final WSIProxy proxystrap;
     private Socket socket;
-    private final WebsocketSender sender;
+    private WebsocketSender sender;
     private boolean isStarting = true;
     private boolean isConnected;
 
     private WebsocketManager(final WSIBootstrap bootstrap) {
         instance = this;
         this.bootstrap = bootstrap;
+        this.proxystrap = null;
+        init();
+    }
 
+    private WebsocketManager(final WSIProxy proxystrap) {
+        instance = this;
+        this.bootstrap = this.proxystrap = proxystrap;
+        init();
+    }
+
+    private void init() {
         final WSILogger logger = bootstrap.getWSILogger();
         final WSIConfiguration configuration = bootstrap.getWSIConfig();
 
@@ -111,6 +123,10 @@ public class WebsocketManager {
         return new WebsocketManager(bootstrap);
     }
 
+    public static WebsocketManager WebsocketManagerForProxy(final WSIProxy proxystrap) {
+        return new WebsocketManager(proxystrap);
+    }
+
     public static WebsocketManager getInstance() {
         return instance;
     }
@@ -125,5 +141,9 @@ public class WebsocketManager {
 
     public void handleWebsocketMessage(final String name, final String uuid, final String url, final String message) {
         bootstrap.handleChatMessage(name, uuid, url, message);
+    }
+
+    public void sendServerInfo() {
+        proxystrap.sendServerInfo();
     }
 }
