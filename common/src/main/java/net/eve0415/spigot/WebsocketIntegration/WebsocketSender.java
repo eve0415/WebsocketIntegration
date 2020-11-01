@@ -48,9 +48,18 @@ public class WebsocketSender {
 
         public WebsocketBuilder status(final WSIPlatformType type, final int onlinePlayers, final int maxPlayers,
                 final double tps) throws JSONException {
+            final int uptime = (int) ((System.currentTimeMillis() / 1000L)
+                    - WebsocketManager.getInstance().getStartTime());
+            final int days = uptime / 86400;
+            final int hours = ((days * 86400) - (uptime / 3600)) * -1;
+            final int minutes = (((days * 86400) - (hours * 3600)) - (uptime / 60)) * -1;
+            final int seconds = uptime % 60;
+            final String time = days + ":" + hours + ":" + minutes + ":" + seconds;
+
             obj.put("onlinePlayers", onlinePlayers);
             obj.put("maxPlayers", maxPlayers);
             obj.put("tps", tps);
+            obj.put("uptime", time);
             return this;
         }
 
