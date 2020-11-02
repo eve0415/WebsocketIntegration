@@ -21,7 +21,7 @@ public class WebsocketManager {
 
     private final WSIBootstrap bootstrap;
     private final WSIProxy proxystrap;
-    private final long serverStartTime = System.currentTimeMillis();
+    private final long serverStartTime = System.nanoTime();
     private Socket socket;
     private WebsocketSender sender;
     private boolean isStarting = true;
