@@ -30,11 +30,20 @@ public class WebsocketSender {
         private final Runtime runtime = Runtime.getRuntime();
 
         public WebsocketBuilder basic(final WSIPlatformType type) throws JSONException {
+            final long uptime = System.nanoTime() - WebsocketManager.getInstance().getStartTime();
+            final long tempSec = uptime / (1000 * 1000 * 1000);
+            final long days = (tempSec / (24 * 60 * 60)) % 24;
+            final long hours = (tempSec / (60 * 60)) % 24;
+            final long minutes = (tempSec / 60) % 60;
+            final long seconds = tempSec % 60;
+            final String time = days + ":" + hours + ":" + minutes + ":" + seconds;
+
             obj.put("platform", type.getValue());
             obj.put("port", WebsocketManager.getInstance().getServerPort());
             obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
             obj.put("usedMemory", (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB");
             obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
+            obj.put("uptime", time);
             return this;
         }
 
@@ -48,18 +57,9 @@ public class WebsocketSender {
 
         public WebsocketBuilder status(final WSIPlatformType type, final int onlinePlayers, final int maxPlayers,
                 final double tps) throws JSONException {
-            final long uptime = System.nanoTime() - WebsocketManager.getInstance().getStartTime();
-            final long tempSec = uptime / (1000 * 1000 * 1000);
-            final long days = (tempSec / (24 * 60 * 60)) % 24;
-            final long hours = (tempSec / (60 * 60)) % 24;
-            final long minutes = (tempSec / 60) % 60;
-            final long seconds = tempSec % 60;
-            final String time = days + ":" + hours + ":" + minutes + ":" + seconds;
-
             obj.put("onlinePlayers", onlinePlayers);
             obj.put("maxPlayers", maxPlayers);
             obj.put("tps", tps);
-            obj.put("uptime", time);
             return this;
         }
 
