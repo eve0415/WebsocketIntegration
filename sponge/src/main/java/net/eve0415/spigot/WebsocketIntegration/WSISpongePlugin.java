@@ -14,7 +14,7 @@ import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 
@@ -109,7 +109,7 @@ public class WSISpongePlugin implements WSIBootstrap {
     }
 
     @Listener
-    public void onServerStop(final GameStoppingServerEvent event) {
+    public void onServerStop(final GameStoppingEvent event) {
         onDisable();
     }
 }
