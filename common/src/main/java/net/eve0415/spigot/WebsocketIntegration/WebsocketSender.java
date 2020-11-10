@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.socket.client.Socket;
+import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 
@@ -65,6 +66,25 @@ public class WebsocketSender {
 
         public WebsocketBuilder serverName(final int port, final String name) throws JSONException {
             obj.put(String.valueOf(port), name);
+            return this;
+        }
+
+        public WebsocketBuilder log(final LogEventType event, final String name, final UUID uuid, final String ip)
+                throws JSONException {
+            obj.put("event", event.getValue());
+            obj.put("name", name);
+            obj.put("UUID", uuid);
+            obj.put("ip", ip);
+            return this;
+        }
+
+        public WebsocketBuilder setAddress(String address) throws JSONException {
+            obj.put("address", address);
+            return this;
+        }
+
+        public WebsocketBuilder kick(final String reason) throws JSONException {
+            obj.put("reason", reason);
             return this;
         }
 
