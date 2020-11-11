@@ -8,7 +8,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.json.JSONException;
 
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
@@ -74,7 +80,7 @@ public class PaperEventListener implements Listener {
                             .log(LogEventType.AUTH, event.getName(), event.getUniqueId(),
                                     event.getAddress().getHostAddress())
                             .toJSON());
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
     }
@@ -95,7 +101,7 @@ public class PaperEventListener implements Listener {
                                         event.getHostname())
                                 .kick(event.getKickMessage()).toJSON());
             }
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
     }
@@ -108,7 +114,7 @@ public class PaperEventListener implements Listener {
                             .log(LogEventType.KICK, event.getPlayer().getName(), event.getPlayer().getUniqueId(),
                                     event.getPlayer().getAddress().getHostName())
                             .kick(event.getReason()).toJSON());
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
     }
@@ -121,7 +127,7 @@ public class PaperEventListener implements Listener {
                             .log(LogEventType.DISCONNECT, event.getPlayerName(), event.getPlayerUniqueId(),
                                     event.getIpAddress().getHostName())
                             .toJSON());
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
     }
