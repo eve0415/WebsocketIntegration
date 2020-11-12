@@ -91,13 +91,17 @@ public class PaperEventListener implements Listener {
             if (event.getKickMessage().isEmpty()) {
                 WebsocketManager.getInstance().send(WSIEventState.LOG,
                         WebsocketManager.builder()
-                                .log(LogEventType.LOGIN, event.getPlayer().getName(), event.getPlayer().getUniqueId(),
+                                .log(LogEventType.LOGIN,
+                                        event.getPlayer().getName(),
+                                        event.getPlayer().getUniqueId(),
                                         event.getAddress().getHostAddress())
                                 .setAddress(event.getHostname()).toJSON());
             } else {
                 WebsocketManager.getInstance().send(WSIEventState.LOG,
                         WebsocketManager.builder()
-                                .log(LogEventType.KICK, event.getPlayer().getName(), event.getPlayer().getUniqueId(),
+                                .log(LogEventType.KICK,
+                                        event.getPlayer().getName(),
+                                        event.getPlayer().getUniqueId(),
                                         event.getHostname())
                                 .kick(event.getKickMessage()).toJSON());
             }
@@ -111,7 +115,9 @@ public class PaperEventListener implements Listener {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.KICK, event.getPlayer().getName(), event.getPlayer().getUniqueId(),
+                            .log(LogEventType.KICK,
+                                    event.getPlayer().getName(),
+                                    event.getPlayer().getUniqueId(),
                                     event.getPlayer().getAddress().getHostName())
                             .kick(event.getReason()).toJSON());
         } catch (final JSONException e) {
@@ -124,7 +130,9 @@ public class PaperEventListener implements Listener {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.DISCONNECT, event.getPlayerName(), event.getPlayerUniqueId(),
+                            .log(LogEventType.DISCONNECT,
+                                    event.getPlayerName(),
+                                    event.getPlayerUniqueId(),
                                     event.getIpAddress().getHostName())
                             .toJSON());
         } catch (final JSONException e) {

@@ -39,20 +39,24 @@ public class SpongeEventListener {
 
     @Listener
     public void onJoin(final Join event) {
-        sendChatMessage(event.getTargetEntity().getName(), event.getTargetEntity().getUniqueId(),
+        sendChatMessage(event.getTargetEntity().getName(),
+                event.getTargetEntity().getUniqueId(),
                 event.getMessage().toPlain());
     }
 
     @Listener
     public void onQuit(final Disconnect event) {
-        Player profile = event.getTargetEntity();
+        final Player profile = event.getTargetEntity();
 
-        sendChatMessage(event.getTargetEntity().getName(), event.getTargetEntity().getUniqueId(),
+        sendChatMessage(event.getTargetEntity().getName(),
+                event.getTargetEntity().getUniqueId(),
                 event.getMessage().toPlain());
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.DISCONNECT, profile.getName(), profile.getUniqueId(),
+                            .log(LogEventType.DISCONNECT,
+                                    profile.getName(),
+                                    profile.getUniqueId(),
                                     profile.getConnection().getAddress().getHostString())
                             .toJSON());
         } catch (final JSONException e) {
@@ -64,7 +68,8 @@ public class SpongeEventListener {
     public void onDeath(final DestructEntityEvent.Death event) {
         if (!(event.getTargetEntity() instanceof Player)) return;
         final Player player = (Player) event.getTargetEntity();
-        sendChatMessage(player.getName(), player.getUniqueId(),
+        sendChatMessage(player.getName(),
+                player.getUniqueId(),
                 event.getMessage().toPlain());
     }
 
@@ -72,18 +77,22 @@ public class SpongeEventListener {
     public void onMessage(final MessageChannelEvent.Chat event) {
         final Optional<Player> optPlayer = event.getCause().first(Player.class);
         final String pl = "<" + optPlayer.get().getName() + "> ";
-        sendChatMessage(optPlayer.get().getName(), optPlayer.get().getUniqueId(), event.getMessage().toPlain()
-                .substring(pl.length()));
+        sendChatMessage(optPlayer.get().getName(),
+                optPlayer.get().getUniqueId(),
+                event.getMessage().toPlain()
+                        .substring(pl.length()));
     }
 
     @Listener(order = Order.PRE)
     public void onAuth(final Auth event) {
-        RemoteConnection connection = event.getConnection();
-        GameProfile profile = event.getProfile();
+        final RemoteConnection connection = event.getConnection();
+        final GameProfile profile = event.getProfile();
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.AUTH, profile.getName().get(), profile.getUniqueId(),
+                            .log(LogEventType.AUTH,
+                                    profile.getName().get(),
+                                    profile.getUniqueId(),
                                     connection.getAddress().getHostString())
                             .setAddress(connection.getVirtualHost().toString())
                             .toJSON());
@@ -95,20 +104,24 @@ public class SpongeEventListener {
     @Listener(order = Order.BEFORE_POST)
     @IsCancelled(Tristate.UNDEFINED)
     public void onLogin(final Login event) {
-        RemoteConnection connection = event.getConnection();
-        GameProfile profile = event.getProfile();
+        final RemoteConnection connection = event.getConnection();
+        final GameProfile profile = event.getProfile();
         try {
             if (event.isCancelled()) {
                 WebsocketManager.getInstance().send(WSIEventState.LOG,
                         WebsocketManager.builder()
-                                .log(LogEventType.LOGIN, profile.getName().get(), profile.getUniqueId(),
+                                .log(LogEventType.KICK,
+                                        profile.getName().get(),
+                                        profile.getUniqueId(),
                                         connection.getAddress().getHostString())
                                 .setAddress(connection.getVirtualHost().toString())
                                 .kick(event.getMessage().toPlain()).toJSON());
             } else {
                 WebsocketManager.getInstance().send(WSIEventState.LOG,
                         WebsocketManager.builder()
-                                .log(LogEventType.LOGIN, profile.getName().get(), profile.getUniqueId(),
+                                .log(LogEventType.LOGIN,
+                                        profile.getName().get(),
+                                        profile.getUniqueId(),
                                         connection.getAddress().getHostString())
                                 .setAddress(connection.getVirtualHost().toString()).toJSON());
             }
@@ -119,11 +132,13 @@ public class SpongeEventListener {
 
     @Listener
     public void onKick(final KickPlayerEvent event) {
-        Player profile = event.getTargetEntity();
+        final Player profile = event.getTargetEntity();
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.KICK, profile.getName(), profile.getUniqueId(),
+                            .log(LogEventType.KICK,
+                                    profile.getName(),
+                                    profile.getUniqueId(),
                                     profile.getConnection().getAddress().getHostString())
                             .kick(event.getMessage().toPlain()).toJSON());
         } catch (final JSONException e) {
