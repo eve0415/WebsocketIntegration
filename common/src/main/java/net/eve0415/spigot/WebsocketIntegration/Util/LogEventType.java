@@ -4,7 +4,9 @@ public enum LogEventType {
         AUTH("AUTH"),
         LOGIN("LOGIN"),
         KICK("KICK"),
-        DISCONNECT("DISCONNECT");
+        DISCONNECT("DISCONNECT"),
+        PRECONNECT("PRECONNECT"),
+        POSTCONNECT("POSTCONNECT");
 
         private final String value;
 

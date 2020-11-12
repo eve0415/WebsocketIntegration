@@ -56,6 +56,7 @@ public class WSIVelocityPlugin implements WSIProxy {
 
         this.websocketManager = WebsocketManager.WebsocketManagerForProxy(this);
         new WSIVelocityTaskScheduler(this);
+        new VelocityEventListner(this);
     }
 
     @Override
@@ -98,7 +99,8 @@ public class WSIVelocityPlugin implements WSIProxy {
         final WebsocketBuilder data = WebsocketManager.builder();
         proxy.getAllServers().forEach(server -> {
             try {
-                data.serverName(server.getServerInfo().getAddress().getPort(), server.getServerInfo().getName());
+                data.serverName(server.getServerInfo().getAddress().getPort(),
+                        server.getServerInfo().getName());
             } catch (final JSONException e) {
                 logger.error("Could not create server info message", e);
             }

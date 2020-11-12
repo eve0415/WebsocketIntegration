@@ -83,8 +83,18 @@ public class WebsocketSender {
             return this;
         }
 
-        public WebsocketBuilder setServer(final String server) throws JSONException {
-            obj.put("server", server);
+        public WebsocketBuilder connectingServer(final String server) throws JSONException {
+            obj.put("toServer", server);
+            return this;
+        }
+
+        public WebsocketBuilder previousServer(final String server) throws JSONException {
+            obj.put("fromServer", server);
+            return this;
+        }
+
+        public WebsocketBuilder connectedServer(final String server) throws JSONException {
+            obj.put("currentServer", server);
             return this;
         }
 
