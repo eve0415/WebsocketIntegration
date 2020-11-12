@@ -78,8 +78,13 @@ public class WebsocketSender {
             return this;
         }
 
-        public WebsocketBuilder setAddress(String address) throws JSONException {
+        public WebsocketBuilder setAddress(final String address) throws JSONException {
             obj.put("address", address);
+            return this;
+        }
+
+        public WebsocketBuilder setServer(final String server) throws JSONException {
+            obj.put("server", server);
             return this;
         }
 
