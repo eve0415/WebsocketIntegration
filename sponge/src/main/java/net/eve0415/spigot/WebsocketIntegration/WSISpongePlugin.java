@@ -12,8 +12,8 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
@@ -103,7 +103,7 @@ public class WSISpongePlugin implements WSIBootstrap {
     }
 
     @Listener
-    public void onServerStart(final GameAboutToStartServerEvent event) {
+    public void onServerStart(final GameStartedServerEvent event) {
         new WSISpongeTaskScheduler(this);
         new SpongeEventListener(this);
     }
