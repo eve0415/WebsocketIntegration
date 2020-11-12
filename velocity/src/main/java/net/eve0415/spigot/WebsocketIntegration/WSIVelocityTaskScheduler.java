@@ -27,7 +27,7 @@ public class WSIVelocityTaskScheduler implements WSITask {
 
     @Override
     public double getTPS() {
-        return 20; // Obiously, proxy server doesn't have Tick Per Second.
+        return 20; // Obviously, proxy server doesn't have Tick Per Second.
     }
 
     @Override
