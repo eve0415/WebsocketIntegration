@@ -53,8 +53,7 @@ public class SpongeEventListener {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
                             .log(LogEventType.DISCONNECT, profile.getName(), profile.getUniqueId(),
-                                    profile.getConnection().getAddress()
-                                            .getHostString())
+                                    profile.getConnection().getAddress().getHostString())
                             .toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
@@ -86,6 +85,7 @@ public class SpongeEventListener {
                     WebsocketManager.builder()
                             .log(LogEventType.AUTH, profile.getName().get(), profile.getUniqueId(),
                                     connection.getAddress().getHostString())
+                            .setAddress(connection.getVirtualHost().toString())
                             .toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
@@ -103,6 +103,7 @@ public class SpongeEventListener {
                         WebsocketManager.builder()
                                 .log(LogEventType.LOGIN, profile.getName().get(), profile.getUniqueId(),
                                         connection.getAddress().getHostString())
+                                .setAddress(connection.getVirtualHost().toString())
                                 .kick(event.getMessage().toPlain()).toJSON());
             } else {
                 WebsocketManager.getInstance().send(WSIEventState.LOG,
