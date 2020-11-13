@@ -71,6 +71,7 @@ public class WebsocketSender {
 
         public WebsocketBuilder log(final LogEventType event, final String name, final UUID uuid, final String ip)
                 throws JSONException {
+            obj.put("port", WebsocketManager.getInstance().getServerPort());
             obj.put("event", event.getValue());
             obj.put("name", name);
             obj.put("UUID", uuid);
