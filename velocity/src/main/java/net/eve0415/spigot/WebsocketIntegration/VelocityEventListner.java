@@ -13,6 +13,7 @@ import org.json.JSONException;
 
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
+import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 
 public class VelocityEventListner {
     public VelocityEventListner(final WSIVelocityPlugin instance) {
@@ -111,6 +112,7 @@ public class VelocityEventListner {
     @Subscribe
     public void onKicked(final KickedFromServerEvent event) {
         final Player profile = event.getPlayer();
+        final String plain = PlainComponentSerializer.plain().serialize(event.getServerKickReason().get());
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
@@ -119,7 +121,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
-                            .kick(event.getServerKickReason().get().toString())
+                            .kick(plain)
                             .toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
