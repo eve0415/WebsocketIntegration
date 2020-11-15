@@ -5,6 +5,9 @@ import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.connection.LoginEvent;
 import com.velocitypowered.api.event.connection.PreLoginEvent;
 import com.velocitypowered.api.event.player.KickedFromServerEvent;
+import com.velocitypowered.api.event.player.KickedFromServerEvent.DisconnectPlayer;
+import com.velocitypowered.api.event.player.KickedFromServerEvent.Notify;
+import com.velocitypowered.api.event.player.KickedFromServerEvent.RedirectPlayer;
 import com.velocitypowered.api.event.player.ServerPostConnectEvent;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
 import com.velocitypowered.api.proxy.Player;
@@ -13,6 +16,7 @@ import org.json.JSONException;
 
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
+import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 
 public class VelocityEventListner {
@@ -112,17 +116,29 @@ public class VelocityEventListner {
     @Subscribe
     public void onKicked(final KickedFromServerEvent event) {
         final Player profile = event.getPlayer();
-        final String plain = PlainComponentSerializer.plain().serialize(event.getServerKickReason().get());
         try {
-            WebsocketManager.getInstance().send(WSIEventState.LOG,
-                    WebsocketManager.builder()
-                            .log(LogEventType.KICK,
-                                    profile.getUsername(),
-                                    profile.getUniqueId(),
-                                    profile.getRemoteAddress().toString())
-                            .setAddress(profile.getVirtualHost().get().toString())
-                            .kick(plain)
-                            .toJSON());
+            final WebsocketBuilder message = WebsocketManager.builder().log(LogEventType.KICKEDFROM,
+                    profile.getUsername(),
+                    profile.getUniqueId(),
+                    profile.getRemoteAddress().toString())
+                    .setAddress(profile.getVirtualHost().get().toString())
+                    .previousServer(event.getServer().getServerInfo().getName());
+
+            if (event.getResult() instanceof DisconnectPlayer) {
+                final DisconnectPlayer res = (DisconnectPlayer) event.getResult();
+                final String plain = PlainComponentSerializer.plain().serialize(res.getReasonComponent());
+                message.kick(plain);
+            } else if (event.getResult() instanceof RedirectPlayer) {
+                final RedirectPlayer res = (RedirectPlayer) event.getResult();
+                final String plain = PlainComponentSerializer.plain().serialize(res.getMessageComponent());
+                message.kick(plain);
+            } else if (event.getResult() instanceof Notify) {
+                final Notify res = (Notify) event.getResult();
+                final String plain = PlainComponentSerializer.plain().serialize(res.getMessageComponent());
+                message.kick(plain);
+            }
+
+            WebsocketManager.getInstance().send(WSIEventState.LOG, message.toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
