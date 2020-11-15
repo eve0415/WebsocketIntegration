@@ -127,15 +127,15 @@ public class VelocityEventListner {
             if (event.getResult() instanceof DisconnectPlayer) {
                 final DisconnectPlayer res = (DisconnectPlayer) event.getResult();
                 final String plain = PlainComponentSerializer.plain().serialize(res.getReasonComponent());
-                message.kick(plain);
+                message.kick(plain).fulfill("DisconnectPlayer");
             } else if (event.getResult() instanceof RedirectPlayer) {
                 final RedirectPlayer res = (RedirectPlayer) event.getResult();
                 final String plain = PlainComponentSerializer.plain().serialize(res.getMessageComponent());
-                message.kick(plain);
+                message.kick(plain).fulfill("RedirectPlayer");
             } else if (event.getResult() instanceof Notify) {
                 final Notify res = (Notify) event.getResult();
                 final String plain = PlainComponentSerializer.plain().serialize(res.getMessageComponent());
-                message.kick(plain);
+                message.kick(plain).fulfill("Notify");
             }
 
             WebsocketManager.getInstance().send(WSIEventState.LOG, message.toJSON());

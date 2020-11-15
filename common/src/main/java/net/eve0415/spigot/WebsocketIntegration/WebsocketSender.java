@@ -104,6 +104,11 @@ public class WebsocketSender {
             return this;
         }
 
+        public WebsocketBuilder fulfill(final String fulfill) throws JSONException {
+            obj.put("fulfill", fulfill);
+            return this;
+        }
+
         public JSONObject toJSON() {
             return this.obj;
         }
