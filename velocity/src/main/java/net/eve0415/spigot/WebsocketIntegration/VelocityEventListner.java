@@ -1,5 +1,7 @@
 package net.eve0415.spigot.WebsocketIntegration;
 
+import java.util.Optional;
+
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.connection.LoginEvent;
@@ -14,9 +16,10 @@ import com.velocitypowered.api.proxy.Player;
 
 import org.json.JSONException;
 
+import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
-import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 
@@ -130,30 +133,26 @@ public class VelocityEventListner {
 
             if (event.getResult() instanceof DisconnectPlayer) {
                 final DisconnectPlayer res = (DisconnectPlayer) event.getResult();
-                final String plain = res.getReasonComponent() == null
-                        ? ComponentToPlain.serialize(event.getServerKickReason().get())
-                        : ComponentToPlain.serialize(res.getReasonComponent());
-                WebsocketManager.getInstance().getWSILogger().info(plain);
-                message.kick(plain).fulfill("DisconnectPlayer");
+                message.kick(getReason(event.getServerKickReason(), res.getReasonComponent()))
+                        .fulfill("DisconnectPlayer");
             } else if (event.getResult() instanceof RedirectPlayer) {
                 final RedirectPlayer res = (RedirectPlayer) event.getResult();
-                final String plain = res.getMessageComponent() == null
-                        ? ComponentToPlain.serialize(event.getServerKickReason().get())
-                        : ComponentToPlain.serialize(res.getMessageComponent());
-                WebsocketManager.getInstance().getWSILogger().info(plain);
-                message.kick(plain).fulfill("RedirectPlayer");
+                message.kick(getReason(event.getServerKickReason(), res.getMessageComponent()))
+                        .fulfill("RedirectPlayer");
             } else if (event.getResult() instanceof Notify) {
                 final Notify res = (Notify) event.getResult();
-                final String plain = res.getMessageComponent() == null
-                        ? ComponentToPlain.serialize(event.getServerKickReason().get())
-                        : ComponentToPlain.serialize(res.getMessageComponent());
-                WebsocketManager.getInstance().getWSILogger().info(plain);
-                message.kick(plain).fulfill("Notify");
+                message.kick(getReason(event.getServerKickReason(), res.getMessageComponent())).fulfill("Notify");
             }
 
             WebsocketManager.getInstance().send(WSIEventState.LOG, message.toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getReason(final Optional<Component> optional, final Component event) {
+        if (!optional.isPresent() && event == null) return "Unknown reason";
+
+        return event == null ? ComponentToPlain.serialize(optional.get()) : ComponentToPlain.serialize(event);
     }
 }
