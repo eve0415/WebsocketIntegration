@@ -24,9 +24,6 @@ import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 
 public class VelocityEventListner {
-    private static final PlainComponentSerializer ComponentToPlain = new PlainComponentSerializer(c -> "",
-            TranslatableComponent::key);
-
     public VelocityEventListner(final WSIVelocityPlugin instance) {
         instance.getProxy().getEventManager().register(instance, this);
     }
@@ -151,6 +148,8 @@ public class VelocityEventListner {
     }
 
     private String getReason(final Optional<Component> optional, final Component event) {
+        final PlainComponentSerializer ComponentToPlain = new PlainComponentSerializer(c -> "",
+                TranslatableComponent::key);
         if (!optional.isPresent() && event == null) return "Unknown reason";
 
         return event == null ? ComponentToPlain.serialize(optional.get()) : ComponentToPlain.serialize(event);
