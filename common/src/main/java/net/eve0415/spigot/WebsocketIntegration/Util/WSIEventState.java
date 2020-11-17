@@ -6,7 +6,8 @@ public enum WSIEventState {
     STATUS("STATUS"),
     CHAT("CHAT"),
     ADVANCEMENT("ADVANCEMENT"),
-    SERVERINFO("SERVERINFO");
+    SERVERINFO("SERVERINFO"),
+    LOG("LOG");
 
     private final String value;
 

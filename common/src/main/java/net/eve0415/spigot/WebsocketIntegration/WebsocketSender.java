@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.socket.client.Socket;
+import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 
@@ -65,6 +66,46 @@ public class WebsocketSender {
 
         public WebsocketBuilder serverName(final int port, final String name) throws JSONException {
             obj.put(String.valueOf(port), name);
+            return this;
+        }
+
+        public WebsocketBuilder log(final LogEventType event, final String name, final UUID uuid, final String ip)
+                throws JSONException {
+            obj.put("port", WebsocketManager.getInstance().getServerPort());
+            obj.put("event", event.getValue());
+            obj.put("name", name);
+            obj.put("UUID", uuid);
+            obj.put("ip", ip);
+            return this;
+        }
+
+        public WebsocketBuilder setAddress(final String address) throws JSONException {
+            obj.put("address", address);
+            return this;
+        }
+
+        public WebsocketBuilder connectingServer(final String server) throws JSONException {
+            obj.put("toServer", server);
+            return this;
+        }
+
+        public WebsocketBuilder previousServer(final String server) throws JSONException {
+            obj.put("fromServer", server);
+            return this;
+        }
+
+        public WebsocketBuilder connectedServer(final String server) throws JSONException {
+            obj.put("currentServer", server);
+            return this;
+        }
+
+        public WebsocketBuilder kick(final String reason) throws JSONException {
+            obj.put("reason", reason);
+            return this;
+        }
+
+        public WebsocketBuilder fulfill(final String fulfill) throws JSONException {
+            obj.put("fulfill", fulfill);
             return this;
         }
 
