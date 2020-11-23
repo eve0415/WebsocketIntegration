@@ -30,5 +30,4 @@ public class WSIVelocityLogger implements WSILogger {
     public void info(final String message) {
         logger.info(message);
     }
-
 }
