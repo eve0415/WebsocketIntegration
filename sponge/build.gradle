@@ -4,7 +4,6 @@
 
 plugins {
     id 'net.kyori.blossom' version '1.1.0'
-    id 'com.github.johnrengelman.shadow' version '2.0.4'
 }
 
 repositories {
@@ -26,8 +25,4 @@ blossom {
 
 shadowJar {
     archiveName = "WebsocketIntegration-Sponge-${project.version}.jar"
-}
-
-artifacts {
-    archives shadowJar
 }
