@@ -1,4 +1,4 @@
--name: Create package
+name: Create package
 
 on:
   push:
