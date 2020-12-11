@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    compile project(':common')
+    implementation project(':common')
 
     compileOnly 'org.spongepowered:spongeapi:7.3.0'
 }
