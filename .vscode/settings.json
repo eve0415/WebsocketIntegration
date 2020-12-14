@@ -1,4 +1,3 @@
 {
-    "maven.view": "hierarchical",
     "java.format.settings.url": "./formatter.xml"
 }

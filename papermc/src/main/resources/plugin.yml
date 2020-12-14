@@ -1,5 +1,5 @@
-name: ${outputName}
-version: ${project.version}
+name: WebsocketIntegration-PaperMC
+version: ${pluginVersion}
 main: net.eve0415.spigot.WebsocketIntegration.WSIPaperPlugin
 api-version: 1.16
 load: STARTUP
