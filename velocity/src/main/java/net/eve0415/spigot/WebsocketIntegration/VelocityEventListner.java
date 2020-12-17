@@ -12,6 +12,7 @@ import com.velocitypowered.api.event.player.KickedFromServerEvent.Notify;
 import com.velocitypowered.api.event.player.KickedFromServerEvent.RedirectPlayer;
 import com.velocitypowered.api.event.player.ServerPostConnectEvent;
 import com.velocitypowered.api.event.player.ServerPreConnectEvent;
+import com.velocitypowered.api.proxy.InboundConnection;
 import com.velocitypowered.api.proxy.Player;
 
 import org.json.JSONException;
@@ -30,14 +31,16 @@ public class VelocityEventListner {
 
     @Subscribe
     public void onPreLogin(final PreLoginEvent event) {
+        final InboundConnection connection = event.getConnection();
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
                             .log(LogEventType.AUTH,
                                     event.getUsername(),
                                     null,
-                                    event.getConnection().getRemoteAddress().toString())
-                            .setAddress(event.getConnection().getVirtualHost().get().toString())
+                                    connection.getRemoteAddress().toString())
+                            .setAddress(connection.getVirtualHost().get().toString())
+                            .clientVersion(connection.getProtocolVersion().getName())
                             .toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
@@ -55,6 +58,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
+                            .clientVersion(profile.getProtocolVersion().getName())
                             .toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
@@ -72,6 +76,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
+                            .clientVersion(profile.getProtocolVersion().getName())
                             .connectingServer(event.getOriginalServer().getServerInfo().getName())
                             .toJSON());
         } catch (final JSONException e) {
@@ -90,6 +95,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
+                            .clientVersion(profile.getProtocolVersion().getName())
                             .connectedServer(profile.getCurrentServer().get().getServerInfo().getName())
                             .previousServer(event.getPreviousServer() == null
                                     ? null
