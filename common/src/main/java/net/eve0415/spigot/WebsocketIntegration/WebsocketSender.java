@@ -84,6 +84,11 @@ public class WebsocketSender {
             return this;
         }
 
+        public WebsocketBuilder clientType(final String type) throws JSONException {
+            obj.put("type", type);
+            return this;
+        }
+
         public WebsocketBuilder clientVersion(final String version) throws JSONException {
             obj.put("version", version);
             return this;

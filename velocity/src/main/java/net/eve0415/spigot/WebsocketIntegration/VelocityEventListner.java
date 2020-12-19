@@ -3,15 +3,9 @@ package net.eve0415.spigot.WebsocketIntegration;
 import java.util.Optional;
 
 import com.velocitypowered.api.event.Subscribe;
-import com.velocitypowered.api.event.connection.DisconnectEvent;
-import com.velocitypowered.api.event.connection.LoginEvent;
-import com.velocitypowered.api.event.connection.PreLoginEvent;
-import com.velocitypowered.api.event.player.KickedFromServerEvent;
-import com.velocitypowered.api.event.player.KickedFromServerEvent.DisconnectPlayer;
-import com.velocitypowered.api.event.player.KickedFromServerEvent.Notify;
-import com.velocitypowered.api.event.player.KickedFromServerEvent.RedirectPlayer;
-import com.velocitypowered.api.event.player.ServerPostConnectEvent;
-import com.velocitypowered.api.event.player.ServerPreConnectEvent;
+import com.velocitypowered.api.event.connection.*;
+import com.velocitypowered.api.event.player.*;
+import com.velocitypowered.api.event.player.KickedFromServerEvent.*;
 import com.velocitypowered.api.proxy.InboundConnection;
 import com.velocitypowered.api.proxy.Player;
 
@@ -58,6 +52,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
+                            .clientType(getClientType(profile))
                             .clientVersion(profile.getProtocolVersion().getName())
                             .toJSON());
         } catch (final JSONException e) {
@@ -76,6 +71,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
+                            .clientType(getClientType(profile))
                             .clientVersion(profile.getProtocolVersion().getName())
                             .connectingServer(event.getOriginalServer().getServerInfo().getName())
                             .toJSON());
@@ -95,6 +91,7 @@ public class VelocityEventListner {
                                     profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
                             .setAddress(profile.getVirtualHost().get().toString())
+                            .clientType(getClientType(profile))
                             .clientVersion(profile.getProtocolVersion().getName())
                             .connectedServer(profile.getCurrentServer().get().getServerInfo().getName())
                             .previousServer(event.getPreviousServer() == null
@@ -151,6 +148,12 @@ public class VelocityEventListner {
         } catch (final JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getClientType(final Player player) {
+        if (player.getGameProfileProperties().toArray().length == 2)
+            return player.getGameProfileProperties().get(1).getName();
+        return "Vanilla";
     }
 
     private String getReason(final Optional<Component> optional, final Component event) {
