@@ -94,6 +94,11 @@ public class WebsocketSender {
             return this;
         }
 
+        public WebsocketBuilder mods(final int mods) throws JSONException {
+            obj.put("version", String.valueOf(mods));
+            return this;
+        }
+
         public WebsocketBuilder connectingServer(final String server) throws JSONException {
             obj.put("toServer", server);
             return this;

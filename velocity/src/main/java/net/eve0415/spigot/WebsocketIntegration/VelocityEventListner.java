@@ -84,20 +84,23 @@ public class VelocityEventListner {
     public void onPostConnect(final ServerPostConnectEvent event) {
         final Player profile = event.getPlayer();
         try {
-            WebsocketManager.getInstance().send(WSIEventState.LOG,
-                    WebsocketManager.builder()
-                            .log(LogEventType.POSTCONNECT,
-                                    profile.getUsername(),
-                                    profile.getUniqueId(),
-                                    profile.getRemoteAddress().toString())
-                            .setAddress(profile.getVirtualHost().get().toString())
-                            .clientType(getClientType(profile))
-                            .clientVersion(profile.getProtocolVersion().getName())
-                            .connectedServer(profile.getCurrentServer().get().getServerInfo().getName())
-                            .previousServer(event.getPreviousServer() == null
-                                    ? null
-                                    : event.getPreviousServer().getServerInfo().getName())
-                            .toJSON());
+            WebsocketBuilder message = WebsocketManager.builder()
+                    .log(LogEventType.POSTCONNECT,
+                            profile.getUsername(),
+                            profile.getUniqueId(),
+                            profile.getRemoteAddress().toString())
+                    .setAddress(profile.getVirtualHost().get().toString())
+                    .clientType(getClientType(profile))
+                    .clientVersion(profile.getProtocolVersion().getName())
+                    .connectedServer(profile.getCurrentServer().get().getServerInfo().getName())
+                    .previousServer(event.getPreviousServer() == null
+                            ? null
+                            : event.getPreviousServer().getServerInfo().getName());
+
+            if (!profile.getModInfo().get().getMods().isEmpty())
+                message.mods(profile.getModInfo().get().getMods().size());
+
+            WebsocketManager.getInstance().send(WSIEventState.LOG, message.toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
