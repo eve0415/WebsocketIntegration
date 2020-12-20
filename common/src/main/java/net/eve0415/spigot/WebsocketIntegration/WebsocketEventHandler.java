@@ -3,6 +3,7 @@ package net.eve0415.spigot.WebsocketIntegration;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.socket.client.Manager;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
@@ -63,7 +64,7 @@ public class WebsocketEventHandler {
     }
 
     private void loadReconnectEvent() {
-        socket.on("reconnect", new Emitter.Listener() {
+        socket.on(Manager.EVENT_RECONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Reconnected");
