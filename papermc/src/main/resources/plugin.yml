@@ -1,4 +1,4 @@
-name: WebsocketIntegration-PaperMC
+name: WebsocketIntegration
 version: ${pluginVersion}
 main: net.eve0415.spigot.WebsocketIntegration.WSIPaperPlugin
 api-version: 1.16
