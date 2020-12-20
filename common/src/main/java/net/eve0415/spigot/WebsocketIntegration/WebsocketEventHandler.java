@@ -64,7 +64,7 @@ public class WebsocketEventHandler {
     }
 
     private void loadReconnectEvent() {
-        socket.on(Manager.EVENT_RECONNECT, new Emitter.Listener() {
+        socket.io().on(Manager.EVENT_RECONNECT, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Reconnected");
