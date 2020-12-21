@@ -52,7 +52,7 @@ public class WebsocketEventHandler {
             @Override
             public void call(final Object... args) {
                 try {
-                    final JSONObject json = new JSONObject((args[0].toString()));
+                    final JSONObject json = (JSONObject) args[0];
                     WebsocketManager.getInstance().handleWebsocketMessage(json.getString("name"),
                             json.getString("UUID"), json.getString("URL"), json.getString("message"));
                 } catch (final JSONException e) {
