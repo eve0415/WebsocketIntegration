@@ -97,7 +97,7 @@ public class VelocityEventListner {
                             ? null
                             : event.getPreviousServer().getServerInfo().getName());
 
-            if (!profile.getModInfo().isEmpty() && !profile.getModInfo().get().getMods().isEmpty())
+            if (!profile.getModInfo().isPresent() && !profile.getModInfo().get().getMods().isEmpty())
                 message.mods(profile.getModInfo().get().getMods().size());
 
             WebsocketManager.getInstance().send(WSIEventState.LOG, message.toJSON());
