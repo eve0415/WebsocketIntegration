@@ -8,6 +8,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
+import org.spongepowered.api.event.advancement.AdvancementEvent;
 import org.spongepowered.api.event.entity.DestructEntityEvent;
 import org.spongepowered.api.event.entity.living.humanoid.player.KickPlayerEvent;
 import org.spongepowered.api.event.filter.IsCancelled;
@@ -81,6 +82,23 @@ public class SpongeEventListener {
                 optPlayer.get().getUniqueId(),
                 event.getMessage().toPlain()
                         .substring(pl.length()));
+    }
+
+    @Listener(order = Order.PRE)
+    public void onAdvancementDone(final AdvancementEvent.Grant event) {
+        // We don't want to call out receipes unlock as advancement complete.
+        if (event.getAdvancement().getId().contains("recipes/")) return;
+
+        final String adv = event.getAdvancement().getId().replace(':', '_').replace('/', '_').toUpperCase();
+
+        try {
+            WebsocketManager.getInstance().send(WSIEventState.ADVANCEMENT,
+                    WebsocketManager.builder()
+                            .message(event.getTargetEntity().getName(), event.getTargetEntity().getUniqueId(), adv)
+                            .toJSON());
+        } catch (final JSONException e) {
+            WebsocketManager.getInstance().getWSILogger().error("There was an error trying to send chat message", e);
+        }
     }
 
     @Listener(order = Order.PRE)
