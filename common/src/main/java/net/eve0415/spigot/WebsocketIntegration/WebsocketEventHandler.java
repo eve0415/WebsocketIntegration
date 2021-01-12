@@ -44,6 +44,7 @@ public class WebsocketEventHandler {
             @Override
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Disconnected: " + args[0].toString());
+                if (args[0].toString().equals("io server disconnect")) socket.connect();
                 WebsocketManager.getInstance().isConnected(false);
             }
         });
