@@ -87,7 +87,7 @@ public class SpongeEventListener {
     @Listener(order = Order.PRE)
     public void onAdvancementDone(final AdvancementEvent.Grant event) {
         // We don't want to call out receipes unlock as advancement complete.
-        if (event.getAdvancement().getId().contains("recipe_:")) return;
+        if (event.getAdvancement().getId().contains("recipes_")) return;
 
         final String adv = event.getAdvancement().getId().replace(':', '_').replace('/', '_').toUpperCase();
 
