@@ -12,7 +12,12 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.state.GameAboutToStartServerEvent;
+import org.spongepowered.api.event.game.state.GameConstructionEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GameLoadCompleteEvent;
+import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -37,10 +42,11 @@ public class WSISpongePlugin implements WSIBootstrap {
     private WSISpongeLogger logger;
     private WebsocketManager websocketManager;
     private WSISpongeChatSender chatSender;
+    private boolean initialized = false;
 
     @Override
     public void onEnable() {
-        this.logger = new WSISpongeLogger(spongelogger);
+        logger = new WSISpongeLogger(spongelogger);
 
         try {
             final Optional<Asset> config = container.getAsset("config.yml");
@@ -57,8 +63,8 @@ public class WSISpongePlugin implements WSIBootstrap {
             logger.error("Failed to copy default config", e);
         }
 
-        this.websocketManager = WebsocketManager.start(this);
-        this.chatSender = new WSISpongeChatSender();
+        websocketManager = WebsocketManager.start(this);
+        chatSender = new WSISpongeChatSender();
 
     }
 
@@ -97,9 +103,35 @@ public class WSISpongePlugin implements WSIBootstrap {
         chatSender.chatHandler(name, uuid, url, message);
     }
 
-    @Listener
-    public void onServerLoad(final GameInitializationEvent event) {
+    @Listener(beforeModifications = true)
+    public void onServerLoad(final GameConstructionEvent event) {
         onEnable();
+        if (isServerAvailable()) initialize();
+    }
+
+    @Listener(beforeModifications = true)
+    public void onServerLoad(final GamePreInitializationEvent event) {
+        if (isServerAvailable()) initialize();
+    }
+
+    @Listener(beforeModifications = true)
+    public void onServerLoad(final GameInitializationEvent event) {
+        if (isServerAvailable()) initialize();
+    }
+
+    @Listener(beforeModifications = true)
+    public void onServerLoad(final GamePostInitializationEvent event) {
+        if (isServerAvailable()) initialize();
+    }
+
+    @Listener(beforeModifications = true)
+    public void onServerLoad(final GameLoadCompleteEvent event) {
+        if (isServerAvailable()) initialize();
+    }
+
+    @Listener(beforeModifications = true)
+    public void onServerLoad(final GameAboutToStartServerEvent event) {
+        if (isServerAvailable()) initialize();
     }
 
     @Listener
@@ -111,5 +143,16 @@ public class WSISpongePlugin implements WSIBootstrap {
     @Listener
     public void onServerStop(final GameStoppingEvent event) {
         onDisable();
+    }
+
+    private boolean isServerAvailable() {
+        return Sponge.getServer().getBoundAddress().isPresent();
+    }
+
+    private void initialize() {
+        if (!initialized) {
+            websocketManager.initialize();
+            initialized = true;
+        }
     }
 }

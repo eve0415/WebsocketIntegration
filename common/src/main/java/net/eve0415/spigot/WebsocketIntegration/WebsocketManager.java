@@ -31,16 +31,14 @@ public class WebsocketManager {
         instance = this;
         this.bootstrap = bootstrap;
         this.proxystrap = null;
-        init();
     }
 
     private WebsocketManager(final WSIProxy proxystrap) {
         instance = this;
         this.bootstrap = this.proxystrap = proxystrap;
-        init();
     }
 
-    private void init() {
+    public WebsocketManager initialize() {
         final WSILogger logger = bootstrap.getWSILogger();
         final WSIConfiguration configuration = bootstrap.getWSIConfig();
 
@@ -73,6 +71,7 @@ public class WebsocketManager {
         socket.connect();
 
         logger.info("Successfully enabled");
+        return this;
     }
 
     public void shutdown() {
@@ -128,7 +127,7 @@ public class WebsocketManager {
         return new WebsocketManager(bootstrap);
     }
 
-    public static WebsocketManager WebsocketManagerForProxy(final WSIProxy proxystrap) {
+    public static WebsocketManager start(final WSIProxy proxystrap) {
         return new WebsocketManager(proxystrap);
     }
 

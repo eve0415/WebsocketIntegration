@@ -54,7 +54,7 @@ public class WSIVelocityPlugin implements WSIProxy {
             logger.error("Failed to copy default config", e);
         }
 
-        this.websocketManager = WebsocketManager.WebsocketManagerForProxy(this);
+        this.websocketManager = WebsocketManager.start(this).initialize();
         new WSIVelocityTaskScheduler(this);
         new VelocityEventListner(this);
     }
