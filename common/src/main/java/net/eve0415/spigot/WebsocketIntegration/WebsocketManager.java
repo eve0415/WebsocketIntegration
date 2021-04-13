@@ -105,8 +105,10 @@ public class WebsocketManager {
         return bootstrap.getPlatformType();
     }
 
-    public int getServerPort() {
-        return bootstrap.getServerPort();
+    public int getServerID() {
+        if (bootstrap.getWSIConfig().getId() == 0)
+            return bootstrap.getServerPort();
+        return bootstrap.getWSIConfig().getId();
     }
 
     public WSILogger getWSILogger() {

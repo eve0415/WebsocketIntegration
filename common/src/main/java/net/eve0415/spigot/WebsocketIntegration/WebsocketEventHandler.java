@@ -27,9 +27,8 @@ public class WebsocketEventHandler {
                 configureRoom();
                 if (WebsocketManager.getInstance().isStarting()) {
                     try {
-                        WebsocketManager.getInstance().send(WSIEventState.STARTING,
-                                WebsocketManager.builder().basic(WebsocketManager.getInstance().getPlatformType())
-                                        .toJSON());
+                        WebsocketManager.getInstance().send(WSIEventState.STARTING, WebsocketManager.builder()
+                                .basic(WebsocketManager.getInstance().getPlatformType()).toJSON());
                     } catch (final JSONException e) {
                         WebsocketManager.getInstance().getWSILogger()
                                 .error("There was an error trying to send starting status.", e);
@@ -44,7 +43,8 @@ public class WebsocketEventHandler {
             @Override
             public void call(final Object... args) {
                 WebsocketManager.getInstance().getWSILogger().info("Disconnected: " + args[0].toString());
-                if (args[0].toString().equals("io server disconnect")) socket.connect();
+                if (args[0].toString().equals("io server disconnect"))
+                    socket.connect();
                 WebsocketManager.getInstance().isConnected(false);
             }
         });
@@ -78,6 +78,6 @@ public class WebsocketEventHandler {
     }
 
     private void configureRoom() {
-        socket.emit("ROOM", WebsocketManager.getInstance().getServerPort());
+        socket.emit("ROOM", WebsocketManager.getInstance().getServerID());
     }
 }

@@ -1,3 +1,7 @@
 # Address and Port to connect to Websocket
 address: localhost
 port: 25500
+
+# Server ID to manage your multiple servers.
+# Use 0 for automatically use server port.
+id: 0
