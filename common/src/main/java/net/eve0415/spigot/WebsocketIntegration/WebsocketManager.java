@@ -17,7 +17,6 @@ import net.eve0415.spigot.WebsocketIntegration.Util.WSIProxy;
 
 public class WebsocketManager {
     private static WebsocketManager instance;
-    private static final String IP_REGEX = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b";
 
     private final WSIBootstrap bootstrap;
     private final WSIProxy proxystrap;
@@ -47,12 +46,6 @@ public class WebsocketManager {
         String address = configuration.getAddress();
         final int port = configuration.getPort();
 
-        if (address.equals("127.0.0.1")) address = "localhost";
-        if (!address.equalsIgnoreCase("localhost") && !address.matches(IP_REGEX)) {
-            logger.error("Invalid address configured.");
-            shutdown();
-        }
-
         if (!(0 <= port && port <= 65535)) {
             logger.error("Invalid port configured");
             shutdown();
@@ -78,8 +71,7 @@ public class WebsocketManager {
         if (!isStarting()) {
             try {
                 WebsocketManager.getInstance().send(WSIEventState.STOPPING,
-                        WebsocketManager.builder().basic(WebsocketManager.getInstance().getPlatformType())
-                                .toJSON());
+                        WebsocketManager.builder().basic(WebsocketManager.getInstance().getPlatformType()).toJSON());
             } catch (final JSONException e) {
                 WebsocketManager.getInstance().getWSILogger()
                         .error("There was an error trying to send stopping status.", e);
