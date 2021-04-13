@@ -85,8 +85,10 @@ public class WebsocketManager {
                         .error("There was an error trying to send stopping status.", e);
             }
         }
-        socket.close();
-        socket = null;
+        if (socket != null) {
+            socket.close();
+            socket = null;
+        }
 
         bootstrap.getWSILogger().info("Shutting down WebsocketIntegration");
     }
