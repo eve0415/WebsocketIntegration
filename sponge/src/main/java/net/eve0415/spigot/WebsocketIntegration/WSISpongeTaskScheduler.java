@@ -49,9 +49,8 @@ public class WSISpongeTaskScheduler implements WSITask {
             public void run() {
                 try {
                     instance.getWebsocketManager().send(WSIEventState.STATUS,
-                            WebsocketManager.builder().basic(instance.getPlatformType())
-                                    .status(instance.getPlatformType(), getOnlinePlayers(),
-                                            getMaxPlayers(), getTPS())
+                            WebsocketManager.builder().basic()
+                                    .status(instance.getPlatformType(), getOnlinePlayers(), getMaxPlayers(), getTPS())
                                     .toJSON());
                 } catch (final JSONException e) {
                     instance.getWSILogger().error("There was an error trying to send websocket", e);

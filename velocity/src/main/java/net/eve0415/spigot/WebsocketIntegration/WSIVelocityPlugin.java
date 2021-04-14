@@ -46,8 +46,10 @@ public class WSIVelocityPlugin implements WSIProxy {
             final InputStream defaultConfigLocation = getClass().getResourceAsStream("/config.yml");
             final Path configuration = Paths.get(configDir.toString() + "/config.yml");
 
-            if (!configDir.toFile().exists()) configDir.toFile().mkdirs();
-            if (!configuration.toFile().exists()) Files.copy(defaultConfigLocation, configuration);
+            if (!configDir.toFile().exists())
+                configDir.toFile().mkdirs();
+            if (!configuration.toFile().exists())
+                Files.copy(defaultConfigLocation, configuration);
 
             this.config = WSIConfigCache.readConfig(configuration);
         } catch (final IOException e) {
@@ -99,8 +101,7 @@ public class WSIVelocityPlugin implements WSIProxy {
         final WebsocketBuilder data = WebsocketManager.builder();
         proxy.getAllServers().forEach(server -> {
             try {
-                data.serverName(server.getServerInfo().getAddress().getPort(),
-                        server.getServerInfo().getName());
+                data.setServerName(server.getServerInfo().getAddress().getPort(), server.getServerInfo().getName());
             } catch (final JSONException e) {
                 logger.error("Could not create server info message", e);
             }

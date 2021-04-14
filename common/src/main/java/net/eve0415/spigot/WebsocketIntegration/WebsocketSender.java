@@ -33,7 +33,7 @@ public class WebsocketSender {
         private final JSONObject obj = new JSONObject();
         private final Runtime runtime = Runtime.getRuntime();
 
-        public WebsocketBuilder basic(final WSIPlatformType type) throws JSONException {
+        public WebsocketBuilder basic() throws JSONException {
             final long uptime = System.nanoTime() - WebsocketManager.getInstance().getStartTime();
             final long tempSec = uptime / (1000 * 1000 * 1000);
             final long days = (tempSec / (24 * 60 * 60)) % 24;
@@ -42,8 +42,9 @@ public class WebsocketSender {
             final long seconds = tempSec % 60;
             final String time = days + ":" + hours + ":" + minutes + ":" + seconds;
 
-            obj.put("platform", type.getValue());
-            obj.put("id", WebsocketManager.getInstance().getServerID());
+            obj.put("platform", WebsocketManager.getInstance().getPlatformType().getValue());
+            obj.put("serverId", WebsocketManager.getInstance().getServerID());
+            obj.put("serverName", WebsocketManager.getInstance().getServerName());
             obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
             obj.put("usedMemory", (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB");
             obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
@@ -52,7 +53,7 @@ public class WebsocketSender {
         }
 
         public WebsocketBuilder message(final String name, final UUID uuid, final String message) throws JSONException {
-            obj.put("id", WebsocketManager.getInstance().getServerID());
+            obj.put("serverId", WebsocketManager.getInstance().getServerID());
             obj.put("name", name);
             obj.put("UUID", uuid);
             obj.put("message", message.replaceAll("§.", ""));
@@ -61,7 +62,7 @@ public class WebsocketSender {
 
         public WebsocketBuilder message(final String name, final UUID uuid, final Component message)
                 throws JSONException {
-            obj.put("id", WebsocketManager.getInstance().getServerID());
+            obj.put("serverId", WebsocketManager.getInstance().getServerID());
             obj.put("name", name);
             obj.put("UUID", uuid);
             obj.put("message", PlainComponentSerializer.plain().serialize(message).replaceAll("§.", ""));
@@ -76,14 +77,14 @@ public class WebsocketSender {
             return this;
         }
 
-        public WebsocketBuilder serverName(final int port, final String name) throws JSONException {
+        public WebsocketBuilder setServerName(final int port, final String name) throws JSONException {
             obj.put(String.valueOf(port), name);
             return this;
         }
 
         public WebsocketBuilder log(final LogEventType event, final String name, final UUID uuid, final String ip)
                 throws JSONException {
-            obj.put("id", WebsocketManager.getInstance().getServerID());
+            obj.put("serverId", WebsocketManager.getInstance().getServerID());
             obj.put("event", event.getValue());
             obj.put("name", name);
             obj.put("UUID", uuid);

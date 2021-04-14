@@ -71,7 +71,7 @@ public class WebsocketManager {
         if (!isStarting()) {
             try {
                 WebsocketManager.getInstance().send(WSIEventState.STOPPING,
-                        WebsocketManager.builder().basic(WebsocketManager.getInstance().getPlatformType()).toJSON());
+                        WebsocketManager.builder().basic().toJSON());
             } catch (final JSONException e) {
                 WebsocketManager.getInstance().getWSILogger()
                         .error("There was an error trying to send stopping status.", e);
@@ -106,9 +106,12 @@ public class WebsocketManager {
     }
 
     public int getServerID() {
-        if (bootstrap.getWSIConfig().getId() == 0)
-            return bootstrap.getServerPort();
-        return bootstrap.getWSIConfig().getId();
+        return bootstrap.getWSIConfig().getId() == 0 ? bootstrap.getServerPort() : bootstrap.getWSIConfig().getId();
+    }
+
+    public String getServerName() {
+        return bootstrap.getWSIConfig().getName().equals("auto") ? bootstrap.getPlatformType().getValue()
+                : bootstrap.getWSIConfig().getName();
     }
 
     public WSILogger getWSILogger() {
