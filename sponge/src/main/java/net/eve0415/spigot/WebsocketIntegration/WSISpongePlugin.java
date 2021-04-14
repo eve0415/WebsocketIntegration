@@ -118,7 +118,7 @@ public class WSISpongePlugin implements WSIBootstrap {
         if (isServerAvailable())
             initialize();
         if (initialized)
-            updateStatus(WSIEventState.PreInitialization);
+            updateStatus(WSIEventState.PREINITIALIZATION);
     }
 
     @Listener(beforeModifications = true)
@@ -126,7 +126,7 @@ public class WSISpongePlugin implements WSIBootstrap {
         if (isServerAvailable())
             initialize();
         if (initialized)
-            updateStatus(WSIEventState.Initialization);
+            updateStatus(WSIEventState.INITIALIZATION);
     }
 
     @Listener(beforeModifications = true)
@@ -134,7 +134,7 @@ public class WSISpongePlugin implements WSIBootstrap {
         if (isServerAvailable())
             initialize();
         if (initialized)
-            updateStatus(WSIEventState.PostInitialization);
+            updateStatus(WSIEventState.POSTINITIALIZATION);
     }
 
     @Listener(beforeModifications = true)
@@ -142,7 +142,7 @@ public class WSISpongePlugin implements WSIBootstrap {
         if (isServerAvailable())
             initialize();
         if (initialized)
-            updateStatus(WSIEventState.LoadComplete);
+            updateStatus(WSIEventState.LOADCOMPLETE);
     }
 
     @Listener(beforeModifications = true)
@@ -150,7 +150,7 @@ public class WSISpongePlugin implements WSIBootstrap {
         if (isServerAvailable())
             initialize();
         if (initialized)
-            updateStatus(WSIEventState.AboutToStart);
+            updateStatus(WSIEventState.ABOUTTOSTART);
     }
 
     @Listener

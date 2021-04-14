@@ -4,8 +4,8 @@ public enum WSIEventState {
     STARTING("STARTING"), STOPPING("STOPPING"), STATUS("STATUS"), CHAT("CHAT"), ADVANCEMENT("ADVANCEMENT"),
     SERVERINFO("SERVERINFO"), LOG("LOG"),
     // For Forge Server
-    CONSTRUCTING("Constructing"), PreInitialization("Pre-Initializing"), Initialization("Initializing"),
-    PostInitialization("Post-Initializing"), LoadComplete("Load Complete"), AboutToStart("Loading World");
+    CONSTRUCTING("CONSTRUCTING"), PREINITIALIZATION("PREINITIALIZATION"), INITIALIZATION("INITIALIZATION"),
+    POSTINITIALIZATION("POSTINITIALIZATION"), LOADCOMPLETE("LOADCOMPLETE"), ABOUTTOSTART("ABOUTTOSTART");
 
     private final String value;
 
