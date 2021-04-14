@@ -8,4 +8,4 @@ id: 0
 
 # auto will use the platform type as server name
 # Recommend to set this when you have specified id
-name: "auto"
+name: auto
