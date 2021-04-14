@@ -155,6 +155,8 @@ public class WSISpongePlugin implements WSIBootstrap {
 
     @Listener
     public void onServerStart(final GameStartedServerEvent event) {
+        if (initialized)
+            updateStatus(WSIEventState.GAMESTART);
         new WSISpongeTaskScheduler(this);
         new SpongeEventListener(this);
     }
