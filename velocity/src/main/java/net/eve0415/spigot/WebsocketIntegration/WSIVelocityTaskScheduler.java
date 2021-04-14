@@ -37,7 +37,7 @@ public class WSIVelocityTaskScheduler implements WSITask {
                 instance.getWebsocketManager().isStarting(false);
                 updateStatus();
             }
-        }).delay(0, TimeUnit.SECONDS).schedule();
+        }).delay(5, TimeUnit.SECONDS).schedule();
     }
 
     @Override

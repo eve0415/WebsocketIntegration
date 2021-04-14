@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.google.inject.Inject;
 
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.asset.Asset;
@@ -26,6 +27,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIBootstrap;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfigCache;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIConfiguration;
+import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
 
 @Plugin(id = "websocketintegration", name = "WebsocketIntegration-Sponge", version = "@project.version@", authors = "eve0415")
@@ -50,8 +52,7 @@ public class WSISpongePlugin implements WSIBootstrap {
 
         try {
             final Optional<Asset> config = container.getAsset("config.yml");
-            final Path configuration = new File(defaultConfig.getParent() + "/WebsocketIntegration.yml")
-                    .toPath();
+            final Path configuration = new File(defaultConfig.getParent() + "/WebsocketIntegration.yml").toPath();
 
             if (!config.isPresent()) {
                 throw new IllegalArgumentException("Default config is missing from jar");
@@ -106,32 +107,50 @@ public class WSISpongePlugin implements WSIBootstrap {
     @Listener(beforeModifications = true)
     public void onServerLoad(final GameConstructionEvent event) {
         onEnable();
-        if (isServerAvailable()) initialize();
+        if (isServerAvailable())
+            initialize();
+        if (initialized)
+            updateStatus(WSIEventState.CONSTRUCTING);
     }
 
     @Listener(beforeModifications = true)
     public void onServerLoad(final GamePreInitializationEvent event) {
-        if (isServerAvailable()) initialize();
+        if (isServerAvailable())
+            initialize();
+        if (initialized)
+            updateStatus(WSIEventState.PreInitialization);
     }
 
     @Listener(beforeModifications = true)
     public void onServerLoad(final GameInitializationEvent event) {
-        if (isServerAvailable()) initialize();
+        if (isServerAvailable())
+            initialize();
+        if (initialized)
+            updateStatus(WSIEventState.Initialization);
     }
 
     @Listener(beforeModifications = true)
     public void onServerLoad(final GamePostInitializationEvent event) {
-        if (isServerAvailable()) initialize();
+        if (isServerAvailable())
+            initialize();
+        if (initialized)
+            updateStatus(WSIEventState.PostInitialization);
     }
 
     @Listener(beforeModifications = true)
     public void onServerLoad(final GameLoadCompleteEvent event) {
-        if (isServerAvailable()) initialize();
+        if (isServerAvailable())
+            initialize();
+        if (initialized)
+            updateStatus(WSIEventState.LoadComplete);
     }
 
     @Listener(beforeModifications = true)
     public void onServerLoad(final GameAboutToStartServerEvent event) {
-        if (isServerAvailable()) initialize();
+        if (isServerAvailable())
+            initialize();
+        if (initialized)
+            updateStatus(WSIEventState.AboutToStart);
     }
 
     @Listener
@@ -153,6 +172,15 @@ public class WSISpongePlugin implements WSIBootstrap {
         if (!initialized) {
             websocketManager.initialize();
             initialized = true;
+        }
+    }
+
+    private void updateStatus(final WSIEventState state) {
+        try {
+            WebsocketManager.getInstance().send(state, WebsocketManager.builder().basic().toJSON());
+        } catch (final JSONException e) {
+            WebsocketManager.getInstance().getWSILogger().error("There was an error trying to send starting status.",
+                    e);
         }
     }
 }
