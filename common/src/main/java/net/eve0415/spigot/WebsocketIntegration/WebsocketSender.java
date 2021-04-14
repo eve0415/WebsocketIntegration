@@ -43,7 +43,7 @@ public class WebsocketSender {
             final String time = days + ":" + hours + ":" + minutes + ":" + seconds;
 
             obj.put("platform", type.getValue());
-            obj.put("port", WebsocketManager.getInstance().getServerID());
+            obj.put("id", WebsocketManager.getInstance().getServerID());
             obj.put("totalMemory", runtime.totalMemory() / 1048576L + "MB");
             obj.put("usedMemory", (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "MB");
             obj.put("freeMemory", runtime.freeMemory() / 1048576L + "MB");
@@ -52,7 +52,7 @@ public class WebsocketSender {
         }
 
         public WebsocketBuilder message(final String name, final UUID uuid, final String message) throws JSONException {
-            obj.put("port", WebsocketManager.getInstance().getServerID());
+            obj.put("id", WebsocketManager.getInstance().getServerID());
             obj.put("name", name);
             obj.put("UUID", uuid);
             obj.put("message", message.replaceAll("§.", ""));
@@ -61,7 +61,7 @@ public class WebsocketSender {
 
         public WebsocketBuilder message(final String name, final UUID uuid, final Component message)
                 throws JSONException {
-            obj.put("port", WebsocketManager.getInstance().getServerID());
+            obj.put("id", WebsocketManager.getInstance().getServerID());
             obj.put("name", name);
             obj.put("UUID", uuid);
             obj.put("message", PlainComponentSerializer.plain().serialize(message).replaceAll("§.", ""));
@@ -83,7 +83,7 @@ public class WebsocketSender {
 
         public WebsocketBuilder log(final LogEventType event, final String name, final UUID uuid, final String ip)
                 throws JSONException {
-            obj.put("port", WebsocketManager.getInstance().getServerID());
+            obj.put("id", WebsocketManager.getInstance().getServerID());
             obj.put("event", event.getValue());
             obj.put("name", name);
             obj.put("UUID", uuid);
