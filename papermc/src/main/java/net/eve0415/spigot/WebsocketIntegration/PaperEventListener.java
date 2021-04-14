@@ -8,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -17,15 +16,17 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.json.JSONException;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
+import net.kyori.adventure.text.Component;
 
 public class PaperEventListener implements Listener {
     public PaperEventListener(final WSIPaperPlugin instance) {
         instance.getServer().getPluginManager().registerEvents(this, instance);
     }
 
-    private void sendChatMessage(final String name, final UUID uuid, final String message) {
+    private void sendChatMessage(final String name, final UUID uuid, final Component message) {
         try {
             WebsocketManager.getInstance().send(WSIEventState.CHAT,
                     WebsocketManager.builder().message(name, uuid, message).toJSON());
@@ -36,22 +37,22 @@ public class PaperEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onJoin(final PlayerJoinEvent event) {
-        sendChatMessage(event.getPlayer().getName(), event.getPlayer().getUniqueId(), event.getJoinMessage());
+        sendChatMessage(event.getPlayer().getName(), event.getPlayer().getUniqueId(), event.joinMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onQuit(final PlayerQuitEvent event) {
-        sendChatMessage(event.getPlayer().getName(), event.getPlayer().getUniqueId(), event.getQuitMessage());
+        sendChatMessage(event.getPlayer().getName(), event.getPlayer().getUniqueId(), event.quitMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onDeath(final PlayerDeathEvent event) {
-        sendChatMessage(event.getEntity().getName(), event.getEntity().getUniqueId(), event.getDeathMessage());
+        sendChatMessage(event.getEntity().getName(), event.getEntity().getUniqueId(), event.deathMessage());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onMessage(final AsyncPlayerChatEvent event) {
-        sendChatMessage(event.getPlayer().getName(), event.getPlayer().getUniqueId(), event.getMessage());
+    public void onMessage(final AsyncChatEvent event) {
+        sendChatMessage(event.getPlayer().getName(), event.getPlayer().getUniqueId(), event.message());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -64,9 +65,8 @@ public class PaperEventListener implements Listener {
                 + event.getAdvancement().getKey().getKey().replace('/', '_').toUpperCase();
 
         try {
-            WebsocketManager.getInstance().send(WSIEventState.ADVANCEMENT,
-                    WebsocketManager.builder()
-                            .message(event.getPlayer().getName(), event.getPlayer().getUniqueId(), adv).toJSON());
+            WebsocketManager.getInstance().send(WSIEventState.ADVANCEMENT, WebsocketManager.builder()
+                    .message(event.getPlayer().getName(), event.getPlayer().getUniqueId(), adv).toJSON());
         } catch (final JSONException e) {
             WebsocketManager.getInstance().getWSILogger().error("There was an error trying to send chat message", e);
         }
@@ -75,11 +75,9 @@ public class PaperEventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerPreLogin(final AsyncPlayerPreLoginEvent event) {
         try {
-            WebsocketManager.getInstance().send(WSIEventState.LOG,
-                    WebsocketManager.builder()
-                            .log(LogEventType.AUTH, event.getName(), event.getUniqueId(),
-                                    event.getAddress().getHostAddress())
-                            .toJSON());
+            WebsocketManager.getInstance().send(WSIEventState.LOG, WebsocketManager.builder()
+                    .log(LogEventType.AUTH, event.getName(), event.getUniqueId(), event.getAddress().getHostAddress())
+                    .toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -88,23 +86,11 @@ public class PaperEventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerLogin(final PlayerLoginEvent event) {
         try {
-            if (event.getKickMessage().isEmpty()) {
-                WebsocketManager.getInstance().send(WSIEventState.LOG,
-                        WebsocketManager.builder()
-                                .log(LogEventType.LOGIN,
-                                        event.getPlayer().getName(),
-                                        event.getPlayer().getUniqueId(),
-                                        event.getAddress().getHostAddress())
-                                .setAddress(event.getHostname()).toJSON());
-            } else {
-                WebsocketManager.getInstance().send(WSIEventState.LOG,
-                        WebsocketManager.builder()
-                                .log(LogEventType.KICK,
-                                        event.getPlayer().getName(),
-                                        event.getPlayer().getUniqueId(),
-                                        event.getHostname())
-                                .kick(event.getKickMessage()).toJSON());
-            }
+            WebsocketManager.getInstance().send(WSIEventState.LOG,
+                    WebsocketManager
+                            .builder().log(LogEventType.KICK, event.getPlayer().getName(),
+                                    event.getPlayer().getUniqueId(), event.getHostname())
+                            .kick(event.kickMessage()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -114,12 +100,10 @@ public class PaperEventListener implements Listener {
     public void onPlayerKick(final PlayerKickEvent event) {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
-                    WebsocketManager.builder()
-                            .log(LogEventType.KICK,
-                                    event.getPlayer().getName(),
-                                    event.getPlayer().getUniqueId(),
-                                    event.getPlayer().getAddress().getHostName())
-                            .kick(event.getReason()).toJSON());
+                    WebsocketManager
+                            .builder().log(LogEventType.KICK, event.getPlayer().getName(),
+                                    event.getPlayer().getUniqueId(), event.getPlayer().getAddress().getHostName())
+                            .kick(event.reason()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -129,12 +113,8 @@ public class PaperEventListener implements Listener {
     public void onPlayerConnectionClose(final PlayerConnectionCloseEvent event) {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
-                    WebsocketManager.builder()
-                            .log(LogEventType.DISCONNECT,
-                                    event.getPlayerName(),
-                                    event.getPlayerUniqueId(),
-                                    event.getIpAddress().getHostName())
-                            .toJSON());
+                    WebsocketManager.builder().log(LogEventType.DISCONNECT, event.getPlayerName(),
+                            event.getPlayerUniqueId(), event.getIpAddress().getHostName()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }

@@ -9,6 +9,8 @@ import io.socket.client.Socket;
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 
 public class WebsocketSender {
     private final Socket socket;
@@ -54,6 +56,15 @@ public class WebsocketSender {
             obj.put("name", name);
             obj.put("UUID", uuid);
             obj.put("message", message.replaceAll("§.", ""));
+            return this;
+        }
+
+        public WebsocketBuilder message(final String name, final UUID uuid, final Component message)
+                throws JSONException {
+            obj.put("port", WebsocketManager.getInstance().getServerID());
+            obj.put("name", name);
+            obj.put("UUID", uuid);
+            obj.put("message", PlainComponentSerializer.plain().serialize(message).replaceAll("§.", ""));
             return this;
         }
 
@@ -117,6 +128,11 @@ public class WebsocketSender {
 
         public WebsocketBuilder kick(final String reason) throws JSONException {
             obj.put("reason", reason);
+            return this;
+        }
+
+        public WebsocketBuilder kick(final Component reason) throws JSONException {
+            obj.put("reason", PlainComponentSerializer.plain().serialize(reason));
             return this;
         }
 

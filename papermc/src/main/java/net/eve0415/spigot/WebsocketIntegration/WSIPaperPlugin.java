@@ -18,10 +18,10 @@ public class WSIPaperPlugin extends JavaPlugin implements WSIBootstrap {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        this.config = WSIConfigCache.readConfig(new File(getDataFolder().toString() + "/config.yml").toPath());
-        this.logger = new WSIPaperLogger(getLogger());
-        this.websocketManager = WebsocketManager.start(this).initialize();
-        this.chatSender = new WSIPaperChatSender(this);
+        config = WSIConfigCache.readConfig(new File(getDataFolder().toString() + "/config.yml").toPath());
+        logger = new WSIPaperLogger(getLogger());
+        websocketManager = WebsocketManager.start(this).initialize();
+        chatSender = new WSIPaperChatSender(this);
         new WSIPaperTaskScheduler(this);
         new PaperEventListener(this);
     }

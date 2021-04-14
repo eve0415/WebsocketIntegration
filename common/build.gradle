@@ -3,4 +3,6 @@ apply plugin: 'java-library'
 dependencies {
     api 'io.socket:socket.io-client:_'
     api 'org.yaml:snakeyaml:_'
+    api 'net.kyori:adventure-api:_'
+    api 'net.kyori:adventure-text-serializer-plain'
 }

@@ -15,7 +15,6 @@ import net.eve0415.spigot.WebsocketIntegration.WebsocketSender.WebsocketBuilder;
 import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType;
 import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 
 public class VelocityEventListner {
@@ -29,13 +28,9 @@ public class VelocityEventListner {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.AUTH,
-                                    event.getUsername(),
-                                    null,
-                                    connection.getRemoteAddress().toString())
+                            .log(LogEventType.AUTH, event.getUsername(), null, connection.getRemoteAddress().toString())
                             .setAddress(connection.getVirtualHost().get().toString())
-                            .clientVersion(connection.getProtocolVersion().getName())
-                            .toJSON());
+                            .clientVersion(connection.getProtocolVersion().getVersionIntroducedIn()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -47,14 +42,10 @@ public class VelocityEventListner {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.LOGIN,
-                                    profile.getUsername(),
-                                    profile.getUniqueId(),
+                            .log(LogEventType.LOGIN, profile.getUsername(), profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
-                            .setAddress(profile.getVirtualHost().get().toString())
-                            .clientType(getClientType(profile))
-                            .clientVersion(profile.getProtocolVersion().getName())
-                            .toJSON());
+                            .setAddress(profile.getVirtualHost().get().toString()).clientType(getClientType(profile))
+                            .clientVersion(profile.getProtocolVersion().getVersionIntroducedIn()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -66,15 +57,11 @@ public class VelocityEventListner {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.PRECONNECT,
-                                    profile.getUsername(),
-                                    profile.getUniqueId(),
+                            .log(LogEventType.PRECONNECT, profile.getUsername(), profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
-                            .setAddress(profile.getVirtualHost().get().toString())
-                            .clientType(getClientType(profile))
-                            .clientVersion(profile.getProtocolVersion().getName())
-                            .connectingServer(event.getOriginalServer().getServerInfo().getName())
-                            .toJSON());
+                            .setAddress(profile.getVirtualHost().get().toString()).clientType(getClientType(profile))
+                            .clientVersion(profile.getProtocolVersion().getVersionIntroducedIn())
+                            .connectingServer(event.getOriginalServer().getServerInfo().getName()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -85,16 +72,12 @@ public class VelocityEventListner {
         final Player profile = event.getPlayer();
         try {
             WebsocketBuilder message = WebsocketManager.builder()
-                    .log(LogEventType.POSTCONNECT,
-                            profile.getUsername(),
-                            profile.getUniqueId(),
+                    .log(LogEventType.POSTCONNECT, profile.getUsername(), profile.getUniqueId(),
                             profile.getRemoteAddress().toString())
-                    .setAddress(profile.getVirtualHost().get().toString())
-                    .clientType(getClientType(profile))
-                    .clientVersion(profile.getProtocolVersion().getName())
+                    .setAddress(profile.getVirtualHost().get().toString()).clientType(getClientType(profile))
+                    .clientVersion(profile.getProtocolVersion().getVersionIntroducedIn())
                     .connectedServer(profile.getCurrentServer().get().getServerInfo().getName())
-                    .previousServer(event.getPreviousServer() == null
-                            ? null
+                    .previousServer(event.getPreviousServer() == null ? null
                             : event.getPreviousServer().getServerInfo().getName());
 
             if (profile.getModInfo().isPresent())
@@ -112,12 +95,9 @@ public class VelocityEventListner {
         try {
             WebsocketManager.getInstance().send(WSIEventState.LOG,
                     WebsocketManager.builder()
-                            .log(LogEventType.DISCONNECT,
-                                    profile.getUsername(),
-                                    profile.getUniqueId(),
+                            .log(LogEventType.DISCONNECT, profile.getUsername(), profile.getUniqueId(),
                                     profile.getRemoteAddress().toString())
-                            .setAddress(profile.getVirtualHost().get().toString())
-                            .toJSON());
+                            .setAddress(profile.getVirtualHost().get().toString()).toJSON());
         } catch (final JSONException e) {
             e.printStackTrace();
         }
@@ -127,10 +107,9 @@ public class VelocityEventListner {
     public void onKicked(final KickedFromServerEvent event) {
         final Player profile = event.getPlayer();
         try {
-            final WebsocketBuilder message = WebsocketManager.builder().log(LogEventType.KICKEDFROM,
-                    profile.getUsername(),
-                    profile.getUniqueId(),
-                    profile.getRemoteAddress().toString())
+            final WebsocketBuilder message = WebsocketManager.builder()
+                    .log(LogEventType.KICKEDFROM, profile.getUsername(), profile.getUniqueId(),
+                            profile.getRemoteAddress().toString())
                     .setAddress(profile.getVirtualHost().get().toString())
                     .previousServer(event.getServer().getServerInfo().getName());
 
@@ -159,11 +138,9 @@ public class VelocityEventListner {
         return "Vanilla";
     }
 
-    private String getReason(final Optional<Component> optional, final Component event) {
-        final PlainComponentSerializer ComponentToPlain = new PlainComponentSerializer(c -> "",
-                TranslatableComponent::key);
-        if (!optional.isPresent() && event == null) return "Unknown reason";
-
-        return event == null ? ComponentToPlain.serialize(optional.get()) : ComponentToPlain.serialize(event);
+    private Component getReason(final Optional<Component> optional, final Component event) {
+        if (!optional.isPresent() && event == null)
+            return PlainComponentSerializer.plain().deserialize("Unknown reason");
+        return event == null ? optional.get() : event;
     }
 }
