@@ -8,7 +8,7 @@ allprojects {
     apply plugin: 'com.github.johnrengelman.shadow'
     
     group = 'net.eve0415.spigot'
-    version = '1.3-SNAPSHOT'
+    version = '2.0-SNAPSHOT'
     
     targetCompatibility = 8
     sourceCompatibility = 8
