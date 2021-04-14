@@ -20,5 +20,5 @@ blossom {
 }
 
 shadowJar {
-    archiveName = "WebsocketIntegration-Sponge-${project.version}.jar"
+    archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
 }

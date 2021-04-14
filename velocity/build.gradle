@@ -22,5 +22,5 @@ blossom {
 }
 
 shadowJar {
-    archiveName = "WebsocketIntegration-Velocity-${project.version}.jar"
+    archiveFileName = "WebsocketIntegration-Velocity-${project.version}.jar"
 }

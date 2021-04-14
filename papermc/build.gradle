@@ -19,5 +19,5 @@ processResources {
 }
 
 shadowJar {
-    archiveName = "WebsocketIntegration-PaperMC-${project.version}.jar"
+    archiveFileName = "WebsocketIntegration-PaperMC-${project.version}.jar"
 }
