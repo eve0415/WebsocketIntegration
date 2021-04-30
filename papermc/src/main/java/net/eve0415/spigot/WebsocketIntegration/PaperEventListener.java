@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.json.JSONException;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
@@ -86,11 +87,19 @@ public class PaperEventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerLogin(final PlayerLoginEvent event) {
         try {
-            WebsocketManager.getInstance().send(WSIEventState.LOG,
-                    WebsocketManager
-                            .builder().log(LogEventType.KICK, event.getPlayer().getName(),
-                                    event.getPlayer().getUniqueId(), event.getHostname())
-                            .kick(event.kickMessage()).toJSON());
+            if (event.getResult() == Result.ALLOWED) {
+                WebsocketManager.getInstance().send(WSIEventState.LOG,
+                        WebsocketManager
+                                .builder().log(LogEventType.LOGIN, event.getPlayer().getName(),
+                                        event.getPlayer().getUniqueId(), event.getAddress().getHostAddress())
+                                .setAddress(event.getHostname()).toJSON());
+            } else {
+                WebsocketManager.getInstance().send(WSIEventState.LOG,
+                        WebsocketManager
+                                .builder().log(LogEventType.KICK, event.getPlayer().getName(),
+                                        event.getPlayer().getUniqueId(), event.getHostname())
+                                .kick(event.kickMessage()).toJSON());
+            }
         } catch (final JSONException e) {
             e.printStackTrace();
         }
