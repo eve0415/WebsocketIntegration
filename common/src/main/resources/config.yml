@@ -3,7 +3,7 @@ address: localhost
 port: 25500
 
 # Server ID to manage your multiple servers.
-# Use 0 for automatically use server port.
+# Set id to 0 to use server port as server id.
 id: 0
 
 # auto will use the platform type as server name

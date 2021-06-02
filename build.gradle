@@ -1,35 +1,22 @@
 plugins {
-  id 'java'
-  id 'com.github.johnrengelman.shadow'
+  id "com.github.johnrengelman.shadow"
+  id "org.jetbrains.kotlin.jvm"
 }
 
 allprojects {
-    apply plugin: 'java'
-    apply plugin: 'com.github.johnrengelman.shadow'
-    
-    group = 'net.eve0415.spigot'
-    version = '2.0-SNAPSHOT'
-    
-    targetCompatibility = 8
-    sourceCompatibility = 8
-    
-    repositories {
-        mavenCentral()
-    }
-    
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
+  apply plugin: "java"
+  apply plugin: "org.jetbrains.kotlin.jvm"
+  apply plugin: "com.github.johnrengelman.shadow"
+  
+  sourceCompatibility = 16
+  
+  compileJava.options.encoding = "UTF-8"
+  
+  repositories {
+    mavenCentral()
+  }
 }
 
 dependencies {
-    implementation project(path: ':papermc', configuration: 'shadow')
-    implementation project(path: ':velocity', configuration: 'shadow')
-    implementation project(path: ':sponge', configuration: 'shadow')
+  implementation project(':velocity')
 }
-
-shadowJar {
-    archiveFileName = "${project.name}-${project.version}.jar"
-}
-
-build.dependsOn(shadowJar);

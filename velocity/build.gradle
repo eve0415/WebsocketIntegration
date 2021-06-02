@@ -1,26 +1,23 @@
 plugins {
-    id 'net.kyori.blossom'
+  id "org.jetbrains.kotlin.jvm"
+  id 'net.kyori.blossom'
 }
 
 repositories {
-    maven {
-        name 'velocity'
-        url 'https://nexus.velocitypowered.com/repository/maven-public/'
-    }
+  maven {
+    name 'velocity'
+    url 'https://nexus.velocitypowered.com/repository/maven-public/'
+  }
 }
 
 dependencies {
-    implementation project(':common')
+  implementation project(':common')
 
-    compileOnly 'com.velocitypowered:velocity-api:_'
-    annotationProcessor 'com.velocitypowered:velocity-api:_'
+  compileOnly 'com.velocitypowered:velocity-api:1.1.5-SNAPSHOT'
+  annotationProcessor 'com.velocitypowered:velocity-api:1.1.5-SNAPSHOT'
 }
 
 blossom {
-    replaceTokenIn('src/main/java/net/eve0415/spigot/WebsocketIntegration/WSIVelocityPlugin.java')
-    replaceToken '@project.version@', project.version
-}
-
-shadowJar {
-    archiveFileName = "WebsocketIntegration-Velocity-${project.version}.jar"
+  replaceTokenIn('src/main/kotlin/net/eve0415/mc/WebsocketIntegration/WSIVelocityPlugin.kt')
+  replaceToken '@project.version@', project.version
 }
