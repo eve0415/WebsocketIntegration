@@ -1,3 +1,12 @@
+# Compiled class file
+*.class
+
+# Eclipse
+bin
+.project
+.classpath
+.settings
+
 # Ignore Gradle project-specific cache directory
 .gradle
 
