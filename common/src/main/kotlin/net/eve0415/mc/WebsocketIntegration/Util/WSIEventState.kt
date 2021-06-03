@@ -1,0 +1,19 @@
+package net.eve0415.spigot.WebsocketIntegration.Util
+
+enum class WSIEventState {
+  STARTING,
+  STOPPING,
+  STATUS,
+  CHAT,
+  ADVANCEMENT,
+  SERVERINFO,
+  LOG,
+  // For Forge Server
+  CONSTRUCTING,
+  PREINITIALIZATION,
+  INITIALIZATION,
+  POSTINITIALIZATION,
+  LOADCOMPLETE,
+  ABOUTTOSTART,
+  GAMESTART
+}
