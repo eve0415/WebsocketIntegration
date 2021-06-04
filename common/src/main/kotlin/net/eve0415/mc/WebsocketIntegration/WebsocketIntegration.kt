@@ -11,7 +11,7 @@ import org.json.JSONObject
 class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
   val serverStartTime = System.nanoTime()
 
-  var socket: Socket? = null
+  private var socket: Socket? = null
 
   val platformType: WIPlatformType = bootstrap.platformType
   val serverID: Int = bootstrap.serverID

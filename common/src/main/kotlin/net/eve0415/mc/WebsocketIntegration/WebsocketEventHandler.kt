@@ -7,7 +7,8 @@ import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import org.json.JSONObject
 
-class WebsocketEventHandler constructor(val instance: WebsocketManager, val socket: Socket) {
+class WebsocketEventHandler
+constructor(private val instance: WebsocketManager, private val socket: Socket) {
   init {
     socket.once(
         Socket.EVENT_CONNECT,

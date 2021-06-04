@@ -6,9 +6,9 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 import org.json.JSONObject
 
-public class WebsocketBuilder constructor(val instance: WebsocketManager) {
-  val obj = JSONObject()
-  val runtime = Runtime.getRuntime()
+public class WebsocketBuilder constructor(private val instance: WebsocketManager) {
+  private val obj = JSONObject()
+  private val runtime = Runtime.getRuntime()
 
   fun basic(): WebsocketBuilder {
     val uptime = System.nanoTime() - instance.serverStartTime
