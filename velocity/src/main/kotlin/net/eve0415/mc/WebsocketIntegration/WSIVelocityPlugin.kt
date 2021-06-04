@@ -37,6 +37,8 @@ class WSIVelocityPlugin : WSIBootstrap {
   override lateinit var websocketManager: WebsocketManager
 
   override fun onEnable() {
+    if (!configDir.toFile().exists()) configDir.toFile().mkdirs()
+
     logger = WSIVelocityLogger(velocitylogger)
     config = WSIConfigFile.load(configDir.resolve("config.yml").toFile())
     websocketManager = WebsocketManager.start(this)
@@ -48,9 +50,10 @@ class WSIVelocityPlugin : WSIBootstrap {
     return 0
   }
 
-  override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {}
-
   override fun sendServerInfo() {}
+
+  // Proxy will not handle any messages to send to players.
+  override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {}
 
   @Subscribe(order = PostOrder.FIRST)
   fun onProxyInit(@Suppress("UNUSED_PARAMETER") e: ProxyInitializeEvent) {

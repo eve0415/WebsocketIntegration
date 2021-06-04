@@ -1,24 +1,17 @@
 package net.eve0415.mc.WebsocketIntegration.Config
 
 import java.io.File
-import java.io.InputStreamReader
-import net.eve0415.mc.WebsocketIntegration.WebsocketManager
+import java.nio.file.Files
 import org.yaml.snakeyaml.Yaml
-import org.yaml.snakeyaml.constructor.Constructor
+import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor
 
 public class WSIConfigFile {
   companion object {
     fun load(file: File): WSIConfigKey {
-      if (!file.exists()) {
-        val isReader =
-            InputStreamReader(WebsocketManager::class.java.getResourceAsStream("config.yml"))
-        // file.writer()
-        isReader.copyTo(file.writer())
-        // val br = BufferedReader(isReader)
-        // val writer =
-        // PrintWriter(File(WebsocketManager::class.java.getResource("config.yml").getPath()))
-      }
-      return Yaml(Constructor(WSIConfigKey::class.java))
+      if (!file.exists())
+          Files.copy(WSIConfigFile::class.java.getResourceAsStream("/config.yml"), file.toPath())
+
+      return Yaml(CustomClassLoaderConstructor(WSIConfigKey::class.java.classLoader))
           .loadAs(file.reader(), WSIConfigKey::class.java)
     }
   }
