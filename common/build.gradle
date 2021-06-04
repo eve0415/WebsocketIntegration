@@ -1,7 +1,7 @@
 apply plugin: 'java-library'
 
 dependencies {
-  api 'io.socket:socket.io-client:2.0.0'
+  api 'io.socket:socket.io-client:2.0.1'
   api 'org.yaml:snakeyaml:1.28'
   api 'net.kyori:adventure-api:4.7.0'
   api 'net.kyori:adventure-text-serializer-plain'

@@ -2,7 +2,6 @@ package net.eve0415.mc.WebsocketIntegration
 
 import io.socket.client.IO
 import io.socket.client.Socket
-import java.net.URISyntaxException
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
@@ -38,16 +37,11 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
       shutdown()
     }
 
-    try {
-      val socket = IO.socket("http://" + configuration.address + ":" + configuration.port)
-      WebsocketEventHandler(this, socket)
-      this.socket = socket
-    } catch (e: URISyntaxException) {
-      logger.error("An error occurred while opening socket", e)
-      shutdown()
-    }
+    val socket = IO.socket("http://" + configuration.address + ":" + configuration.port)
+    WebsocketEventHandler(this, socket)
+    socket.connect()
 
-    socket?.connect()
+    this.socket = socket
 
     logger.info("Successfully enabled")
     return this
