@@ -1,6 +1,7 @@
 plugins {
   id "org.jetbrains.kotlin.jvm"
   id "com.github.johnrengelman.shadow"
+  id "net.kyori.blossom"
 }
 
 allprojects {
@@ -23,6 +24,10 @@ allprojects {
 dependencies {
   implementation project(':velocity')
 }
+
+// blossom {
+//   replaceToken "@project.version@", project.version
+// }
 
 shadowJar {
   archiveFileName = "${project.name}-${project.version}.jar"
