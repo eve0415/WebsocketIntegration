@@ -7,11 +7,11 @@ allprojects {
   apply plugin: "java"
   apply plugin: "org.jetbrains.kotlin.jvm"
   apply plugin: "com.github.johnrengelman.shadow"
-  
+
   sourceCompatibility = 15
-  
+
   compileJava.options.encoding = "UTF-8"
-  
+
   repositories {
     mavenCentral()
   }
@@ -20,3 +20,9 @@ allprojects {
 dependencies {
   implementation project(':velocity')
 }
+
+shadowJar {
+  archiveFileName = "${project.name}-${project.version}.jar"
+}
+
+build.dependsOn(shadowJar);

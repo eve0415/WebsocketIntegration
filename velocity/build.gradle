@@ -11,6 +11,8 @@ repositories {
   }
 }
 
+targetCompatibility = 11
+
 dependencies {
   implementation project(":common")
 
