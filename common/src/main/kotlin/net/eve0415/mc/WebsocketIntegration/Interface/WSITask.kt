@@ -1,4 +1,4 @@
-package net.eve0415.spigot.WebsocketIntegration.Interface
+package net.eve0415.mc.WebsocketIntegration.Interface
 
 public interface WSITask : ServerStatusInfo {
   fun serverIsReady()

@@ -1,6 +1,6 @@
-package net.eve0415.spigot.WebsocketIntegration
+package net.eve0415.mc.WebsocketIntegration
 
-import net.eve0415.spigot.WebsocketIntegration.Interface.WSILogger
+import net.eve0415.mc.WebsocketIntegration.Interface.WSILogger
 import org.slf4j.Logger
 
 public class WSIVelocityLogger constructor(val logger: Logger) : WSILogger {

@@ -1,4 +1,4 @@
-package net.eve0415.spigot.WebsocketIntegration.Enum
+package net.eve0415.mc.WebsocketIntegration.Enum
 
 enum class LogEventType {
   AUTH,

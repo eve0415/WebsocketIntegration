@@ -1,1 +1,1 @@
-package net.eve0415.spigot.WebsocketIntegration.Config
+package net.eve0415.mc.WebsocketIntegration.Config

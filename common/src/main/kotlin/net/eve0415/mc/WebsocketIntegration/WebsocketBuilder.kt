@@ -1,7 +1,7 @@
-package net.eve0415.spigot.WebsocketIntegration
+package net.eve0415.mc.WebsocketIntegration
 
 import java.util.UUID
-import net.eve0415.spigot.WebsocketIntegration.Enum.LogEventType
+import net.eve0415.mc.WebsocketIntegration.Enum.LogEventType
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 import org.json.JSONObject

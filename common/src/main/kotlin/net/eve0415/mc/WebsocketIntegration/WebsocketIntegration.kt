@@ -1,11 +1,11 @@
-package net.eve0415.spigot.WebsocketIntegration
+package net.eve0415.mc.WebsocketIntegration
 
 import io.socket.client.IO
 import io.socket.client.Socket
 import java.net.URISyntaxException
-import net.eve0415.spigot.WebsocketIntegration.Enum.WSIEventState
-import net.eve0415.spigot.WebsocketIntegration.Enum.WSIPlatformType
-import net.eve0415.spigot.WebsocketIntegration.Interface.WSIBootstrap
+import net.eve0415.mc.WebsocketIntegration.Enum.WSIEventState
+import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
+import net.eve0415.mc.WebsocketIntegration.Interface.WSIBootstrap
 import org.json.JSONObject
 
 class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {

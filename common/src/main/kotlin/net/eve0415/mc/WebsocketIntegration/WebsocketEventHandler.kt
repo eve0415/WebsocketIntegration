@@ -1,10 +1,10 @@
-package net.eve0415.spigot.WebsocketIntegration
+package net.eve0415.mc.WebsocketIntegration
 
 import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import net.eve0415.spigot.WebsocketIntegration.Enum.WSIEventState
-import net.eve0415.spigot.WebsocketIntegration.Enum.WSIPlatformType
+import net.eve0415.mc.WebsocketIntegration.Enum.WSIEventState
+import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
 import org.json.JSONObject
 
 class WebsocketEventHandler constructor(val instance: WebsocketManager, val socket: Socket) {

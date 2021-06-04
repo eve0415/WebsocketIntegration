@@ -1,8 +1,8 @@
-package net.eve0415.spigot.WebsocketIntegration.Interface
+package net.eve0415.mc.WebsocketIntegration.Interface
 
-import net.eve0415.spigot.WebsocketIntegration.Config.WSIConfigKey
-import net.eve0415.spigot.WebsocketIntegration.Enum.WSIPlatformType
-import net.eve0415.spigot.WebsocketIntegration.WebsocketManager
+import net.eve0415.mc.WebsocketIntegration.Config.WSIConfigKey
+import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
+import net.eve0415.mc.WebsocketIntegration.WebsocketManager
 
 public interface WSIBootstrap {
   val platformType: WSIPlatformType

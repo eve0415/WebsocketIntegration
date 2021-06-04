@@ -1,8 +1,8 @@
-package net.eve0415.spigot.WebsocketIntegration.Config
+package net.eve0415.mc.WebsocketIntegration.Config
 
 import java.io.File
 import java.io.InputStreamReader
-import net.eve0415.spigot.WebsocketIntegration.WebsocketManager
+import net.eve0415.mc.WebsocketIntegration.WebsocketManager
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 
