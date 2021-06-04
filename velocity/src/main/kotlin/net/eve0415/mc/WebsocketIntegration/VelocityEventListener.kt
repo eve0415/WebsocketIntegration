@@ -15,7 +15,7 @@ import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 
-public class VelocityEventListener constructor(private val instance: WIVelocityPlugin) {
+public class VelocityEventListener constructor(private val instance: VelocityPlugin) {
   val manager: WebsocketManager
 
   init {

@@ -21,7 +21,7 @@ import org.slf4j.Logger
     name = "WebsocketIntegration-Velocity",
     version = "@project.version@",
     authors = ["eve0415"])
-class WIVelocityPlugin : WIBootstrap {
+class VelocityPlugin : WIBootstrap {
   @Inject lateinit var proxy: ProxyServer
   @Inject lateinit private var velocitylogger: Logger
   @Inject @DataDirectory lateinit private var configDir: Path
@@ -39,12 +39,12 @@ class WIVelocityPlugin : WIBootstrap {
   override fun onEnable() {
     if (!configDir.toFile().exists()) configDir.toFile().mkdirs()
 
-    logger = WIVelocityLogger(velocitylogger)
+    logger = VelocityLogger(velocitylogger)
     config = WIConfigFile.load(configDir.resolve("config.yml").toFile())
     serverID = if (config.id == 0) getServerPort() else config.id
     websocketManager = WebsocketManager.start(this).initialize()
 
-    WSIVelocityTaskScheduler(this)
+    VelocityTaskScheduler(this)
     VelocityEventListener(this)
   }
 

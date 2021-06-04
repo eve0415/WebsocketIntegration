@@ -3,7 +3,7 @@ package net.eve0415.mc.WebsocketIntegration
 import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
 import org.slf4j.Logger
 
-public class WIVelocityLogger constructor(private val logger: Logger) : WILogger {
+public class VelocityLogger constructor(private val logger: Logger) : WILogger {
   override fun error(message: String, error: Throwable) {
     logger.error(message, error)
   }

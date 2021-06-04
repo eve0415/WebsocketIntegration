@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Interface.WITask
 
-public class WSIVelocityTaskScheduler constructor(private val instance: WIVelocityPlugin) : WITask {
+public class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : WITask {
   init {
     serverIsReady()
   }
