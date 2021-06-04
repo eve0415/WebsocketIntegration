@@ -1,6 +1,10 @@
 package net.eve0415.mc.WebsocketIntegration
 
 import com.google.inject.Inject
+import com.velocitypowered.api.event.PostOrder
+import com.velocitypowered.api.event.Subscribe
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
+import com.velocitypowered.api.event.proxy.ProxyShutdownEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
@@ -47,4 +51,14 @@ class WSIVelocityPlugin : WSIBootstrap {
   override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {}
 
   override fun sendServerInfo() {}
+
+  @Subscribe(order = PostOrder.FIRST)
+  fun onProxyInit(@Suppress("UNUSED_PARAMETER") e: ProxyInitializeEvent) {
+    onEnable()
+  }
+
+  @Subscribe(order = PostOrder.LAST)
+  fun onProxyShutdown(@Suppress("UNUSED_PARAMETER") e: ProxyShutdownEvent) {
+    onDisable()
+  }
 }
