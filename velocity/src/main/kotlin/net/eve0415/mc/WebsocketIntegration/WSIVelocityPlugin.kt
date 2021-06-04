@@ -17,34 +17,25 @@ import org.slf4j.Logger
     name = "WebsocketIntegration-Velocity",
     version = "@project.version@",
     authors = ["eve0415"])
-class WSIVelocityPlugin
-constructor(
-    @Inject private val proxy: ProxyServer,
-    @Inject private val velocitylogger: Logger,
-    @Inject @DataDirectory private val configDir: Path
-) : WSIBootstrap {
-  // @Inject private val proxy: ProxyServer
-  // @Inject private val velocitylogger: Logger
-  // @Inject @DataDirectory private val configDir: Path
+class WSIVelocityPlugin : WSIBootstrap {
+  @Inject lateinit private var proxy: ProxyServer
+  @Inject lateinit private var velocitylogger: Logger
+  @Inject @DataDirectory lateinit private var configDir: Path
 
   override val platformType = WSIPlatformType.Velocity
 
   override var serverID = 0
 
-  override val config: WSIConfigKey
+  override lateinit var config: WSIConfigKey
 
-  override val logger: WSILogger
+  override lateinit var logger: WSILogger
 
-  override val websocketManager: WebsocketManager
+  override lateinit var websocketManager: WebsocketManager
 
-  init {
+  override fun onEnable() {
     logger = WSIVelocityLogger(velocitylogger)
     config = WSIConfigFile.load(configDir.resolve("config.yml").toFile())
     websocketManager = WebsocketManager.start(this)
-  }
-
-  override fun onEnable() {
-    // this.config = WSIConfigFile.load(configDir.resolve("config.yml").toFile())
   }
 
   override fun onDisable() {}

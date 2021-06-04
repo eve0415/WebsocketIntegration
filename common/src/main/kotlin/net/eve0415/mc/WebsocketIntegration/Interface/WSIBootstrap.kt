@@ -7,7 +7,7 @@ import net.eve0415.mc.WebsocketIntegration.WebsocketManager
 public interface WSIBootstrap {
   val platformType: WSIPlatformType
 
-  var serverID: Int
+  val serverID: Int
 
   val config: WSIConfigKey
 
