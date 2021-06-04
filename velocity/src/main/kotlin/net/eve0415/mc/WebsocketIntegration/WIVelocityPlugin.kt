@@ -9,8 +9,8 @@ import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
 import java.nio.file.Path
-import net.eve0415.mc.WebsocketIntegration.Config.WIConfigFile
-import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
+import kotlin.properties.Delegates
+import net.eve0415.mc.WebsocketIntegration.Config.*
 import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
 import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
@@ -22,13 +22,13 @@ import org.slf4j.Logger
     version = "@project.version@",
     authors = ["eve0415"])
 class WIVelocityPlugin : WIBootstrap {
-  @Inject lateinit private var proxy: ProxyServer
+  @Inject lateinit var proxy: ProxyServer
   @Inject lateinit private var velocitylogger: Logger
   @Inject @DataDirectory lateinit private var configDir: Path
 
   override val platformType = WIPlatformType.Velocity
 
-  override var serverID = 0
+  override var serverID: Int by Delegates.notNull()
 
   override lateinit var config: WIConfigKey
 
@@ -41,13 +41,17 @@ class WIVelocityPlugin : WIBootstrap {
 
     logger = WIVelocityLogger(velocitylogger)
     config = WIConfigFile.load(configDir.resolve("config.yml").toFile())
-    websocketManager = WebsocketManager.start(this)
+    serverID = if (config.id == 0) getServerPort() else config.id
+    websocketManager = WebsocketManager.start(this).initialize()
+
+    WSIVelocityTaskScheduler(this)
+    VelocityEventListener(this)
   }
 
   override fun onDisable() {}
 
-  override fun getServerPort(): Int? {
-    return 0
+  override fun getServerPort(): Int {
+    return proxy.boundAddress.port
   }
 
   override fun sendServerInfo() {}

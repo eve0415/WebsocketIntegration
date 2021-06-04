@@ -58,7 +58,7 @@ public class WebsocketBuilder constructor(private val instance: WebsocketManager
     return this
   }
 
-  fun log(event: LogEventType, name: String, uuid: UUID, ip: String): WebsocketBuilder {
+  fun log(event: LogEventType, name: String, uuid: UUID?, ip: String): WebsocketBuilder {
     obj.put("serverId", instance.serverID)
     obj.put("event", event.name)
     obj.put("name", name)
@@ -92,7 +92,7 @@ public class WebsocketBuilder constructor(private val instance: WebsocketManager
     return this
   }
 
-  fun previousServer(server: String): WebsocketBuilder {
+  fun previousServer(server: String?): WebsocketBuilder {
     obj.put("fromServer", server)
     return this
   }
