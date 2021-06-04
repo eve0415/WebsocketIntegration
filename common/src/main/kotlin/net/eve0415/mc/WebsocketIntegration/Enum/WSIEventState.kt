@@ -1,4 +1,4 @@
-package net.eve0415.spigot.WebsocketIntegration.Util
+package net.eve0415.spigot.WebsocketIntegration.Enum
 
 enum class WSIEventState {
   STARTING,

@@ -1,5 +1,7 @@
-package net.eve0415.spigot.WebsocketIntegration.Util
+package net.eve0415.spigot.WebsocketIntegration.Interface
 
+import net.eve0415.spigot.WebsocketIntegration.Config.WSIConfigKey
+import net.eve0415.spigot.WebsocketIntegration.Enum.WSIPlatformType
 import net.eve0415.spigot.WebsocketIntegration.WebsocketManager
 
 public interface WSIBootstrap {
@@ -7,7 +9,7 @@ public interface WSIBootstrap {
 
   var serverID: Int
 
-  val config: WSIConfiguration
+  val config: WSIConfigKey
 
   val logger: WSILogger
 

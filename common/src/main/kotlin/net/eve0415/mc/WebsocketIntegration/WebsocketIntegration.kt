@@ -3,13 +3,12 @@ package net.eve0415.spigot.WebsocketIntegration
 import io.socket.client.IO
 import io.socket.client.Socket
 import java.net.URISyntaxException
-import net.eve0415.spigot.WebsocketIntegration.Util.WSIBootstrap
-import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState
-import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType
+import net.eve0415.spigot.WebsocketIntegration.Enum.WSIEventState
+import net.eve0415.spigot.WebsocketIntegration.Enum.WSIPlatformType
+import net.eve0415.spigot.WebsocketIntegration.Interface.WSIBootstrap
 import org.json.JSONObject
 
 class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {
-  // val instance: WebsocketManager = this
   val serverStartTime = System.nanoTime()
 
   var socket: Socket? = null
@@ -23,15 +22,10 @@ class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {
   var isConnected = false
 
   companion object {
-    // lateinit var instance: WebsocketManager
     fun start(bootstrap: WSIBootstrap): WebsocketManager {
       return WebsocketManager(bootstrap)
     }
   }
-
-  // init {
-  //   instance = this
-  // }
 
   fun initialize(): WebsocketManager {
     val logger = bootstrap.logger

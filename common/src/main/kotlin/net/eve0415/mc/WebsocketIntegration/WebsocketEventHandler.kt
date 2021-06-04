@@ -3,8 +3,8 @@ package net.eve0415.spigot.WebsocketIntegration
 import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import net.eve0415.spigot.WebsocketIntegration.Util.WSIEventState
-import net.eve0415.spigot.WebsocketIntegration.Util.WSIPlatformType
+import net.eve0415.spigot.WebsocketIntegration.Enum.WSIEventState
+import net.eve0415.spigot.WebsocketIntegration.Enum.WSIPlatformType
 import org.json.JSONObject
 
 class WebsocketEventHandler constructor(val instance: WebsocketManager, val socket: Socket) {

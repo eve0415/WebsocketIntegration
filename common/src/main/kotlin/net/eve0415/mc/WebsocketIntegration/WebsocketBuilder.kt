@@ -1,7 +1,7 @@
 package net.eve0415.spigot.WebsocketIntegration
 
 import java.util.UUID
-import net.eve0415.spigot.WebsocketIntegration.Util.LogEventType
+import net.eve0415.spigot.WebsocketIntegration.Enum.LogEventType
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 import org.json.JSONObject
@@ -19,7 +19,7 @@ public class WebsocketBuilder constructor(val instance: WebsocketManager) {
     val seconds = tempSec % 60
     val time = days.toString() + ":" + hours + ":" + minutes + ":" + seconds
 
-    obj.put("platform", instance.platformType.name)
+    obj.put("platform", instance.platformType.value)
     obj.put("serverId", instance.serverID)
     obj.put("serverName", instance.serverName)
     obj.put("totalMemory", (runtime.totalMemory() / 1048576L).toString() + "MB")
