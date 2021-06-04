@@ -8,14 +8,17 @@ allprojects {
   apply plugin: "org.jetbrains.kotlin.jvm"
   apply plugin: "com.github.johnrengelman.shadow"
 
-  sourceCompatibility = 15
-
   compileJava.options.encoding = "UTF-8"
 
   repositories {
     mavenCentral()
   }
 }
+
+// tasks.withType(JavaCompile) {
+//   options.fork = true
+//   sourceCompatibility = 15
+// }
 
 dependencies {
   implementation project(':velocity')

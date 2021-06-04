@@ -11,7 +11,14 @@ repositories {
   }
 }
 
-targetCompatibility = 11
+// tasks.withType(JavaCompile) {
+//   options.fork = true
+//   targetCompatibility = 11
+// }
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+  kotlinOptions { jvmTarget = 11 }
+}
 
 dependencies {
   implementation project(":common")
