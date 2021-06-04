@@ -1,6 +1,7 @@
 package net.eve0415.mc.WebsocketIntegration
 
 import com.velocitypowered.api.event.Subscribe
+import com.velocitypowered.api.event.connection.ConnectionHandshakeEvent
 import com.velocitypowered.api.event.connection.DisconnectEvent
 import com.velocitypowered.api.event.connection.LoginEvent
 import com.velocitypowered.api.event.connection.PreLoginEvent
@@ -25,6 +26,7 @@ public class VelocityEventListener constructor(private val instance: WIVelocityP
 
   @Subscribe
   fun onPreLogin(event: PreLoginEvent) {
+    instance.logger.info("PreLoginEvent")
     val connection = event.connection
     manager.send(
         WIEventState.LOG,
@@ -37,7 +39,16 @@ public class VelocityEventListener constructor(private val instance: WIVelocityP
   }
 
   @Subscribe
+  fun onConnectionEstablished(event: ConnectionHandshakeEvent) {
+    instance.logger.info("ConnectionHandshakeEvent")
+    instance.logger.info(event.connection.remoteAddress.toString())
+    instance.logger.info(event.connection.virtualHost.toString())
+    instance.logger.info(event.connection.protocolVersion.toString())
+  }
+
+  @Subscribe
   fun onLogin(event: LoginEvent) {
+    instance.logger.info("LoginEvent")
     val player = event.player
     manager.send(
         WIEventState.LOG,
@@ -55,6 +66,7 @@ public class VelocityEventListener constructor(private val instance: WIVelocityP
 
   @Subscribe
   fun onPreConnect(event: ServerPreConnectEvent) {
+    instance.logger.info("ServerPreConnectEvent")
     val player = event.player
     manager.send(
         WIEventState.LOG,
@@ -74,6 +86,7 @@ public class VelocityEventListener constructor(private val instance: WIVelocityP
 
   @Subscribe
   fun onPostConnect(event: ServerPostConnectEvent) {
+    instance.logger.info("ServerPostConnectEvent")
     val player = event.player
     manager.send(
         WIEventState.LOG,
@@ -94,6 +107,7 @@ public class VelocityEventListener constructor(private val instance: WIVelocityP
 
   @Subscribe
   fun onDisconnect(event: DisconnectEvent) {
+    instance.logger.info("DisconnectEvent")
     val player = event.player
     manager.send(
         WIEventState.LOG,
@@ -110,6 +124,7 @@ public class VelocityEventListener constructor(private val instance: WIVelocityP
 
   @Subscribe
   fun onKicked(event: KickedFromServerEvent) {
+    instance.logger.info("KickedFromServerEvent")
     val player = event.player
     val result = event.result
     val message =
