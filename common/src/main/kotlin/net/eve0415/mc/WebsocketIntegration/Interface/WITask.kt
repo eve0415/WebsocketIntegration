@@ -1,6 +1,6 @@
 package net.eve0415.mc.WebsocketIntegration.Interface
 
-public interface WSITask : ServerStatusInfo {
+public interface WITask : ServerStatusInfo {
   fun serverIsReady()
 
   fun updateStatus()

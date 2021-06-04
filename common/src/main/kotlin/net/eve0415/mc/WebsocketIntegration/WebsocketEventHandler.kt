@@ -3,8 +3,8 @@ package net.eve0415.mc.WebsocketIntegration
 import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import net.eve0415.mc.WebsocketIntegration.Enum.WSIEventState
-import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
+import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
+import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import org.json.JSONObject
 
 class WebsocketEventHandler constructor(val instance: WebsocketManager, val socket: Socket) {
@@ -18,8 +18,8 @@ class WebsocketEventHandler constructor(val instance: WebsocketManager, val sock
             loadReconnectEvent()
             configureRoom()
             if (instance.isStarting)
-                instance.send(WSIEventState.STARTING, instance.builder().basic().toJSON())
-            if (instance.platformType == WSIPlatformType.Velocity)
+                instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
+            if (instance.platformType == WIPlatformType.Velocity)
                 instance.bootstrap.sendServerInfo()
           }
         })
@@ -58,8 +58,8 @@ class WebsocketEventHandler constructor(val instance: WebsocketManager, val sock
                 instance.isConnected = true
                 configureRoom()
                 if (instance.isStarting)
-                    instance.send(WSIEventState.STARTING, instance.builder().basic().toJSON())
-                if (instance.platformType == WSIPlatformType.Velocity)
+                    instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
+                if (instance.platformType == WIPlatformType.Velocity)
                     instance.bootstrap.sendServerInfo()
               }
             })

@@ -9,11 +9,11 @@ import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
 import java.nio.file.Path
-import net.eve0415.mc.WebsocketIntegration.Config.WSIConfigFile
-import net.eve0415.mc.WebsocketIntegration.Config.WSIConfigKey
-import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
-import net.eve0415.mc.WebsocketIntegration.Interface.WSIBootstrap
-import net.eve0415.mc.WebsocketIntegration.Interface.WSILogger
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigFile
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
+import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
+import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
+import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
 import org.slf4j.Logger
 
 @Plugin(
@@ -21,26 +21,26 @@ import org.slf4j.Logger
     name = "WebsocketIntegration-Velocity",
     version = "@project.version@",
     authors = ["eve0415"])
-class WSIVelocityPlugin : WSIBootstrap {
+class WIVelocityPlugin : WIBootstrap {
   @Inject lateinit private var proxy: ProxyServer
   @Inject lateinit private var velocitylogger: Logger
   @Inject @DataDirectory lateinit private var configDir: Path
 
-  override val platformType = WSIPlatformType.Velocity
+  override val platformType = WIPlatformType.Velocity
 
   override var serverID = 0
 
-  override lateinit var config: WSIConfigKey
+  override lateinit var config: WIConfigKey
 
-  override lateinit var logger: WSILogger
+  override lateinit var logger: WILogger
 
   override lateinit var websocketManager: WebsocketManager
 
   override fun onEnable() {
     if (!configDir.toFile().exists()) configDir.toFile().mkdirs()
 
-    logger = WSIVelocityLogger(velocitylogger)
-    config = WSIConfigFile.load(configDir.resolve("config.yml").toFile())
+    logger = WIVelocityLogger(velocitylogger)
+    config = WIConfigFile.load(configDir.resolve("config.yml").toFile())
     websocketManager = WebsocketManager.start(this)
   }
 

@@ -27,6 +27,6 @@ dependencies {
 }
 
 // blossom {
-//   replaceTokenIn("src/main/kotlin/net/eve0415/mc/WebsocketIntegration/WSIVelocityPlugin.kt")
+//   replaceTokenIn("src/main/kotlin/net/eve0415/mc/WebsocketIntegration/WIVelocityPlugin.kt")
 //   replaceToken "@project.version@", project.version
 // }

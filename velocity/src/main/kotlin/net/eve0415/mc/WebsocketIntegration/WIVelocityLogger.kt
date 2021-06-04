@@ -1,9 +1,9 @@
 package net.eve0415.mc.WebsocketIntegration
 
-import net.eve0415.mc.WebsocketIntegration.Interface.WSILogger
+import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
 import org.slf4j.Logger
 
-public class WSIVelocityLogger constructor(val logger: Logger) : WSILogger {
+public class WIVelocityLogger constructor(val logger: Logger) : WILogger {
   override fun error(message: String, error: Throwable) {
     logger.error(message, error)
   }

@@ -1,6 +1,6 @@
 package net.eve0415.mc.WebsocketIntegration.Enum
 
-enum class WSIEventState {
+enum class WIEventState {
   STARTING,
   STOPPING,
   STATUS,

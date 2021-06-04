@@ -1,6 +1,6 @@
 package net.eve0415.mc.WebsocketIntegration.Interface
 
-public interface WSILogger {
+public interface WILogger {
   fun error(message: String, error: Throwable)
 
   fun error(message: String)

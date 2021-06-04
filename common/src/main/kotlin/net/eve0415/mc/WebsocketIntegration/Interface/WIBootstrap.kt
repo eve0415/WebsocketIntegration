@@ -1,17 +1,17 @@
 package net.eve0415.mc.WebsocketIntegration.Interface
 
-import net.eve0415.mc.WebsocketIntegration.Config.WSIConfigKey
-import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
+import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import net.eve0415.mc.WebsocketIntegration.WebsocketManager
 
-public interface WSIBootstrap {
-  val platformType: WSIPlatformType
+public interface WIBootstrap {
+  val platformType: WIPlatformType
 
   val serverID: Int
 
-  val config: WSIConfigKey
+  val config: WIConfigKey
 
-  val logger: WSILogger
+  val logger: WILogger
 
   val websocketManager: WebsocketManager
 

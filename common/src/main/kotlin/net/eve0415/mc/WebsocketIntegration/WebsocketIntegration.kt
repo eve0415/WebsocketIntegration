@@ -3,17 +3,17 @@ package net.eve0415.mc.WebsocketIntegration
 import io.socket.client.IO
 import io.socket.client.Socket
 import java.net.URISyntaxException
-import net.eve0415.mc.WebsocketIntegration.Enum.WSIEventState
-import net.eve0415.mc.WebsocketIntegration.Enum.WSIPlatformType
-import net.eve0415.mc.WebsocketIntegration.Interface.WSIBootstrap
+import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
+import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
+import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
 import org.json.JSONObject
 
-class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {
+class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
   val serverStartTime = System.nanoTime()
 
   var socket: Socket? = null
 
-  val platformType: WSIPlatformType = bootstrap.platformType
+  val platformType: WIPlatformType = bootstrap.platformType
   val serverID: Int = bootstrap.serverID
   val serverName: String =
       if (bootstrap.config.name.equals("auto")) platformType.name else bootstrap.config.name
@@ -22,7 +22,7 @@ class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {
   var isConnected = false
 
   companion object {
-    fun start(bootstrap: WSIBootstrap): WebsocketManager {
+    fun start(bootstrap: WIBootstrap): WebsocketManager {
       return WebsocketManager(bootstrap)
     }
   }
@@ -54,7 +54,7 @@ class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {
   }
 
   fun shutdown() {
-    if (!isStarting) send(WSIEventState.STOPPING, builder().basic().toJSON())
+    if (!isStarting) send(WIEventState.STOPPING, builder().basic().toJSON())
 
     socket?.close()
     socket = null
@@ -66,7 +66,7 @@ class WebsocketManager private constructor(val bootstrap: WSIBootstrap) {
     return WebsocketBuilder(this)
   }
 
-  fun send(event: WSIEventState, content: JSONObject) {
+  fun send(event: WIEventState, content: JSONObject) {
     if (isConnected) socket?.emit(event.name, content)
   }
 }
