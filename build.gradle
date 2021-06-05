@@ -22,8 +22,8 @@ allprojects {
 // }
 
 dependencies {
-  implementation project(':sponge')
-  implementation project(':velocity')
+  implementation project(path: ":sponge", configuration: "shadow")
+  implementation project(path: ":velocity", configuration: "shadow")
 }
 
 // blossom {

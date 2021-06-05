@@ -30,3 +30,7 @@ dependencies {
 //   replaceTokenIn("src/main/kotlin/net/eve0415/mc/WebsocketIntegration/WIVelocityPlugin.kt")
 //   replaceToken "@project.version@", project.version
 // }
+
+shadowJar {
+  archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
+}

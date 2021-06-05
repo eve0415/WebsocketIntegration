@@ -23,3 +23,7 @@ dependencies {
 //   replaceTokenIn('src/main/java/net/eve0415/spigot/WebsocketIntegration/WSISpongePlugin.java')
 //   replaceToken '@project.version@', project.version
 // }
+
+shadowJar {
+  archiveFileName = "WebsocketIntegration-Velocity-${project.version}.jar"
+}
