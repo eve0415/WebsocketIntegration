@@ -11,6 +11,7 @@ import com.velocitypowered.api.proxy.ProxyServer
 import java.nio.file.Path
 import kotlin.properties.Delegates
 import net.eve0415.mc.WebsocketIntegration.Config.*
+import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
 import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
@@ -48,13 +49,21 @@ class VelocityPlugin : WIBootstrap {
     VelocityEventListener(this)
   }
 
-  override fun onDisable() {}
+  override fun onDisable() {
+    websocketManager.shutdown()
+  }
 
   override fun getServerPort(): Int {
     return proxy.boundAddress.port
   }
 
-  override fun sendServerInfo() {}
+  override fun sendServerInfo() {
+    val message = websocketManager.builder()
+    proxy.allServers.forEach { server ->
+      message.setServerName(server.serverInfo.address.port, server.serverInfo.name)
+    }
+    websocketManager.send(WIEventState.SERVERINFO, message.toJSON())
+  }
 
   // Proxy will not handle any messages to send to players.
   override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {}
