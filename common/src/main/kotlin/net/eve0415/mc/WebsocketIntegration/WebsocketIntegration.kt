@@ -13,9 +13,10 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
   private var socket: Socket? = null
 
   val platformType: WIPlatformType = bootstrap.platformType
-  val serverID: Int = bootstrap.serverID
   val serverName: String =
       if (bootstrap.config.name.equals("auto")) platformType.name else bootstrap.config.name
+
+  var serverID: Int? = null
 
   var isStarting = true
   var isConnected = false
@@ -27,6 +28,7 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
   }
 
   fun initialize(): WebsocketManager {
+    serverID = bootstrap.serverID
     val logger = bootstrap.logger
     val configuration = bootstrap.config
 
