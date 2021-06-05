@@ -10,11 +10,6 @@ repositories {
   }
 }
 
-// tasks.withType(JavaCompile) {
-//   options.fork = true
-//   targetCompatibility = 11
-// }
-
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
   kotlinOptions { jvmTarget = 11 }
 }
@@ -32,5 +27,6 @@ dependencies {
 // }
 
 shadowJar {
+  exclude('META-INF/versions/')
   archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
 }

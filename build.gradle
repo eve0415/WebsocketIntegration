@@ -14,12 +14,13 @@ allprojects {
   repositories {
     mavenCentral()
   }
-}
 
-// tasks.withType(JavaCompile) {
-//   options.fork = true
-//   sourceCompatibility = 15
-// }
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(11)
+    }
+  }
+}
 
 dependencies {
   implementation project(path: ":sponge", configuration: "shadow")
@@ -31,6 +32,7 @@ dependencies {
 // }
 
 shadowJar {
+  exclude('META-INF/versions/')
   archiveFileName = "${project.name}-${project.version}.jar"
 }
 

@@ -1,11 +1,19 @@
 plugins {
   id "org.jetbrains.kotlin.jvm"
+  id "org.jetbrains.kotlin.kapt"
+  // id "org.spongepowered.gradle.plugin" version "1.0.1"
 }
 
 repositories {
   maven {
     name "sponge"
     url "https://repo.spongepowered.org/repository/maven-public/"
+  }
+}
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(8)
   }
 }
 
@@ -17,6 +25,7 @@ dependencies {
   implementation project(':common')
 
   compileOnly 'org.spongepowered:spongeapi:7.3.0'
+  kapt 'org.spongepowered:spongeapi:7.3.0'
 }
 
 // blossom {
@@ -25,5 +34,6 @@ dependencies {
 // }
 
 shadowJar {
+  exclude('META-INF/versions/')
   archiveFileName = "WebsocketIntegration-Velocity-${project.version}.jar"
 }
