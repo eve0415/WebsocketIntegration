@@ -22,6 +22,7 @@ allprojects {
 // }
 
 dependencies {
+  implementation project(':sponge')
   implementation project(':velocity')
 }
 
