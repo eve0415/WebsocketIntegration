@@ -17,7 +17,9 @@ public interface WIBootstrap {
 
   fun onEnable()
 
-  fun onDisable()
+  fun onDisable() {
+    websocketManager.shutdown()
+  }
 
   fun getServerPort(): Int?
 

@@ -45,10 +45,6 @@ class VelocityPlugin : WIBootstrap {
     VelocityEventListener(this)
   }
 
-  override fun onDisable() {
-    websocketManager.shutdown()
-  }
-
   override fun getServerPort(): Int {
     return proxy.boundAddress.port
   }
