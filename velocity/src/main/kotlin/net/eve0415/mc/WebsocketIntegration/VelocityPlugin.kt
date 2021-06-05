@@ -28,13 +28,9 @@ class VelocityPlugin : WIBootstrap {
   @Inject @DataDirectory lateinit private var configDir: Path
 
   override val platformType = WIPlatformType.Velocity
-
   override var serverID: Int by Delegates.notNull()
-
   override lateinit var config: WIConfigKey
-
   override lateinit var logger: WILogger
-
   override lateinit var websocketManager: WebsocketManager
 
   override fun onEnable() {
