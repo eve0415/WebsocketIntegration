@@ -23,9 +23,12 @@ import org.spongepowered.api.plugin.PluginContainer
     version = "@project.version@",
     authors = ["eve0415"])
 class SpongePlugin : WIBootstrap {
-  @Inject lateinit private var spongeLogger: Logger
-  @Inject lateinit private var container: PluginContainer
-  @Inject @DefaultConfig(sharedRoot = true) lateinit private var defaultConfig: Path
+  @Inject
+  private lateinit var spongeLogger: Logger
+  @Inject
+  private lateinit var container: PluginContainer
+  @Inject @DefaultConfig(sharedRoot = true)
+  private lateinit var defaultConfig: Path
 
   private var initialized = false
 
@@ -34,7 +37,7 @@ class SpongePlugin : WIBootstrap {
   override lateinit var config: WIConfigKey
   override lateinit var logger: WILogger
   override lateinit var websocketManager: WebsocketManager
-  lateinit var chatSender: SpongeChatHandler
+  private lateinit var chatSender: SpongeChatHandler
 
   override fun onEnable() {
     logger = SpongeLogger(spongeLogger)
@@ -44,7 +47,7 @@ class SpongePlugin : WIBootstrap {
     websocketManager = WebsocketManager.start(this)
   }
 
-  override fun getServerPort(): Int? {
+  override fun getServerPort(): Int {
     return Sponge.getServer().boundAddress.get().port
   }
 
@@ -54,11 +57,11 @@ class SpongePlugin : WIBootstrap {
   override fun sendServerInfo() {}
 
   private fun isServerAvailable(): Boolean {
-    return Sponge.getServer().getBoundAddress().isPresent()
+    return Sponge.getServer().boundAddress.isPresent
   }
 
   private fun checkStart() {
-    if (initialized == true) return
+    if (initialized) return
     if (config.id != 0 || isServerAvailable()) {
       serverID = config.id
       websocketManager.initialize()

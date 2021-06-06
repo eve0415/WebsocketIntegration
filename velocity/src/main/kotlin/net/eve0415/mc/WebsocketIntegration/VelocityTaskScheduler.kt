@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Interface.WITask
 
-public class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : WITask {
+class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : WITask {
   init {
     serverIsReady()
   }
@@ -27,7 +27,7 @@ public class VelocityTaskScheduler constructor(private val instance: VelocityPlu
         .scheduler
         .buildTask(
             instance,
-            Runnable() {
+            Runnable {
               fun run() {
                 instance.websocketManager.isStarting = false
                 updateStatus()
@@ -43,7 +43,7 @@ public class VelocityTaskScheduler constructor(private val instance: VelocityPlu
         .scheduler
         .buildTask(
             instance,
-            Runnable() {
+            Runnable {
               fun run() {
                 instance.websocketManager.send(
                     WIEventState.STATUS,

@@ -25,7 +25,7 @@ dependencies {
   implementation project(':common')
 
   compileOnly 'org.spongepowered:spongeapi:7.3.0'
-  kapt 'org.spongepowered:spongeapi:7.3.0'
+  // kapt 'org.spongepowered:spongeapi:7.3.0'
 }
 
 // blossom {

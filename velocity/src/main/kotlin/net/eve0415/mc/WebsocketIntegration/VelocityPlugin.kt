@@ -24,8 +24,10 @@ import org.slf4j.Logger
     authors = ["eve0415"])
 class VelocityPlugin : WIBootstrap {
   @Inject lateinit var proxy: ProxyServer
-  @Inject lateinit private var velocitylogger: Logger
-  @Inject @DataDirectory lateinit private var configDir: Path
+  @Inject
+  private lateinit var velocitylogger: Logger
+  @Inject @DataDirectory
+  private lateinit var configDir: Path
 
   override val platformType = WIPlatformType.Velocity
   override var serverID: Int by Delegates.notNull()

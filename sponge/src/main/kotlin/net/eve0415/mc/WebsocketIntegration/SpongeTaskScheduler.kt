@@ -6,7 +6,7 @@ import net.eve0415.mc.WebsocketIntegration.Interface.WITask
 import org.spongepowered.api.Sponge
 import org.spongepowered.api.scheduler.Task
 
-public class SpongeTaskScheduler constructor(private val instance: SpongePlugin) : WITask {
+class SpongeTaskScheduler constructor(private val instance: SpongePlugin) : WITask {
   private val taskBuilder = Task.builder()
   init {
     serverIsReady()
@@ -27,7 +27,7 @@ public class SpongeTaskScheduler constructor(private val instance: SpongePlugin)
   override fun serverIsReady() {
     taskBuilder
         .execute(
-            Runnable() {
+            Runnable {
               fun run() {
                 instance.websocketManager.isStarting = false
                 updateStatus()
@@ -40,7 +40,7 @@ public class SpongeTaskScheduler constructor(private val instance: SpongePlugin)
   override fun updateStatus() {
     taskBuilder
         .execute(
-            Runnable() {
+            Runnable {
               fun run() {
                 instance.websocketManager.send(
                     WIEventState.STATUS,

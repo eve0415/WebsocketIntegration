@@ -8,7 +8,7 @@ import org.spongepowered.api.service.user.UserStorageService
 import org.spongepowered.api.text.Text
 import org.spongepowered.api.text.action.TextActions
 
-public class SpongeChatHandler : WIChatHandler {
+class SpongeChatHandler : WIChatHandler {
   override fun chatHandler(name: String, uuid: String, url: String, message: String) {
     val mes = messageFormatter(getName(name, uuid), message)
     val component = Text.builder(mes)
@@ -18,7 +18,7 @@ public class SpongeChatHandler : WIChatHandler {
             .onHover(TextActions.showText(Text.of("Click to open the website!")))
             .onClick(TextActions.openUrl(URL(url)))
 
-    Sponge.getServer().getBroadcastChannel().send(component.build())
+    Sponge.getServer().broadcastChannel.send(component.build())
   }
 
   override fun getName(name: String, uuid: String): String {

@@ -5,7 +5,7 @@ import java.nio.file.Files
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor
 
-public class WIConfigFile {
+class WIConfigFile {
   companion object {
     fun load(file: File): WIConfigKey {
       if (!file.exists())

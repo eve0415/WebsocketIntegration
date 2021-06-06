@@ -34,7 +34,7 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
 
     logger.info("Starting WebsocketIntegration on " + bootstrap.platformType + "...")
 
-    if (!(0 <= configuration.port && configuration.port <= 65535)) {
+    if (!(configuration.port in 0..65535)) {
       logger.error("Invalid port configured")
       shutdown()
     }

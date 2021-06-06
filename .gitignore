@@ -7,6 +7,9 @@ bin
 .classpath
 .settings
 
+# IntelliJ
+.idea
+
 # Ignore Gradle project-specific cache directory
 .gradle
 

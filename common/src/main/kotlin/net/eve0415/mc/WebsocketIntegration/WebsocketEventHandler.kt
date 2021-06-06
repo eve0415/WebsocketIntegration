@@ -21,7 +21,7 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
 
     socket.on(Socket.EVENT_DISCONNECT) {
       fun call(reason: String) {
-        instance.bootstrap.logger.info("Disconnected: " + reason)
+        instance.bootstrap.logger.info("Disconnected: $reason")
         if (reason.equals("io server disconnect")) socket.connect()
         instance.isConnected = false
       }
@@ -37,7 +37,7 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
     }
   }
 
-  fun loadReconnectEvent() {
+  private fun loadReconnectEvent() {
     socket.io().on(Manager.EVENT_RECONNECT) {
       instance.bootstrap.logger.info("Reconnected")
       instance.isConnected = true
@@ -48,7 +48,7 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
     }
   }
 
-  fun configureRoom() {
+  private fun configureRoom() {
     socket.emit("ROOM", instance.serverID)
   }
 }

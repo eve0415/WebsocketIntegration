@@ -36,4 +36,4 @@ shadowJar {
   archiveFileName = "${project.name}-${project.version}.jar"
 }
 
-build.dependsOn(shadowJar);
+build.dependsOn(shadowJar)

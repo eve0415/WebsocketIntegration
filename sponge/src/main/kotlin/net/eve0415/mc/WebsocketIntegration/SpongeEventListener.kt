@@ -15,8 +15,8 @@ import org.spongepowered.api.event.message.MessageChannelEvent
 import org.spongepowered.api.event.network.ClientConnectionEvent.*
 import org.spongepowered.api.util.Tristate
 
-public class SpongeEventListener constructor(private val instance: SpongePlugin) {
-  val manager: WebsocketManager
+class SpongeEventListener constructor(instance: SpongePlugin) {
+  private val manager: WebsocketManager
 
   init {
     Sponge.getEventManager().registerListeners(instance, this)
@@ -60,7 +60,7 @@ public class SpongeEventListener constructor(private val instance: SpongePlugin)
   @Listener
   fun onMessage(event: MessageChannelEvent.Chat) {
     val player = event.cause.first(Player::class.java).get()
-    val playerName = "<" + player.getName() + "> "
+    val playerName = "<" + player.name + "> "
     sendChatMessage(
         player.name, player.uniqueId, event.message.toPlain().substring(playerName.length))
   }
@@ -100,7 +100,7 @@ public class SpongeEventListener constructor(private val instance: SpongePlugin)
   fun onLogin(event: Login) {
     val connection = event.connection
     val profile = event.profile
-    if (event.isCancelled()) {
+    if (event.isCancelled) {
       manager.send(
           WIEventState.LOG,
           manager

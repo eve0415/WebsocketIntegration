@@ -6,7 +6,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 import org.json.JSONObject
 
-public class WebsocketBuilder constructor(private val instance: WebsocketManager) {
+class WebsocketBuilder constructor(private val instance: WebsocketManager) {
   private val obj = JSONObject()
   private val runtime = Runtime.getRuntime()
 
@@ -17,7 +17,7 @@ public class WebsocketBuilder constructor(private val instance: WebsocketManager
     val hours = (tempSec / (60 * 60)) % 24
     val minutes = (tempSec / 60) % 60
     val seconds = tempSec % 60
-    val time = days.toString() + ":" + hours + ":" + minutes + ":" + seconds
+    val time = "$days:$hours:$minutes:$seconds"
 
     obj.put("platform", instance.platformType.value)
     obj.put("serverId", instance.serverID)

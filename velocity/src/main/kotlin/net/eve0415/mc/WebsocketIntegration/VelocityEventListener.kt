@@ -15,8 +15,8 @@ import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 
-public class VelocityEventListener constructor(private val instance: VelocityPlugin) {
-  val manager: WebsocketManager
+class VelocityEventListener constructor(instance: VelocityPlugin) {
+  private val manager: WebsocketManager
 
   init {
     instance.proxy.eventManager.register(instance, this)
@@ -125,15 +125,15 @@ public class VelocityEventListener constructor(private val instance: VelocityPlu
 
     if (result is DisconnectPlayer) {
       message
-          .kick(getReason(event.getServerKickReason(), result.reasonComponent))
+          .kick(getReason(event.serverKickReason, result.reasonComponent))
           .fulfill("Disconnect Player")
     } else if (result is RedirectPlayer) {
       message
-          .kick(getReason(event.getServerKickReason(), result.messageComponent))
+          .kick(getReason(event.serverKickReason, result.messageComponent))
           .fulfill("Redirect Player")
     } else if (result is Notify) {
       message
-          .kick(getReason(event.getServerKickReason(), result.messageComponent))
+          .kick(getReason(event.serverKickReason, result.messageComponent))
           .fulfill("Notify Player")
     }
 
@@ -146,7 +146,7 @@ public class VelocityEventListener constructor(private val instance: VelocityPlu
   }
 
   private fun getReason(optional: Optional<Component>, event: Component?): Component {
-    if (!optional.isPresent() && event == null)
+    if (!optional.isPresent && event == null)
         return PlainComponentSerializer.plain().deserialize("Unknown Reason")
     return event ?: optional.get()
   }
