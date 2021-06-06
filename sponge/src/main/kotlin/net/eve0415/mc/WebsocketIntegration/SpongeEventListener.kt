@@ -53,7 +53,7 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
   @Listener
   fun onDeath(event: DestructEntityEvent.Death) {
     val player = event.targetEntity
-    if (!(player is Player)) return
+    if (player !is Player) return
     sendChatMessage(player.name, player.uniqueId, event.message.toPlain())
   }
 
@@ -62,7 +62,10 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
     val player = event.cause.first(Player::class.java).get()
     val playerName = "<" + player.name + "> "
     sendChatMessage(
-        player.name, player.uniqueId, event.message.toPlain().substring(playerName.length))
+      player.name,
+      player.uniqueId,
+      event.message.toPlain().substring(playerName.length)
+    )
   }
 
   @Listener

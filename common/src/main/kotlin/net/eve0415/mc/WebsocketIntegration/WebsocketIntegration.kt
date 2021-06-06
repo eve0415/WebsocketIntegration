@@ -14,7 +14,7 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
 
   val platformType: WIPlatformType = bootstrap.platformType
   val serverName: String =
-      if (bootstrap.config.name.equals("auto")) platformType.name else bootstrap.config.name
+      if (bootstrap.config.name == "auto") platformType.name else bootstrap.config.name
 
   var serverID: Int? = null
 
@@ -39,7 +39,7 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
       shutdown()
     }
 
-    val socket = IO.socket("http://" + configuration.address + ":" + configuration.port)
+    val socket = IO.socket("http://$configuration.address:$configuration.port")
     WebsocketEventHandler(this, socket)
     socket.connect()
 

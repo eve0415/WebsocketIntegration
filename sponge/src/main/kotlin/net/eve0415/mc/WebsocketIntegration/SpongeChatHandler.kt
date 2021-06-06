@@ -13,7 +13,7 @@ class SpongeChatHandler : WIChatHandler {
     val mes = messageFormatter(getName(name, uuid), message)
     val component = Text.builder(mes)
 
-    if (!url.equals("null"))
+    if (url != "null")
         component
             .onHover(TextActions.showText(Text.of("Click to open the website!")))
             .onClick(TextActions.openUrl(URL(url)))
@@ -22,7 +22,7 @@ class SpongeChatHandler : WIChatHandler {
   }
 
   override fun getName(name: String, uuid: String): String {
-    if (uuid.equals("null")) return name
+    if (uuid == "null") return name
     val userStorage = Sponge.getServiceManager().provide(UserStorageService::class.java)
     return Sponge.getServer().getPlayer(UUID.fromString(uuid)).get().name
         ?: userStorage.get().get(uuid).get().name
