@@ -1,6 +1,6 @@
-package net.eve0415.mc.WebsocketIntegration
+package net.eve0415.mc.websocketintegration
 
-import net.eve0415.mc.WebsocketIntegration.Interface.WIChatHandler
+import net.eve0415.mc.websocketintegration.constructor.WIChatHandler
 import org.spongepowered.api.Sponge
 import org.spongepowered.api.service.user.UserStorageService
 import org.spongepowered.api.text.Text

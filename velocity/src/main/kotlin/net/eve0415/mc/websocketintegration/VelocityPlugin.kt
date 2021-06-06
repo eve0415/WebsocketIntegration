@@ -1,4 +1,4 @@
-package net.eve0415.mc.WebsocketIntegration
+package net.eve0415.mc.websocketintegration
 
 import com.google.inject.Inject
 import com.velocitypowered.api.event.PostOrder
@@ -8,12 +8,12 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
-import net.eve0415.mc.WebsocketIntegration.Config.WIConfigFile
-import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
-import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
-import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
-import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
-import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
+import net.eve0415.mc.websocketintegration.config.WIConfigFile
+import net.eve0415.mc.websocketintegration.config.WIConfigKey
+import net.eve0415.mc.websocketintegration.constructor.WIBootstrap
+import net.eve0415.mc.websocketintegration.constructor.WILogger
+import net.eve0415.mc.websocketintegration.type.WIEventState
+import net.eve0415.mc.websocketintegration.type.WIPlatformType
 import org.slf4j.Logger
 import java.nio.file.Path
 import kotlin.properties.Delegates

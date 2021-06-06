@@ -1,9 +1,9 @@
-package net.eve0415.mc.WebsocketIntegration
+package net.eve0415.mc.websocketintegration
 
 import io.socket.client.Manager
 import io.socket.client.Socket
-import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
-import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
+import net.eve0415.mc.websocketintegration.type.WIEventState
+import net.eve0415.mc.websocketintegration.type.WIPlatformType
 import org.json.JSONObject
 
 class WebsocketEventHandler

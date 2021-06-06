@@ -1,9 +1,9 @@
-package net.eve0415.mc.WebsocketIntegration
+package net.eve0415.mc.websocketintegration
 
-import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
+import net.eve0415.mc.websocketintegration.constructor.WILogger
 import org.slf4j.Logger
 
-class SpongeLogger constructor(private val logger: Logger) : WILogger {
+class VelocityLogger constructor(private val logger: Logger) : WILogger {
   override fun error(message: String, error: Throwable) {
     logger.error(message, error)
   }

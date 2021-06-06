@@ -1,8 +1,8 @@
-package net.eve0415.mc.WebsocketIntegration.Interface
+package net.eve0415.mc.websocketintegration.constructor
 
-import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
-import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
-import net.eve0415.mc.WebsocketIntegration.WebsocketManager
+import net.eve0415.mc.websocketintegration.WebsocketManager
+import net.eve0415.mc.websocketintegration.config.WIConfigKey
+import net.eve0415.mc.websocketintegration.type.WIPlatformType
 
 interface WIBootstrap {
   val platformType: WIPlatformType

@@ -1,4 +1,4 @@
-package net.eve0415.mc.WebsocketIntegration
+package net.eve0415.mc.websocketintegration
 
 import com.velocitypowered.api.event.Subscribe
 import com.velocitypowered.api.event.connection.DisconnectEvent
@@ -9,8 +9,8 @@ import com.velocitypowered.api.event.player.KickedFromServerEvent.*
 import com.velocitypowered.api.event.player.ServerPostConnectEvent
 import com.velocitypowered.api.event.player.ServerPreConnectEvent
 import com.velocitypowered.api.proxy.Player
-import net.eve0415.mc.WebsocketIntegration.Enum.LogEventType
-import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
+import net.eve0415.mc.websocketintegration.type.LogEventType
+import net.eve0415.mc.websocketintegration.type.WIEventState
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 import java.util.*

@@ -1,4 +1,4 @@
-package net.eve0415.mc.WebsocketIntegration.Config
+package net.eve0415.mc.websocketintegration.config
 
 import kotlin.properties.Delegates
 

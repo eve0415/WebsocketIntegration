@@ -1,4 +1,4 @@
-package net.eve0415.mc.WebsocketIntegration.Interface
+package net.eve0415.mc.websocketintegration.constructor
 
 interface WILogger {
   fun error(message: String, error: Throwable)

@@ -1,4 +1,4 @@
-package net.eve0415.mc.WebsocketIntegration.Enum
+package net.eve0415.mc.websocketintegration.type
 
 enum class WIEventState {
   STARTING,

@@ -1,4 +1,4 @@
-package net.eve0415.mc.WebsocketIntegration.Interface
+package net.eve0415.mc.websocketintegration.constructor
 
 interface WIChatHandler {
   fun chatHandler(name: String, uuid: String, url: String, message: String)
