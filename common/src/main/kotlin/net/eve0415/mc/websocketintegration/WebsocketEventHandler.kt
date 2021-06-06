@@ -20,11 +20,9 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
     }
 
     socket.on(Socket.EVENT_DISCONNECT) {
-      fun call(reason: String) {
-        instance.bootstrap.logger.info("Disconnected: $reason")
-        if (reason == "io server disconnect") socket.connect()
-        instance.isConnected = false
-      }
+      instance.bootstrap.logger.info("Disconnected: ${it[0].toString()}")
+      if (it[0].toString() == "io server disconnect") socket.connect()
+      instance.isConnected = false
     }
 
     socket.on("chat") {
