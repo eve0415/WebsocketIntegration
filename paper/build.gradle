@@ -1,0 +1,31 @@
+plugins {
+  id "org.jetbrains.kotlin.jvm"
+}
+
+repositories {
+  maven {
+    name "papermc"
+    url "https://papermc.io/repo/repository/maven-public/"
+  }
+}
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(16)
+  }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+  kotlinOptions { jvmTarget = 16 }
+}
+
+dependencies {
+  implementation project(":common")
+
+  compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
+}
+
+shadowJar {
+  exclude('META-INF/versions/')
+  archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
+}

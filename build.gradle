@@ -14,15 +14,10 @@ allprojects {
   repositories {
     mavenCentral()
   }
-
-  java {
-    toolchain {
-      languageVersion = JavaLanguageVersion.of(11)
-    }
-  }
 }
 
 dependencies {
+  implementation project(path: ":paper", configuration: "shadow")
   implementation project(path: ":sponge", configuration: "shadow")
   implementation project(path: ":velocity", configuration: "shadow")
 }
