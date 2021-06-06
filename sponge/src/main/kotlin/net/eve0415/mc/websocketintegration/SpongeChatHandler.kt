@@ -9,7 +9,7 @@ import java.net.URL
 import java.util.*
 
 class SpongeChatHandler : WIChatHandler {
-  override fun chatHandler(name: String, uuid: String, url: String, message: String) {
+  override fun send(name: String, uuid: String, url: String, message: String) {
     val mes = messageFormatter(getName(name, uuid), message)
     val component = Text.builder(mes)
 

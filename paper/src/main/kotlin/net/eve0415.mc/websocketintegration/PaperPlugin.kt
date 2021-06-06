@@ -36,7 +36,7 @@ class PaperPlugin : JavaPlugin(), WIBootstrap {
   }
 
   override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {
-    chatHandler.chatHandler(name, uuid, url, message)
+    chatHandler.send(name, uuid, url, message)
   }
 
   // Do nothing
