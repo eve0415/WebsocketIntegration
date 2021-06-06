@@ -41,8 +41,6 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
       instance.bootstrap.logger.info("Reconnected")
       instance.isConnected = true
       configureRoom()
-      if (instance.isStarting)
-        instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
       if (instance.platformType == WIPlatformType.Velocity) instance.bootstrap.sendServerInfo()
     }
   }
