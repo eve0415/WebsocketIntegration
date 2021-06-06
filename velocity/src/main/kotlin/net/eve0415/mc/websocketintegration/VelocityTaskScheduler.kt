@@ -26,13 +26,11 @@ class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : 
       .proxy
       .scheduler
       .buildTask(
-        instance,
-        Runnable {
-          fun run() {
-            instance.websocketManager.isStarting = false
-            updateStatus()
-          }
-        })
+        instance
+      ) {
+        instance.websocketManager.isStarting = false
+        updateStatus()
+      }
       .delay(5, TimeUnit.SECONDS)
       .schedule()
   }
@@ -42,20 +40,18 @@ class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : 
       .proxy
       .scheduler
       .buildTask(
-        instance,
-        Runnable {
-          fun run() {
-            instance.websocketManager.send(
-              WIEventState.STATUS,
-              instance
-                .websocketManager
-                .builder()
-                .basic()
-                .status(getOnlinePlayers(), getMaxPlayers(), getTPS())
-                .toJSON()
-            )
-          }
-        })
+        instance
+      ) {
+        instance.websocketManager.send(
+          WIEventState.STATUS,
+          instance
+            .websocketManager
+            .builder()
+            .basic()
+            .status(getOnlinePlayers(), getMaxPlayers(), getTPS())
+            .toJSON()
+        )
+      }
       .repeat(20, TimeUnit.SECONDS)
       .schedule()
   }

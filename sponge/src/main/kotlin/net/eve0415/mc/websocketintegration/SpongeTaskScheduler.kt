@@ -29,10 +29,8 @@ class SpongeTaskScheduler constructor(private val instance: SpongePlugin) : WITa
     taskBuilder
       .execute(
         Runnable {
-          fun run() {
-            instance.websocketManager.isStarting = false
-            updateStatus()
-          }
+          instance.websocketManager.isStarting = false
+          updateStatus()
         })
       .async()
       .submit(instance)
@@ -42,17 +40,15 @@ class SpongeTaskScheduler constructor(private val instance: SpongePlugin) : WITa
     taskBuilder
       .execute(
         Runnable {
-          fun run() {
-            instance.websocketManager.send(
-              WIEventState.STATUS,
-              instance
-                .websocketManager
-                .builder()
-                .basic()
-                .status(getOnlinePlayers(), getMaxPlayers(), getTPS())
-                .toJSON()
-            )
-          }
+          instance.websocketManager.send(
+            WIEventState.STATUS,
+            instance
+              .websocketManager
+              .builder()
+              .basic()
+              .status(getOnlinePlayers(), getMaxPlayers(), getTPS())
+              .toJSON()
+          )
         })
       .async()
       .interval(20, TimeUnit.SECONDS)
