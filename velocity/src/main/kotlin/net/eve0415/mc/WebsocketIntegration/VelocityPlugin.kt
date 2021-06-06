@@ -8,25 +8,31 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
-import java.nio.file.Path
-import kotlin.properties.Delegates
-import net.eve0415.mc.WebsocketIntegration.Config.*
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigFile
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
 import net.eve0415.mc.WebsocketIntegration.Interface.WILogger
 import org.slf4j.Logger
+import java.nio.file.Path
+import kotlin.properties.Delegates
 
 @Plugin(
-    id = "websocketintegration",
-    name = "WebsocketIntegration-Velocity",
-    version = "@project.version@",
-    authors = ["eve0415"])
+  id = "websocketintegration",
+  name = "WebsocketIntegration-Velocity",
+  version = "@project.version@",
+  authors = ["eve0415"]
+)
 class VelocityPlugin : WIBootstrap {
-  @Inject lateinit var proxy: ProxyServer
+  @Inject
+  lateinit var proxy: ProxyServer
+
   @Inject
   private lateinit var velocitylogger: Logger
-  @Inject @DataDirectory
+
+  @Inject
+  @DataDirectory
   private lateinit var configDir: Path
 
   override val platformType = WIPlatformType.Velocity

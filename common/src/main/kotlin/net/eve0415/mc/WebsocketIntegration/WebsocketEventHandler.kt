@@ -15,7 +15,7 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
       loadReconnectEvent()
       configureRoom()
       if (instance.isStarting)
-          instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
+        instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
       if (instance.platformType == WIPlatformType.Velocity) instance.bootstrap.sendServerInfo()
     }
 
@@ -30,10 +30,11 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
     socket.on("chat") {
       val json = it[0] as JSONObject
       instance.bootstrap.handleChatMessage(
-          json.getString("name"),
-          json.getString("UUID"),
-          json.getString("URL"),
-          json.getString("message"))
+        json.getString("name"),
+        json.getString("UUID"),
+        json.getString("URL"),
+        json.getString("message")
+      )
     }
   }
 
@@ -43,7 +44,7 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
       instance.isConnected = true
       configureRoom()
       if (instance.isStarting)
-          instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
+        instance.send(WIEventState.STARTING, instance.builder().basic().toJSON())
       if (instance.platformType == WIPlatformType.Velocity) instance.bootstrap.sendServerInfo()
     }
   }

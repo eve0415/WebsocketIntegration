@@ -8,6 +8,7 @@ enum class WIEventState {
   ADVANCEMENT,
   SERVERINFO,
   LOG,
+
   // For Forge Server
   CONSTRUCTING,
   PREINITIALIZATION,

@@ -1,10 +1,10 @@
 package net.eve0415.mc.WebsocketIntegration
 
-import java.util.UUID
 import net.eve0415.mc.WebsocketIntegration.Enum.LogEventType
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
 import org.json.JSONObject
+import java.util.*
 
 class WebsocketBuilder constructor(private val instance: WebsocketManager) {
   private val obj = JSONObject()
@@ -24,7 +24,8 @@ class WebsocketBuilder constructor(private val instance: WebsocketManager) {
     obj.put("serverName", instance.serverName)
     obj.put("totalMemory", (runtime.totalMemory() / 1048576L).toString() + "MB")
     obj.put(
-        "usedMemory", ((runtime.totalMemory() - runtime.freeMemory()) / 1048576L).toString() + "MB")
+      "usedMemory", ((runtime.totalMemory() - runtime.freeMemory()) / 1048576L).toString() + "MB"
+    )
     obj.put("freeMemory", (runtime.freeMemory() / 1048576L).toString() + "MB")
     obj.put("uptime", time)
     return this

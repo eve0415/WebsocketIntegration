@@ -1,6 +1,5 @@
 package net.eve0415.mc.WebsocketIntegration
 
-import java.util.UUID
 import net.eve0415.mc.WebsocketIntegration.Enum.LogEventType
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import org.spongepowered.api.Sponge
@@ -14,6 +13,7 @@ import org.spongepowered.api.event.filter.IsCancelled
 import org.spongepowered.api.event.message.MessageChannelEvent
 import org.spongepowered.api.event.network.ClientConnectionEvent.*
 import org.spongepowered.api.util.Tristate
+import java.util.*
 
 class SpongeEventListener constructor(instance: SpongePlugin) {
   private val manager: WebsocketManager
@@ -39,15 +39,17 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
     sendChatMessage(event.targetEntity.name, event.targetEntity.uniqueId, event.message.toPlain())
 
     manager.send(
-        WIEventState.LOG,
-        manager
-            .builder()
-            .log(
-                LogEventType.DISCONNECT,
-                player.name,
-                player.uniqueId,
-                player.connection.address.hostString)
-            .toJSON())
+      WIEventState.LOG,
+      manager
+        .builder()
+        .log(
+          LogEventType.DISCONNECT,
+          player.name,
+          player.uniqueId,
+          player.connection.address.hostString
+        )
+        .toJSON()
+    )
   }
 
   @Listener
@@ -74,11 +76,12 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
     if (event.advancement.id.contains("recipes_")) return
     val adv = event.advancement.id.replace(':', '_').replace('/', '_').uppercase()
     manager.send(
-        WIEventState.ADVANCEMENT,
-        manager
-            .builder()
-            .message(event.targetEntity.name, event.targetEntity.uniqueId, adv)
-            .toJSON())
+      WIEventState.ADVANCEMENT,
+      manager
+        .builder()
+        .message(event.targetEntity.name, event.targetEntity.uniqueId, adv)
+        .toJSON()
+    )
   }
 
   @Listener(order = Order.PRE)
@@ -86,16 +89,18 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
     val connection = event.connection
     val profile = event.profile
     manager.send(
-        WIEventState.LOG,
-        manager
-            .builder()
-            .log(
-                LogEventType.AUTH,
-                profile.name.get(),
-                profile.uniqueId,
-                connection.address.hostString)
-            .setAddress(connection.virtualHost.toString())
-            .toJSON())
+      WIEventState.LOG,
+      manager
+        .builder()
+        .log(
+          LogEventType.AUTH,
+          profile.name.get(),
+          profile.uniqueId,
+          connection.address.hostString
+        )
+        .setAddress(connection.virtualHost.toString())
+        .toJSON()
+    )
   }
 
   @Listener(order = Order.BEFORE_POST)
@@ -105,29 +110,33 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
     val profile = event.profile
     if (event.isCancelled) {
       manager.send(
-          WIEventState.LOG,
-          manager
-              .builder()
-              .log(
-                  LogEventType.AUTH,
-                  profile.name.get(),
-                  profile.uniqueId,
-                  connection.address.hostString)
-              .setAddress(connection.virtualHost.toString())
-              .kick(event.message.toPlain())
-              .toJSON())
+        WIEventState.LOG,
+        manager
+          .builder()
+          .log(
+            LogEventType.AUTH,
+            profile.name.get(),
+            profile.uniqueId,
+            connection.address.hostString
+          )
+          .setAddress(connection.virtualHost.toString())
+          .kick(event.message.toPlain())
+          .toJSON()
+      )
     } else {
       manager.send(
-          WIEventState.LOG,
-          manager
-              .builder()
-              .log(
-                  LogEventType.AUTH,
-                  profile.name.get(),
-                  profile.uniqueId,
-                  connection.address.hostString)
-              .setAddress(connection.virtualHost.toString())
-              .toJSON())
+        WIEventState.LOG,
+        manager
+          .builder()
+          .log(
+            LogEventType.AUTH,
+            profile.name.get(),
+            profile.uniqueId,
+            connection.address.hostString
+          )
+          .setAddress(connection.virtualHost.toString())
+          .toJSON()
+      )
     }
   }
 
@@ -135,15 +144,17 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
   fun onKick(event: KickPlayerEvent) {
     val profile = event.targetEntity
     manager.send(
-        WIEventState.LOG,
-        manager
-            .builder()
-            .log(
-                LogEventType.KICK,
-                profile.name,
-                profile.uniqueId,
-                profile.connection.address.hostString)
-            .kick(event.message.toPlain())
-            .toJSON())
+      WIEventState.LOG,
+      manager
+        .builder()
+        .log(
+          LogEventType.KICK,
+          profile.name,
+          profile.uniqueId,
+          profile.connection.address.hostString
+        )
+        .kick(event.message.toPlain())
+        .toJSON()
+    )
   }
 }

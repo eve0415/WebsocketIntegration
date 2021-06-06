@@ -1,9 +1,8 @@
 package net.eve0415.mc.WebsocketIntegration
 
 import com.google.inject.Inject
-import java.nio.file.Path
-import kotlin.properties.Delegates
-import net.eve0415.mc.WebsocketIntegration.Config.*
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigFile
+import net.eve0415.mc.WebsocketIntegration.Config.WIConfigKey
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Enum.WIPlatformType
 import net.eve0415.mc.WebsocketIntegration.Interface.WIBootstrap
@@ -15,19 +14,25 @@ import org.spongepowered.api.event.Listener
 import org.spongepowered.api.event.game.state.*
 import org.spongepowered.api.plugin.Plugin
 import org.spongepowered.api.plugin.PluginContainer
+import java.nio.file.Path
+import kotlin.properties.Delegates
 
 @Plugin(
-    id = "websocketintegration",
-    name = "WebsocketIntegration-Sponge",
-    description = "Send server status, log, chat via websocket",
-    version = "@project.version@",
-    authors = ["eve0415"])
+  id = "websocketintegration",
+  name = "WebsocketIntegration-Sponge",
+  description = "Send server status, log, chat via websocket",
+  version = "@project.version@",
+  authors = ["eve0415"]
+)
 class SpongePlugin : WIBootstrap {
   @Inject
   private lateinit var spongeLogger: Logger
+
   @Inject
   private lateinit var container: PluginContainer
-  @Inject @DefaultConfig(sharedRoot = true)
+
+  @Inject
+  @DefaultConfig(sharedRoot = true)
   private lateinit var defaultConfig: Path
 
   private var initialized = false

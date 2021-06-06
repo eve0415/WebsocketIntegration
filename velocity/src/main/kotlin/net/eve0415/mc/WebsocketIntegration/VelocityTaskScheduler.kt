@@ -1,8 +1,8 @@
 package net.eve0415.mc.WebsocketIntegration
 
-import java.util.concurrent.TimeUnit
 import net.eve0415.mc.WebsocketIntegration.Enum.WIEventState
 import net.eve0415.mc.WebsocketIntegration.Interface.WITask
+import java.util.concurrent.TimeUnit
 
 class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : WITask {
   init {
@@ -23,39 +23,40 @@ class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : 
 
   override fun serverIsReady() {
     instance
-        .proxy
-        .scheduler
-        .buildTask(
-            instance,
-            Runnable {
-              fun run() {
-                instance.websocketManager.isStarting = false
-                updateStatus()
-              }
-            })
-        .delay(5, TimeUnit.SECONDS)
-        .schedule()
+      .proxy
+      .scheduler
+      .buildTask(
+        instance,
+        Runnable {
+          fun run() {
+            instance.websocketManager.isStarting = false
+            updateStatus()
+          }
+        })
+      .delay(5, TimeUnit.SECONDS)
+      .schedule()
   }
 
   override fun updateStatus() {
     instance
-        .proxy
-        .scheduler
-        .buildTask(
-            instance,
-            Runnable {
-              fun run() {
-                instance.websocketManager.send(
-                    WIEventState.STATUS,
-                    instance
-                        .websocketManager
-                        .builder()
-                        .basic()
-                        .status(getOnlinePlayers(), getMaxPlayers(), getTPS())
-                        .toJSON())
-              }
-            })
-        .repeat(20, TimeUnit.SECONDS)
-        .schedule()
+      .proxy
+      .scheduler
+      .buildTask(
+        instance,
+        Runnable {
+          fun run() {
+            instance.websocketManager.send(
+              WIEventState.STATUS,
+              instance
+                .websocketManager
+                .builder()
+                .basic()
+                .status(getOnlinePlayers(), getMaxPlayers(), getTPS())
+                .toJSON()
+            )
+          }
+        })
+      .repeat(20, TimeUnit.SECONDS)
+      .schedule()
   }
 }
