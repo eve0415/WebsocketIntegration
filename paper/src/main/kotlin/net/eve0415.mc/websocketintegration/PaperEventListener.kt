@@ -13,7 +13,7 @@ import org.bukkit.event.player.*
 import java.util.*
 
 
-class PaperEventListener constructor(private val instance: PaperPlugin) : Listener {
+class PaperEventListener constructor(instance: PaperPlugin) : Listener {
   private val manager: WebsocketManager
 
   init {

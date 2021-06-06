@@ -34,12 +34,12 @@ class WebsocketManager private constructor(val bootstrap: WIBootstrap) {
 
     logger.info("Starting WebsocketIntegration on " + bootstrap.platformType + "...")
 
-    if (!(configuration.port in 0..65535)) {
+    if (configuration.port !in 0..65535) {
       logger.error("Invalid port configured")
       shutdown()
     }
 
-    val socket = IO.socket("http://$configuration.address:$configuration.port")
+    val socket = IO.socket("http://${configuration.address}:${configuration.port}")
     WebsocketEventHandler(this, socket)
     socket.connect()
 

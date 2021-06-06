@@ -47,7 +47,7 @@ class SpongePlugin : WIBootstrap {
   override fun onEnable() {
     logger = SpongeLogger(spongeLogger)
     config = WIConfigFile.load(defaultConfig.parent.resolve("WebsocketIntegration.yml").toFile())
-    chatSender = SpongeChatHandler()
+    chatHandler = SpongeChatHandler()
 
     websocketManager = WebsocketManager.start(this)
   }
