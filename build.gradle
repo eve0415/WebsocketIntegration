@@ -1,7 +1,6 @@
 plugins {
   id "org.jetbrains.kotlin.jvm"
   id "com.github.johnrengelman.shadow"
-  id "net.kyori.blossom"
 }
 
 allprojects {
@@ -21,10 +20,6 @@ dependencies {
   implementation project(path: ":sponge", configuration: "shadow")
   implementation project(path: ":velocity", configuration: "shadow")
 }
-
-// blossom {
-//   replaceToken "@project.version@", project.version
-// }
 
 shadowJar {
   exclude('META-INF/versions/')

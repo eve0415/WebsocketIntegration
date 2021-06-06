@@ -1,6 +1,7 @@
 plugins {
   id "org.jetbrains.kotlin.jvm"
   id "org.jetbrains.kotlin.kapt"
+  id "net.kyori.blossom"
 }
 
 repositories {
@@ -27,10 +28,9 @@ dependencies {
   kapt "com.velocitypowered:velocity-api:1.1.6-SNAPSHOT"
 }
 
-// blossom {
-//   replaceTokenIn("src/main/kotlin/net/eve0415/mc/WebsocketIntegration/WIVelocityPlugin.kt")
-//   replaceToken "@project.version@", project.version
-// }
+blossom {
+  replaceToken("pluginVersion", project.version)
+}
 
 shadowJar {
   exclude('META-INF/versions/')

@@ -21,7 +21,7 @@ import kotlin.properties.Delegates
 @Plugin(
   id = "websocketintegration",
   name = "WebsocketIntegration-Velocity",
-  version = "@project.version@",
+  version = "pluginVersion",
   authors = ["eve0415"]
 )
 class VelocityPlugin : WIBootstrap {

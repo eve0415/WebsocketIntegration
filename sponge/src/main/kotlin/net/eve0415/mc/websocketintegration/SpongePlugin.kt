@@ -21,7 +21,7 @@ import kotlin.properties.Delegates
   id = "websocketintegration",
   name = "WebsocketIntegration-Sponge",
   description = "Send server status, log, chat via websocket",
-  version = "@project.version@",
+  version = "pluginVersion",
   authors = ["eve0415"]
 )
 class SpongePlugin : WIBootstrap {

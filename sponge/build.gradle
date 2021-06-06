@@ -1,7 +1,6 @@
 plugins {
   id "org.jetbrains.kotlin.jvm"
-  id "org.jetbrains.kotlin.kapt"
-  // id "org.spongepowered.gradle.plugin" version "1.0.1"
+  id "net.kyori.blossom"
 }
 
 repositories {
@@ -25,13 +24,11 @@ dependencies {
   implementation project(':common')
 
   compileOnly 'org.spongepowered:spongeapi:7.3.0'
-  // kapt 'org.spongepowered:spongeapi:7.3.0'
 }
 
-// blossom {
-//   replaceTokenIn('src/main/java/net/eve0415/spigot/WebsocketIntegration/WSISpongePlugin.java')
-//   replaceToken '@project.version@', project.version
-// }
+blossom {
+  replaceToken("pluginVersion", project.version)
+}
 
 shadowJar {
   exclude('META-INF/versions/')
