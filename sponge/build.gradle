@@ -32,5 +32,5 @@ blossom {
 
 shadowJar {
   exclude('META-INF/versions/')
-  archiveFileName = "WebsocketIntegration-Velocity-${project.version}.jar"
+  archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
 }

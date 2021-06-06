@@ -35,5 +35,5 @@ processResources {
 
 shadowJar {
   exclude('META-INF/versions/')
-  archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
+  archiveFileName = "WebsocketIntegration-Paper-${project.version}.jar"
 }
