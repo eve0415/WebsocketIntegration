@@ -67,7 +67,7 @@ class SpongeEventListener constructor(instance: SpongePlugin) {
 
   @Listener
   fun onAdvancementDone(event: AdvancementEvent.Grant) {
-    // We don't want to call out receipes unlock as advancement complete.
+    // We don't want to call out recipes unlock as advancement complete.
     if (event.advancement.id.contains("recipes_")) return
     val adv = event.advancement.id.replace(':', '_').replace('/', '_').uppercase()
     manager.send(

@@ -123,25 +123,29 @@ class VelocityEventListener constructor(instance: VelocityPlugin) {
             .setAddress(player.virtualHost.get().toString())
             .previousServer(event.server.serverInfo.name)
 
-    if (result is DisconnectPlayer) {
-      message
-          .kick(getReason(event.serverKickReason, result.reasonComponent))
-          .fulfill("Disconnect Player")
-    } else if (result is RedirectPlayer) {
-      message
+    when (result) {
+        is DisconnectPlayer -> {
+          message
+            .kick(getReason(event.serverKickReason, result.reasonComponent))
+            .fulfill("Disconnect Player")
+        }
+      is RedirectPlayer -> {
+        message
           .kick(getReason(event.serverKickReason, result.messageComponent))
           .fulfill("Redirect Player")
-    } else if (result is Notify) {
-      message
+      }
+      is Notify -> {
+        message
           .kick(getReason(event.serverKickReason, result.messageComponent))
           .fulfill("Notify Player")
+      }
     }
 
     manager.send(WIEventState.LOG, message.toJSON())
   }
 
   private fun getClientType(player: Player): String {
-    return if (player.gameProfileProperties.size == 2) player.gameProfileProperties.get(1).name
+    return if (player.gameProfileProperties.size == 2) player.gameProfileProperties[1].name
     else "Vanilla"
   }
 
