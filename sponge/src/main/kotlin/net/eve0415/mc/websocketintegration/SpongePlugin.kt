@@ -42,7 +42,7 @@ class SpongePlugin : WIBootstrap {
   override lateinit var config: WIConfigKey
   override lateinit var logger: WILogger
   override lateinit var websocketManager: WebsocketManager
-  private lateinit var chatSender: SpongeChatHandler
+  private lateinit var chatHandler: SpongeChatHandler
 
   override fun onEnable() {
     logger = SpongeLogger(spongeLogger)
@@ -56,7 +56,9 @@ class SpongePlugin : WIBootstrap {
     return Sponge.getServer().boundAddress.get().port
   }
 
-  override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {}
+  override fun handleChatMessage(name: String, uuid: String, url: String, message: String) {
+    chatHandler.chatHandler(name, uuid, url, message)
+  }
 
   // Do nothing
   override fun sendServerInfo() {}
