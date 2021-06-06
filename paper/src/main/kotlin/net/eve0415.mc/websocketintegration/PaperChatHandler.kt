@@ -10,7 +10,7 @@ import java.util.*
 class PaperChatHandler constructor(private val instance: PaperPlugin) : WIChatHandler {
   override fun send(name: String, uuid: String, url: String, message: String) {
     val mes = messageFormatter(getName(name, uuid), message)
-    val component = Component.text(mes);
+    val component = Component.text(mes)
 
     if (url != "null") {
       component
