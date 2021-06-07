@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package net.eve0415.mc.websocketintegration
 
 import com.velocitypowered.api.event.Subscribe
@@ -78,6 +80,7 @@ class VelocityEventListener constructor(instance: VelocityPlugin) {
   }
 
   @Subscribe
+  @Suppress("UnstableApiUsage")
   fun onPostConnect(event: ServerPostConnectEvent) {
     val player = event.player
     manager.send(
