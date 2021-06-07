@@ -83,22 +83,25 @@ class VelocityEventListener constructor(instance: VelocityPlugin) {
   @Suppress("UnstableApiUsage")
   fun onPostConnect(event: ServerPostConnectEvent) {
     val player = event.player
+    val message = manager
+      .builder()
+      .log(
+        LogEventType.POSTCONNECT,
+        player.username,
+        player.uniqueId,
+        player.remoteAddress.toString()
+      )
+      .setAddress(player.virtualHost.get().toString())
+      .clientType(getClientType(player))
+      .clientVersion(player.protocolVersion.versionIntroducedIn)
+      .connectedServer(player.currentServer.get().serverInfo.name)
+      .previousServer(event.previousServer?.serverInfo?.name)
+
+    player.modInfo.ifPresent { message.mods(it.mods.size) }
+
     manager.send(
       WIEventState.LOG,
-      manager
-        .builder()
-        .log(
-          LogEventType.POSTCONNECT,
-          player.username,
-          player.uniqueId,
-          player.remoteAddress.toString()
-        )
-        .setAddress(player.virtualHost.get().toString())
-        .clientType(getClientType(player))
-        .clientVersion(player.protocolVersion.versionIntroducedIn)
-        .connectedServer(player.currentServer.get().serverInfo.name)
-        .previousServer(event.previousServer?.serverInfo?.name)
-        .toJSON()
+      message.toJSON()
     )
   }
 
