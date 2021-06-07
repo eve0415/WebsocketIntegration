@@ -21,9 +21,25 @@ dependencies {
   implementation project(path: ":velocity", configuration: "shadow")
 }
 
+task buildLegacy(type: Copy) {
+  dependsOn ":sponge:shadowJar"
+
+  from project("sponge").buildDir
+  include("**/*Sponge*.jar")
+  into buildDir
+  rename { String filename ->
+    filename.replace("Sponge", "Legacy")
+  }
+}
+
 shadowJar {
-  exclude('META-INF/versions/')
+  exclude("META-INF/versions/")
   archiveFileName = "${project.name}-${project.version}.jar"
 }
 
 build.dependsOn(shadowJar)
+build.dependsOn(buildLegacy)
+
+
+
+
