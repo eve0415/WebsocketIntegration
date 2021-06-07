@@ -1,6 +1,8 @@
 plugins {
   id "org.jetbrains.kotlin.jvm"
+  id "org.jetbrains.kotlin.kapt"
   id "net.kyori.blossom"
+  id 'org.spongepowered.gradle.plugin' version '1.1.1'
 }
 
 repositories {
@@ -24,6 +26,20 @@ dependencies {
   implementation project(':common')
 
   compileOnly 'org.spongepowered:spongeapi:7.3.0'
+  kapt 'org.spongepowered:spongeapi:7.3.0'
+}
+
+import org.spongepowered.gradle.plugin.config.PluginLoaders
+
+sponge {
+  apiVersion("7.3.0")
+  plugin("websocketintegration") {
+    loader(PluginLoaders.JAVA_PLAIN)
+    displayName("WebsocketIntegration-Sponge")
+    version(project.version)
+    mainClass("net.eve0415.mc.websocketintegration.SpongePlugin")
+    description("Send server status, log, chat via websocket")
+  }
 }
 
 blossom {
