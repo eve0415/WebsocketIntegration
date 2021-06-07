@@ -13,7 +13,6 @@ import org.spongepowered.api.config.DefaultConfig
 import org.spongepowered.api.event.Listener
 import org.spongepowered.api.event.game.state.*
 import org.spongepowered.api.plugin.Plugin
-import org.spongepowered.api.plugin.PluginContainer
 import java.nio.file.Path
 import kotlin.properties.Delegates
 
@@ -27,9 +26,6 @@ import kotlin.properties.Delegates
 class SpongePlugin : WIBootstrap {
   @Inject
   private lateinit var spongeLogger: Logger
-
-  @Inject
-  private lateinit var container: PluginContainer
 
   @Inject
   @DefaultConfig(sharedRoot = true)
