@@ -69,8 +69,8 @@ class SpongePlugin : WIBootstrap {
 
   private fun checkStart() {
     if (initialized) return
-    if (config.id != 0 || isServerAvailable()) {
-      serverID = config.id
+    if (config.id == 0 && isServerAvailable() || config.id != 0) {
+      serverID = if (config.id == 0) getServerPort() else config.id
       websocketManager.initialize()
       initialized = true
     }
