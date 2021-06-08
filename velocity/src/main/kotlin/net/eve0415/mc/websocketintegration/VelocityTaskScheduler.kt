@@ -31,7 +31,7 @@ class VelocityTaskScheduler constructor(private val instance: VelocityPlugin) : 
         instance.websocketManager.isStarting = false
         updateStatus()
       }
-      .delay(5, TimeUnit.SECONDS)
+      .delay(10, TimeUnit.SECONDS)
       .schedule()
   }
 
