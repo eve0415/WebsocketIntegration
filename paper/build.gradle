@@ -15,8 +15,8 @@ java {
   }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-  kotlinOptions { jvmTarget = 16 }
+compileKotlin {
+  kotlinOptions.jvmTarget = 16
 }
 
 dependencies {
@@ -27,14 +27,13 @@ dependencies {
 
 processResources {
   from(sourceSets.main.resources.srcDirs) {
-    expand 'pluginVersion': project.version
-    include 'plugin.yml'
+    expand "pluginVersion": project.version
+    include "plugin.yml"
     setDuplicatesStrategy(DuplicatesStrategy.INCLUDE)
   }
 }
 
 shadowJar {
-  exclude('META-INF/versions/')
   archiveFileName = "WebsocketIntegration-Paper-${project.version}.jar"
   minimize()
 }

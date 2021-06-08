@@ -30,9 +30,7 @@ class PaperChatHandler constructor(private val instance: PaperPlugin) : WIChatHa
 
   override fun getName(name: String, uuid: String): String {
     if (uuid == "null") return name
-    return if (instance.server.getPlayer(UUID.fromString(uuid)) == null)
-      instance.server.getOfflinePlayer(UUID.fromString(uuid)).name!! else instance.server.getPlayer(
-      UUID.fromString(uuid)
-    )!!.name
+    instance.server.getPlayer(UUID.fromString(uuid))
+      .let { return it?.name ?: instance.server.getOfflinePlayer(UUID.fromString(uuid)).name!! }
   }
 }

@@ -33,13 +33,8 @@ task buildLegacy(type: Copy) {
 }
 
 shadowJar {
-  exclude("META-INF/versions/")
   archiveFileName = "${project.name}-${project.version}.jar"
 }
 
 build.dependsOn(shadowJar)
 build.dependsOn(buildLegacy)
-
-
-
-

@@ -1,8 +1,10 @@
+import org.spongepowered.gradle.plugin.config.PluginLoaders
+
 plugins {
   id "org.jetbrains.kotlin.jvm"
   id "org.jetbrains.kotlin.kapt"
   id "net.kyori.blossom"
-  id 'org.spongepowered.gradle.plugin' version '1.1.1'
+  id "org.spongepowered.gradle.plugin" version "1.1.1"
 }
 
 repositories {
@@ -18,18 +20,16 @@ java {
   }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-  kotlinOptions { jvmTarget = 1.8 }
+compileKotlin {
+  kotlinOptions.jvmTarget = 1.8
 }
 
 dependencies {
-  implementation project(':common')
+  implementation project(":common")
 
-  compileOnly 'org.spongepowered:spongeapi:7.3.0'
-  kapt 'org.spongepowered:spongeapi:7.3.0'
+  compileOnly "org.spongepowered:spongeapi:7.3.0"
+  kapt "org.spongepowered:spongeapi:7.3.0"
 }
-
-import org.spongepowered.gradle.plugin.config.PluginLoaders
 
 sponge {
   apiVersion("7.3.0")
@@ -47,7 +47,6 @@ blossom {
 }
 
 shadowJar {
-  exclude('META-INF/versions/')
   archiveFileName = "WebsocketIntegration-Sponge-${project.version}.jar"
   minimize()
 }

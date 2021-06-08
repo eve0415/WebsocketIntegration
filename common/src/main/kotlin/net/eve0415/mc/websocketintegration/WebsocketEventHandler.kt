@@ -20,7 +20,7 @@ constructor(private val instance: WebsocketManager, private val socket: Socket) 
     }
 
     socket.on(Socket.EVENT_DISCONNECT) {
-      instance.bootstrap.logger.info("Disconnected: ${it[0].toString()}")
+      instance.bootstrap.logger.info("Disconnected: ${it[0]}")
       if (it[0].toString() == "io server disconnect") socket.connect()
       instance.isConnected = false
     }

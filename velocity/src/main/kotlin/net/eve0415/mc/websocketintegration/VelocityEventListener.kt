@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 package net.eve0415.mc.websocketintegration
 
 import com.velocitypowered.api.event.Subscribe
