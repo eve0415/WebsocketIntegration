@@ -12,7 +12,7 @@ import com.velocitypowered.api.proxy.Player
 import net.eve0415.mc.websocketintegration.type.LogEventType
 import net.eve0415.mc.websocketintegration.type.WIEventState
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import java.util.*
 
 class VelocityEventListener constructor(instance: VelocityPlugin) {
@@ -165,7 +165,7 @@ class VelocityEventListener constructor(instance: VelocityPlugin) {
 
   private fun getReason(optional: Optional<Component>, event: Component?): Component {
     if (!optional.isPresent && event == null)
-      return PlainComponentSerializer.plain().deserialize("Unknown Reason")
+      return PlainTextComponentSerializer.plainText().deserialize("Unknown Reason")
     return event ?: optional.get()
   }
 }
