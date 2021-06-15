@@ -24,7 +24,7 @@ compileKotlin {
 dependencies {
   implementation project(":common")
 
-  compileOnly "com.velocitypowered:velocity-api:1.1.9-SNAPSHOT"
+  compileOnly "com.velocitypowered:velocity-api:4.0.0-SNAPSHOT"
   kapt "com.velocitypowered:velocity-api:1.1.9-SNAPSHOT"
 }
 
