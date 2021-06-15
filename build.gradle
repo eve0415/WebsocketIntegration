@@ -22,8 +22,6 @@ dependencies {
 }
 
 task buildLegacy(type: Copy) {
-  dependsOn ":sponge:shadowJar"
-
   from project("sponge").buildDir
   include("**/*Sponge*.jar")
   into buildDir
@@ -37,4 +35,4 @@ shadowJar {
 }
 
 build.dependsOn(shadowJar)
-build.dependsOn(buildLegacy)
+shadowJar.mustRunAfter(buildLegacy)
