@@ -1,5 +1,9 @@
 # WebsocketIntegration
 
- Websocket Integration plugins.
+Websocket Integration plugin.
 
- Use with eve0415/minecraft-integration
+Support `PaperMC` `Sponge` `Velocity`
+
+Send server status, chat and more via websocket.
+
+Use with [eve0415/minecraft-integration](https://github.com/eve0415/minecraft-integration)

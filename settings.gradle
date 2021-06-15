@@ -1,13 +1,12 @@
-import de.fayard.refreshVersions.RefreshVersionsSetup
-
-buildscript {
-    repositories { 
-        gradlePluginPortal() 
-    }
-    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.7")
+pluginManagement {
+  plugins {
+    id "java"
+    id "org.jetbrains.kotlin.jvm" version "1.5.20-M1"
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+    id "net.kyori.blossom" version "1.3.0"
+  }
 }
 
-RefreshVersionsSetup.bootstrap(settings)
+rootProject.name = "WebsocketIntegration"
 
-rootProject.name = 'WebsocketIntegration'
-include('common','papermc','velocity','sponge')
+include("common", "paper", "sponge", "velocity")

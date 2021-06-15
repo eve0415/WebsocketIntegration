@@ -1,35 +1,40 @@
 plugins {
-  id 'java'
-  id 'com.github.johnrengelman.shadow'
+  id "org.jetbrains.kotlin.jvm"
+  id "com.github.johnrengelman.shadow"
 }
 
 allprojects {
-    apply plugin: 'java'
-    apply plugin: 'com.github.johnrengelman.shadow'
-    
-    group = 'net.eve0415.spigot'
-    version = '2.0-SNAPSHOT'
-    
-    targetCompatibility = 8
-    sourceCompatibility = 8
-    
-    repositories {
-        mavenCentral()
-    }
-    
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
+  apply plugin: "java"
+  apply plugin: "org.jetbrains.kotlin.jvm"
+  apply plugin: "com.github.johnrengelman.shadow"
+
+  compileJava.options.encoding = "UTF-8"
+
+  repositories {
+    mavenCentral()
+  }
 }
 
 dependencies {
-    implementation project(path: ':papermc', configuration: 'shadow')
-    implementation project(path: ':velocity', configuration: 'shadow')
-    implementation project(path: ':sponge', configuration: 'shadow')
+  implementation project(path: ":paper", configuration: "shadow")
+  implementation project(path: ":sponge", configuration: "shadow")
+  implementation project(path: ":velocity", configuration: "shadow")
+}
+
+task buildLegacy(type: Copy) {
+  dependsOn ":sponge:shadowJar"
+
+  from project("sponge").buildDir
+  include("**/*Sponge*.jar")
+  into buildDir
+  rename { String filename ->
+    filename.replace("Sponge", "Legacy")
+  }
 }
 
 shadowJar {
-    archiveFileName = "${project.name}-${project.version}.jar"
+  archiveFileName = "${project.name}-${project.version}.jar"
 }
 
-build.dependsOn(shadowJar);
+build.dependsOn(shadowJar)
+build.dependsOn(buildLegacy)

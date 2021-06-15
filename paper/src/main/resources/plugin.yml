@@ -1,0 +1,6 @@
+name: WebsocketIntegration
+version: ${pluginVersion}
+main: net.eve0415.mc.websocketintegration.PaperPlugin
+api-version: 1.16
+load: STARTUP
+author: eve0415
