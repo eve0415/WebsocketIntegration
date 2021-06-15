@@ -2,4 +2,5 @@ dependencies {
   api "io.socket:socket.io-client:2.0.1"
   implementation "org.yaml:snakeyaml:1.28"
   implementation "net.kyori:adventure-api:4.8.1"
+  implementation "net.kyori:adventure-text-serializer-plain:4.8.1"
 }
