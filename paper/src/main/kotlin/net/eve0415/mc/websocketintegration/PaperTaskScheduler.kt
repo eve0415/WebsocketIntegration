@@ -31,7 +31,7 @@ class PaperTaskScheduler constructor(private val instance: PaperPlugin) : WITask
         instance.websocketManager.isStarting = false
         updateStatus()
       }
-    }.runTaskAsynchronously(instance)
+    }.runTaskLaterAsynchronously(instance, 10)
   }
 
   override fun updateStatus() {
