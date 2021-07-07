@@ -13,12 +13,12 @@ repositories {
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(16)
+    languageVersion = JavaLanguageVersion.of(11)
   }
 }
 
 compileKotlin {
-  kotlinOptions.jvmTarget = 16
+  kotlinOptions.jvmTarget = 11
 }
 
 dependencies {
