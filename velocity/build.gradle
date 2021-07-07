@@ -13,19 +13,19 @@ repositories {
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(11)
+    languageVersion = JavaLanguageVersion.of(16)
   }
 }
 
 compileKotlin {
-  kotlinOptions.jvmTarget = 11
+  kotlinOptions.jvmTarget = 16
 }
 
 dependencies {
   implementation project(":common")
 
-  compileOnly "com.velocitypowered:velocity-api:1.1.9-SNAPSHOT"
-  kapt "com.velocitypowered:velocity-api:1.1.9-SNAPSHOT"
+  compileOnly "com.velocitypowered:velocity-api:3.0.0-SNAPSHOT"
+  kapt "com.velocitypowered:velocity-api:3.0.0-SNAPSHOT"
 }
 
 blossom {

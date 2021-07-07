@@ -2,7 +2,7 @@ package net.eve0415.mc.websocketintegration
 
 import net.eve0415.mc.websocketintegration.type.LogEventType
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.json.JSONObject
 import java.util.*
 
@@ -43,7 +43,10 @@ class WebsocketBuilder constructor(private val instance: WebsocketManager) {
     obj.put("serverId", instance.serverID)
     obj.put("name", name)
     obj.put("UUID", uuid)
-    obj.put("message", PlainComponentSerializer.plain().serialize(message).replace("§.", ""))
+    obj.put(
+      "message",
+      PlainTextComponentSerializer.plainText().serialize(message).replace("§.", "")
+    )
     return this
   }
 
@@ -109,7 +112,7 @@ class WebsocketBuilder constructor(private val instance: WebsocketManager) {
   }
 
   fun kick(reason: Component): WebsocketBuilder {
-    obj.put("reason", PlainComponentSerializer.plain().serialize(reason))
+    obj.put("reason", PlainTextComponentSerializer.plainText().serialize(reason))
     return this
   }
 
