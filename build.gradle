@@ -21,18 +21,21 @@ dependencies {
   implementation project(path: ":velocity", configuration: "shadow")
 }
 
-task buildLegacy(type: Copy) {
-  from project("sponge").buildDir
-  include("**/*Sponge*.jar")
-  into buildDir
-  rename { String filename ->
-    filename.replace("Sponge", "Legacy")
-  }
-}
-
 shadowJar {
   archiveFileName = "${project.name}-${project.version}.jar"
 }
 
-build.dependsOn(shadowJar)
-shadowJar.mustRunAfter(buildLegacy)
+build {
+  dependsOn(shadowJar)
+
+  doLast {
+    copy {
+      from project("sponge").buildDir
+      include("**/*Sponge*.jar")
+      into buildDir
+      rename { String filename ->
+        filename.replace("Sponge", "Legacy")
+      }
+    }
+  }
+}
