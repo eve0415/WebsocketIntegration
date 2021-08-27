@@ -21,21 +21,26 @@ dependencies {
   implementation project(path: ":velocity", configuration: "shadow")
 }
 
-shadowJar {
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+task buildModern(type: ShadowJar) {
+  configurations = [project.configurations.compileClasspath]
   archiveFileName = "${project.name}-${project.version}.jar"
+  dependencies {
+    exclude(project("sponge"))
+  }
+}
+
+task buildLegacy(type: ShadowJar) {
+  configurations = [project.configurations.compileClasspath]
+  archiveFileName = "${project.name}-Legacy-${project.version}.jar"
+  dependencies {
+    exclude(project("velocity"))
+  }
+  exclude "**/module-info.class"
 }
 
 build {
-  dependsOn(shadowJar)
-
-  doLast {
-    copy {
-      from project("sponge").buildDir
-      include("**/*Sponge*.jar")
-      into buildDir
-      rename { String filename ->
-        filename.replace("Sponge", "Legacy")
-      }
-    }
-  }
+  dependsOn "buildModern"
+  dependsOn "buildLegacy"
 }
