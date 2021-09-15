@@ -17,7 +17,7 @@ allprojects {
 
 dependencies {
   implementation project(path: ":paper", configuration: "shadow")
-  implementation project(path: ":sponge", configuration: "shadow")
+  implementation project(path: ":mohist", configuration: "shadow")
   implementation project(path: ":velocity", configuration: "shadow")
 }
 
@@ -27,7 +27,7 @@ task buildModern(type: ShadowJar) {
   configurations = [project.configurations.compileClasspath]
   archiveFileName = "${project.name}-${project.version}.jar"
   dependencies {
-    exclude(project("sponge"))
+    exclude(project("mohist"))
   }
 }
 
@@ -35,6 +35,7 @@ task buildLegacy(type: ShadowJar) {
   configurations = [project.configurations.compileClasspath]
   archiveFileName = "${project.name}-Legacy-${project.version}.jar"
   dependencies {
+    exclude(project("paper"))
     exclude(project("velocity"))
   }
   exclude "**/module-info.class"

@@ -9,4 +9,4 @@ pluginManagement {
 
 rootProject.name = "WebsocketIntegration"
 
-include("common", "paper", "sponge", "velocity")
+include("common", "paper", "mohist", "velocity")

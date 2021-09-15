@@ -6,7 +6,6 @@ import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEvent
 import java.util.*
 
-
 class PaperChatHandler constructor(private val instance: PaperPlugin) : WIChatHandler {
   override fun send(name: String, uuid: String, url: String, message: String) {
     val mes = messageFormatter(getName(name, uuid), message)
@@ -24,7 +23,7 @@ class PaperChatHandler constructor(private val instance: PaperPlugin) : WIChatHa
     }
 
     instance.server.sendMessage(component)
-    // Using TextComponent, it does not send to console so we do this way
+    // Using TextComponent, it does not send to console, so we do this way
     instance.server.consoleSender.sendMessage(mes)
   }
 

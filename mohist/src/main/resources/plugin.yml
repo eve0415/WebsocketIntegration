@@ -1,6 +1,6 @@
 name: WebsocketIntegration
 version: ${pluginVersion}
-main: PaperPlugin
-api-version: 1.17
+main: net.eve0415.mc.websocketintegration.MohistPlugin
+api-version: 1.12
 load: STARTUP
 author: eve0415
